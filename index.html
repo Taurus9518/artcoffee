@@ -161,20 +161,20 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #8B4513, #A0522D);
+            background: linear-gradient(135deg, #333333, #000000);
             color: white;
-            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
         
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(139, 69, 19, 0.4);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
         }
         
         .btn-secondary {
             background: white;
-            color: #64748b;
-            border: 2px solid #e2e8f0;
+            color: #333333;
+            border: 2px solid #333333;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         
@@ -306,33 +306,33 @@
         }
         
         .constructor-step {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            border: 2px solid #f0f0f0;
             transition: all 0.4s ease;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             overflow: hidden;
             position: relative;
         }
         
         .constructor-step.active {
-            box-shadow: 0 16px 48px rgba(139, 69, 19, 0.15);
-            border-color: rgba(139, 69, 19, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            border-color: #333333;
         }
         
         .constructor-step.expanded {
-            box-shadow: 0 12px 32px rgba(139, 69, 19, 0.2);
-            border-color: rgba(139, 69, 19, 0.3);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+            border-color: #000000;
         }
         
         .constructor-step.completed {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-color: rgba(34, 197, 94, 0.3);
+            border-color: #666666;
         }
         
         .constructor-step.completed .step-number {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, #333333, #000000);
         }
         
         .step-header {
@@ -400,24 +400,26 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #8B4513, #A0522D);
+            background: linear-gradient(135deg, #333333, #000000);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
         }
         
         .step-title {
             font-size: 1.25rem;
             font-weight: 600;
-            color: #8B4513;
+            color: #000000;
             margin-bottom: 0.25rem;
         }
         
         .step-subtitle {
-            color: #6b7280;
+            color: #666666;
             font-size: 0.9rem;
         }
         
@@ -454,10 +456,10 @@
         }
         
         .modern-option:has(input:checked) {
-            border-color: #8B4513;
-            background: rgba(139, 69, 19, 0.1);
+            border-color: #000000;
+            background: rgba(0, 0, 0, 0.05);
             transform: none;
-            box-shadow: 0 4px 16px rgba(139, 69, 19, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
         
         /* Force reset for unselected options */
@@ -469,9 +471,9 @@
         }
         
         .modern-option:has(input:checked) .option-icon {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, #333333, #000000);
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
             animation: pulse 2s infinite;
         }
         
@@ -594,16 +596,16 @@
         }
         
         .size-option.active {
-            border-color: #8B4513;
-            background: rgba(139, 69, 19, 0.1);
+            border-color: #000000;
+            background: rgba(0, 0, 0, 0.05);
             transform: none;
-            box-shadow: 0 4px 16px rgba(139, 69, 19, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
         
         .size-option.active .size-cup {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, #333333, #000000);
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
             animation: pulse 2s infinite;
         }
         
@@ -703,16 +705,16 @@
         }
         
         .milk-option.active {
-            border-color: #8B4513;
-            background: rgba(139, 69, 19, 0.1);
+            border-color: #000000;
+            background: rgba(0, 0, 0, 0.05);
             transform: none;
-            box-shadow: 0 4px 16px rgba(139, 69, 19, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
         
         .milk-option.active .milk-icon {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, #333333, #000000);
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
             animation: pulse 2s infinite;
         }
         
@@ -798,16 +800,16 @@
         }
         
         .extra-option:has(input:checked) {
-            border-color: #8B4513;
-            background: rgba(139, 69, 19, 0.1);
+            border-color: #000000;
+            background: rgba(0, 0, 0, 0.05);
             transform: none;
-            box-shadow: 0 4px 16px rgba(139, 69, 19, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
         
         .extra-option:has(input:checked) .extra-icon {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, #333333, #000000);
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
             animation: pulse 2s infinite;
         }
         
@@ -2012,6 +2014,78 @@
                                                 <i class="fas fa-plus"></i>
                                             </div>
                                         </label>
+                                        
+                                        <label class="extra-option" data-value="cinnamon">
+                                            <input type="checkbox" name="extras" value="cinnamon">
+                                            <div class="extra-icon">🌿</div>
+                                            <div class="extra-details">
+                                                <div class="extra-name">Корица</div>
+                                                <div class="extra-price">+10₽</div>
+                                            </div>
+                                            <div class="extra-check">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="extra-option" data-value="cocoa">
+                                            <input type="checkbox" name="extras" value="cocoa">
+                                            <div class="extra-icon">☕</div>
+                                            <div class="extra-details">
+                                                <div class="extra-name">Какао</div>
+                                                <div class="extra-price">+12₽</div>
+                                            </div>
+                                            <div class="extra-check">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="extra-option" data-value="nuts">
+                                            <input type="checkbox" name="extras" value="nuts">
+                                            <div class="extra-icon">🥜</div>
+                                            <div class="extra-details">
+                                                <div class="extra-name">Орехи</div>
+                                                <div class="extra-price">+18₽</div>
+                                            </div>
+                                            <div class="extra-check">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="extra-option" data-value="coconut">
+                                            <input type="checkbox" name="extras" value="coconut">
+                                            <div class="extra-icon">🥥</div>
+                                            <div class="extra-details">
+                                                <div class="extra-name">Кокос</div>
+                                                <div class="extra-price">+14₽</div>
+                                            </div>
+                                            <div class="extra-check">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="extra-option" data-value="sprinkles">
+                                            <input type="checkbox" name="extras" value="sprinkles">
+                                            <div class="extra-icon">✨</div>
+                                            <div class="extra-details">
+                                                <div class="extra-name">Посыпка</div>
+                                                <div class="extra-price">+8₽</div>
+                                            </div>
+                                            <div class="extra-check">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="extra-option" data-value="coffee-beans">
+                                            <input type="checkbox" name="extras" value="coffee-beans">
+                                            <div class="extra-icon">🫘</div>
+                                            <div class="extra-details">
+                                                <div class="extra-name">Зерно</div>
+                                                <div class="extra-price">+16₽</div>
+                                            </div>
+                                            <div class="extra-check">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -2564,7 +2638,13 @@
             const extraNames = {
                 vanilla: 'Ванильный сироп',
                 caramel: 'Карамельный сироп',
-                chocolate: 'Шоколадный сироп'
+                chocolate: 'Шоколадный сироп',
+                cinnamon: 'Корица',
+                cocoa: 'Какао',
+                nuts: 'Орехи',
+                coconut: 'Кокос',
+                sprinkles: 'Посыпка',
+                'coffee-beans': 'Зерно'
             };
             
             document.getElementById('summary-base').textContent = base ? baseNames[base] : 'Не выбрано';
@@ -2598,8 +2678,18 @@
                 const milkPrices = { regular: 0, oat: 20, almond: 25 };
                 total += milkPrices[milk] || 0;
                 
-                // Extras price
-                const extraPrices = { vanilla: 15, caramel: 15, chocolate: 20 };
+            // Extras price
+            const extraPrices = { 
+                vanilla: 15, 
+                caramel: 15, 
+                chocolate: 20,
+                cinnamon: 10,
+                cocoa: 12,
+                nuts: 18,
+                coconut: 14,
+                sprinkles: 8,
+                'coffee-beans': 16
+            };
                 extras.forEach(extra => {
                     total += extraPrices[extra] || 0;
                 });
@@ -2641,7 +2731,13 @@
             const extraNames = {
                 vanilla: 'Ванильный сироп',
                 caramel: 'Карамельный сироп',
-                chocolate: 'Шоколадный сироп'
+                chocolate: 'Шоколадный сироп',
+                cinnamon: 'Корица',
+                cocoa: 'Какао',
+                nuts: 'Орехи',
+                coconut: 'Кокос',
+                sprinkles: 'Посыпка',
+                'coffee-beans': 'Зерно'
             };
             
             let name = `${baseNames[base]} (${sizeNames[size]}, ${milkNames[milk]})`;
