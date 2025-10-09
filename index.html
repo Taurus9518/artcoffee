@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Art Coffee - Кофейня</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -261,6 +261,35 @@
         .space-y-4 > * + * { margin-top: 1rem; }
         .space-y-3 > * + * { margin-top: 0.75rem; }
         
+        /* Additional responsive utilities */
+        .hidden-mobile { display: block; }
+        .hidden-desktop { display: none; }
+        .flex-mobile { display: flex; }
+        .flex-desktop { display: flex; }
+        
+        /* Smooth transitions for responsive changes */
+        * {
+            transition: font-size 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+        }
+        
+        /* Prevent horizontal scroll */
+        body {
+            overflow-x: hidden;
+        }
+        
+        /* Ensure images are responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Better text wrapping */
+        .text-wrap {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+        
         .option {
             display: flex;
             align-items: center;
@@ -510,17 +539,342 @@
             flex-wrap: wrap;
         }
         
-        @media (max-width: 768px) {
-            .nav-content { padding: 0 1rem; }
-            .nav-links { gap: 1rem; }
-            .nav-link { padding: 0.5rem 1rem; font-size: 0.875rem; }
+        /* Mobile First Responsive Design */
+        
+        /* Extra Small devices (phones, 320px and up) */
+        @media (max-width: 480px) {
+            .nav-content { 
+                padding: 0 0.75rem; 
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links { 
+                gap: 0.5rem; 
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-link { 
+                padding: 0.5rem 0.75rem; 
+                font-size: 0.8rem;
+                min-width: auto;
+            }
+            
+            .logo {
+                font-size: 1.25rem;
+            }
+            
+            .text-6xl { font-size: 2rem; }
+            .text-5xl { font-size: 1.75rem; }
+            .text-4xl { font-size: 1.5rem; }
+            .text-3xl { font-size: 1.25rem; }
+            .text-2xl { font-size: 1.125rem; }
+            
+            .container { padding: 0 0.75rem; }
+            
+            .btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.875rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .grid-3, .grid-2 { 
+                grid-template-columns: 1fr; 
+                gap: 1rem;
+            }
+            
+            .menu-item-image {
+                height: 150px;
+                font-size: 48px;
+            }
+            
+            .menu-item-content {
+                padding: 16px;
+            }
+            
+            .menu-item-title {
+                font-size: 18px;
+            }
+            
+            .menu-item-price {
+                font-size: 20px;
+            }
+            
+            .option {
+                padding: 0.75rem;
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+            
+            .option-content {
+                order: 1;
+            }
+            
+            .option-price {
+                order: 2;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+            
+            .cart-item-quantity {
+                margin: 0;
+            }
+            
+            .empty-cart h3 {
+                font-size: 2rem;
+            }
+            
+            .empty-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .empty-actions .btn {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .hidden-mobile { display: none !important; }
+            .flex-mobile { display: flex !important; }
+        }
+        
+        /* Small devices (landscape phones, 576px and up) */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .nav-content { 
+                padding: 0 1rem; 
+            }
+            
+            .nav-links { 
+                gap: 0.75rem; 
+            }
+            
+            .nav-link { 
+                padding: 0.5rem 1rem; 
+                font-size: 0.875rem; 
+            }
+            
             .text-6xl { font-size: 2.5rem; }
             .text-5xl { font-size: 2rem; }
             .text-4xl { font-size: 1.75rem; }
-            .grid-3, .grid-2 { grid-template-columns: 1fr; }
+            
             .container { padding: 0 1rem; }
-            .cart-item { flex-direction: column; text-align: center; }
-            .cart-item-quantity { margin: 16px 0; }
+            
+            .grid-3 { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 1.5rem;
+            }
+            
+            .grid-2 { 
+                grid-template-columns: 1fr; 
+                gap: 1.5rem;
+            }
+            
+            .menu-item-image {
+                height: 180px;
+                font-size: 56px;
+            }
+            
+            .option {
+                padding: 1rem;
+            }
+        }
+        
+        /* Medium devices (tablets, 768px and up) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .nav-content { 
+                padding: 0 1.5rem; 
+            }
+            
+            .nav-links { 
+                gap: 1.5rem; 
+            }
+            
+            .nav-link { 
+                padding: 0.75rem 1.25rem; 
+                font-size: 0.9rem; 
+            }
+            
+            .text-6xl { font-size: 3.5rem; }
+            .text-5xl { font-size: 2.75rem; }
+            .text-4xl { font-size: 2.25rem; }
+            
+            .container { padding: 0 1.5rem; }
+            
+            .grid-3 { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 2rem;
+            }
+            
+            .grid-2 { 
+                grid-template-columns: 1fr 1fr; 
+                gap: 2rem;
+            }
+            
+            .menu-item-image {
+                height: 200px;
+                font-size: 64px;
+            }
+        }
+        
+        /* Large devices (desktops, 1024px and up) */
+        @media (min-width: 1025px) and (max-width: 1440px) {
+            .nav-content { 
+                padding: 0 2rem; 
+            }
+            
+            .nav-links { 
+                gap: 2rem; 
+            }
+            
+            .nav-link { 
+                padding: 0.75rem 1.5rem; 
+                font-size: 1rem; 
+            }
+            
+            .text-6xl { font-size: 4rem; }
+            .text-5xl { font-size: 3rem; }
+            .text-4xl { font-size: 2.5rem; }
+            
+            .container { padding: 0 2rem; }
+            
+            .grid-3 { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 2rem;
+            }
+            
+            .grid-2 { 
+                grid-template-columns: 1fr 1fr; 
+                gap: 2rem;
+            }
+        }
+        
+        /* Extra large devices (large desktops, 1440px and up) */
+        @media (min-width: 1441px) {
+            .container { 
+                max-width: 1400px; 
+                padding: 0 2rem; 
+            }
+            
+            .text-6xl { font-size: 4.5rem; }
+            .text-5xl { font-size: 3.5rem; }
+            .text-4xl { font-size: 2.75rem; }
+            
+            .grid-3 { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 2.5rem;
+            }
+            
+            .grid-2 { 
+                grid-template-columns: 1fr 1fr; 
+                gap: 2.5rem;
+            }
+            
+            .hidden-desktop { display: none !important; }
+            .flex-desktop { display: flex !important; }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            .nav-link {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+            
+            .cart-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            .quantity-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            .remove-btn {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            .option {
+                min-height: 44px;
+            }
+            
+            .option input[type="radio"],
+            .option input[type="checkbox"] {
+                width: 24px;
+                height: 24px;
+            }
+        }
+        
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .card {
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            }
+            
+            .btn {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+        }
+        
+        /* Landscape orientation adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .navbar {
+                padding: 0.5rem 0;
+            }
+            
+            .main-content {
+                padding-top: 60px;
+            }
+            
+            .section {
+                padding: 2rem 0;
+            }
+            
+            .text-6xl { font-size: 2rem; }
+            .text-5xl { font-size: 1.75rem; }
+            .text-4xl { font-size: 1.5rem; }
+        }
+        
+        /* Print styles */
+        @media print {
+            .navbar,
+            .btn,
+            .cart-btn,
+            .quantity-btn,
+            .remove-btn {
+                display: none !important;
+            }
+            
+            .section {
+                display: block !important;
+                page-break-inside: avoid;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
         }
     </style>
 </head>
