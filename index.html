@@ -308,26 +308,58 @@
         .constructor-step {
             background: white;
             border-radius: 24px;
-            padding: 2rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            opacity: 0.6;
-            transform: scale(0.95);
+            transition: all 0.4s ease;
+            margin-bottom: 1rem;
+            overflow: hidden;
         }
         
         .constructor-step.active {
-            opacity: 1;
-            transform: scale(1);
             box-shadow: 0 16px 48px rgba(139, 69, 19, 0.15);
             border-color: rgba(139, 69, 19, 0.2);
+        }
+        
+        .constructor-step.expanded {
+            box-shadow: 0 20px 60px rgba(139, 69, 19, 0.2);
+            border-color: rgba(139, 69, 19, 0.3);
         }
         
         .step-header {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 2rem;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .step-header:hover {
+            background: rgba(139, 69, 19, 0.05);
+        }
+        
+        .step-arrow {
+            margin-left: auto;
+            font-size: 1.2rem;
+            color: #8B4513;
+            transition: transform 0.3s ease;
+        }
+        
+        .constructor-step.expanded .step-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .step-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0 2rem;
+        }
+        
+        .constructor-step.expanded .step-content {
+            max-height: 1000px;
+            padding: 0 2rem 2rem 2rem;
         }
         
         .step-number {
@@ -1217,6 +1249,18 @@
                 min-height: 100px;
                 padding: 1rem;
             }
+            
+            .step-header {
+                padding: 1.5rem;
+            }
+            
+            .step-content {
+                padding: 0 1.5rem;
+            }
+            
+            .constructor-step.expanded .step-content {
+                padding: 0 1.5rem 1.5rem 1.5rem;
+            }
         }
         
         /* Small devices (landscape phones, 576px and up) */
@@ -1598,194 +1642,214 @@
                         <div class="constructor-steps">
                             <!-- Step 1: Coffee Base -->
                             <div class="constructor-step active" data-step="1">
-                                <div class="step-header">
+                                <div class="step-header" onclick="toggleStep(1)">
                                     <div class="step-number">1</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Выберите основу</h3>
                                         <p class="step-subtitle">Классические варианты кофе</p>
                                     </div>
+                                    <div class="step-arrow">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
                                 </div>
                                 
-                                <div class="options-grid">
-                                    <label class="modern-option" data-value="espresso">
-                                        <input type="radio" name="base" value="espresso" checked>
-                                        <div class="option-icon">☕</div>
-                                        <div class="option-details">
-                                            <div class="option-name">Эспрессо</div>
-                                            <div class="option-description">Крепкий и насыщенный</div>
-                                            <div class="option-price">+0₽</div>
-                                        </div>
-                                        <div class="option-check">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                    </label>
-                                    
-                                    <label class="modern-option" data-value="americano">
-                                        <input type="radio" name="base" value="americano">
-                                        <div class="option-icon">☕</div>
-                                        <div class="option-details">
-                                            <div class="option-name">Американо</div>
-                                            <div class="option-description">Эспрессо с водой</div>
-                                            <div class="option-price">+0₽</div>
-                                        </div>
-                                        <div class="option-check">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                    </label>
-                                    
-                                    <label class="modern-option" data-value="cappuccino">
-                                        <input type="radio" name="base" value="cappuccino">
-                                        <div class="option-icon">☕</div>
-                                        <div class="option-details">
-                                            <div class="option-name">Капучино</div>
-                                            <div class="option-description">С молоком и пеной</div>
-                                            <div class="option-price">+0₽</div>
-                                        </div>
-                                        <div class="option-check">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                    </label>
+                                <div class="step-content">
+                                    <div class="options-grid">
+                                        <label class="modern-option" data-value="espresso">
+                                            <input type="radio" name="base" value="espresso" checked>
+                                            <div class="option-icon">☕</div>
+                                            <div class="option-details">
+                                                <div class="option-name">Эспрессо</div>
+                                                <div class="option-description">Крепкий и насыщенный</div>
+                                                <div class="option-price">+0₽</div>
+                                            </div>
+                                            <div class="option-check">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="modern-option" data-value="americano">
+                                            <input type="radio" name="base" value="americano">
+                                            <div class="option-icon">☕</div>
+                                            <div class="option-details">
+                                                <div class="option-name">Американо</div>
+                                                <div class="option-description">Эспрессо с водой</div>
+                                                <div class="option-price">+0₽</div>
+                                            </div>
+                                            <div class="option-check">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="modern-option" data-value="cappuccino">
+                                            <input type="radio" name="base" value="cappuccino">
+                                            <div class="option-icon">☕</div>
+                                            <div class="option-details">
+                                                <div class="option-name">Капучино</div>
+                                                <div class="option-description">С молоком и пеной</div>
+                                                <div class="option-price">+0₽</div>
+                                            </div>
+                                            <div class="option-check">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Step 2: Size -->
                             <div class="constructor-step" data-step="2">
-                                <div class="step-header">
+                                <div class="step-header" onclick="toggleStep(2)">
                                     <div class="step-number">2</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Размер порции</h3>
                                         <p class="step-subtitle">Выберите объем напитка</p>
                                     </div>
+                                    <div class="step-arrow">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
                                 </div>
                                 
-                                <div class="size-options">
-                                    <label class="size-option" data-value="small">
-                                        <input type="radio" name="size" value="small">
-                                        <div class="size-cup small-cup">
-                                            <div class="cup-icon">☕</div>
-                                        </div>
-                                        <div class="size-info">
-                                            <div class="size-name">Маленький</div>
-                                            <div class="size-volume">200мл</div>
-                                            <div class="size-price">+0₽</div>
-                                        </div>
-                                    </label>
-                                    
-                                    <label class="size-option active" data-value="medium">
-                                        <input type="radio" name="size" value="medium" checked>
-                                        <div class="size-cup medium-cup">
-                                            <div class="cup-icon">☕</div>
-                                        </div>
-                                        <div class="size-info">
-                                            <div class="size-name">Средний</div>
-                                            <div class="size-volume">300мл</div>
-                                            <div class="size-price">+30₽</div>
-                                        </div>
-                                    </label>
-                                    
-                                    <label class="size-option" data-value="large">
-                                        <input type="radio" name="size" value="large">
-                                        <div class="size-cup large-cup">
-                                            <div class="cup-icon">☕</div>
-                                        </div>
-                                        <div class="size-info">
-                                            <div class="size-name">Большой</div>
-                                            <div class="size-volume">400мл</div>
-                                            <div class="size-price">+60₽</div>
-                                        </div>
-                                    </label>
+                                <div class="step-content">
+                                    <div class="size-options">
+                                        <label class="size-option" data-value="small">
+                                            <input type="radio" name="size" value="small">
+                                            <div class="size-cup small-cup">
+                                                <div class="cup-icon">☕</div>
+                                            </div>
+                                            <div class="size-info">
+                                                <div class="size-name">Маленький</div>
+                                                <div class="size-volume">200мл</div>
+                                                <div class="size-price">+0₽</div>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="size-option active" data-value="medium">
+                                            <input type="radio" name="size" value="medium" checked>
+                                            <div class="size-cup medium-cup">
+                                                <div class="cup-icon">☕</div>
+                                            </div>
+                                            <div class="size-info">
+                                                <div class="size-name">Средний</div>
+                                                <div class="size-volume">300мл</div>
+                                                <div class="size-price">+30₽</div>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="size-option" data-value="large">
+                                            <input type="radio" name="size" value="large">
+                                            <div class="size-cup large-cup">
+                                                <div class="cup-icon">☕</div>
+                                            </div>
+                                            <div class="size-info">
+                                                <div class="size-name">Большой</div>
+                                                <div class="size-volume">400мл</div>
+                                                <div class="size-price">+60₽</div>
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Step 3: Milk Type -->
                             <div class="constructor-step" data-step="3">
-                                <div class="step-header">
+                                <div class="step-header" onclick="toggleStep(3)">
                                     <div class="step-number">3</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Тип молока</h3>
                                         <p class="step-subtitle">Выберите молоко по вкусу</p>
                                     </div>
+                                    <div class="step-arrow">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
                                 </div>
                                 
-                                <div class="milk-options">
-                                    <label class="milk-option active" data-value="regular">
-                                        <input type="radio" name="milk" value="regular" checked>
-                                        <div class="milk-icon">🥛</div>
-                                        <div class="milk-details">
-                                            <div class="milk-name">Обычное</div>
-                                            <div class="milk-description">Коровье молоко</div>
-                                            <div class="milk-price">+0₽</div>
-                                        </div>
-                                    </label>
-                                    
-                                    <label class="milk-option" data-value="oat">
-                                        <input type="radio" name="milk" value="oat">
-                                        <div class="milk-icon">🌾</div>
-                                        <div class="milk-details">
-                                            <div class="milk-name">Овсяное</div>
-                                            <div class="milk-description">Растительное</div>
-                                            <div class="milk-price">+20₽</div>
-                                        </div>
-                                    </label>
-                                    
-                                    <label class="milk-option" data-value="almond">
-                                        <input type="radio" name="milk" value="almond">
-                                        <div class="milk-icon">🥜</div>
-                                        <div class="milk-details">
-                                            <div class="milk-name">Миндальное</div>
-                                            <div class="milk-description">Ореховое</div>
-                                            <div class="milk-price">+25₽</div>
-                                        </div>
-                                    </label>
+                                <div class="step-content">
+                                    <div class="milk-options">
+                                        <label class="milk-option active" data-value="regular">
+                                            <input type="radio" name="milk" value="regular" checked>
+                                            <div class="milk-icon">🥛</div>
+                                            <div class="milk-details">
+                                                <div class="milk-name">Обычное</div>
+                                                <div class="milk-description">Коровье молоко</div>
+                                                <div class="milk-price">+0₽</div>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="milk-option" data-value="oat">
+                                            <input type="radio" name="milk" value="oat">
+                                            <div class="milk-icon">🌾</div>
+                                            <div class="milk-details">
+                                                <div class="milk-name">Овсяное</div>
+                                                <div class="milk-description">Растительное</div>
+                                                <div class="milk-price">+20₽</div>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="milk-option" data-value="almond">
+                                            <input type="radio" name="milk" value="almond">
+                                            <div class="milk-icon">🥜</div>
+                                            <div class="milk-details">
+                                                <div class="milk-name">Миндальное</div>
+                                                <div class="milk-description">Ореховое</div>
+                                                <div class="milk-price">+25₽</div>
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Step 4: Extras -->
                             <div class="constructor-step" data-step="4">
-                                <div class="step-header">
+                                <div class="step-header" onclick="toggleStep(4)">
                                     <div class="step-number">4</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Дополнительно</h3>
                                         <p class="step-subtitle">Добавьте сиропы и топпинги</p>
                                     </div>
+                                    <div class="step-arrow">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
                                 </div>
                                 
-                                <div class="extras-grid">
-                                    <label class="extra-option" data-value="vanilla">
-                                        <input type="checkbox" name="extras" value="vanilla">
-                                        <div class="extra-icon">🍦</div>
-                                        <div class="extra-details">
-                                            <div class="extra-name">Ваниль</div>
-                                            <div class="extra-price">+15₽</div>
-                                        </div>
-                                        <div class="extra-check">
-                                            <i class="fas fa-plus"></i>
-                                        </div>
-                                    </label>
-                                    
-                                    <label class="extra-option" data-value="caramel">
-                                        <input type="checkbox" name="extras" value="caramel">
-                                        <div class="extra-icon">🍯</div>
-                                        <div class="extra-details">
-                                            <div class="extra-name">Карамель</div>
-                                            <div class="extra-price">+15₽</div>
-                                        </div>
-                                        <div class="extra-check">
-                                            <i class="fas fa-plus"></i>
-                                        </div>
-                                    </label>
-                                    
-                                    <label class="extra-option" data-value="chocolate">
-                                        <input type="checkbox" name="extras" value="chocolate">
-                                        <div class="extra-icon">🍫</div>
-                                        <div class="extra-details">
-                                            <div class="extra-name">Шоколад</div>
-                                            <div class="extra-price">+20₽</div>
-                                        </div>
-                                        <div class="extra-check">
-                                            <i class="fas fa-plus"></i>
-                                        </div>
-                                    </label>
+                                <div class="step-content">
+                                    <div class="extras-grid">
+                                        <label class="extra-option" data-value="vanilla">
+                                            <input type="checkbox" name="extras" value="vanilla">
+                                            <div class="extra-icon">🍦</div>
+                                            <div class="extra-details">
+                                                <div class="extra-name">Ваниль</div>
+                                                <div class="extra-price">+15₽</div>
+                                            </div>
+                                            <div class="extra-check">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="extra-option" data-value="caramel">
+                                            <input type="checkbox" name="extras" value="caramel">
+                                            <div class="extra-icon">🍯</div>
+                                            <div class="extra-details">
+                                                <div class="extra-name">Карамель</div>
+                                                <div class="extra-price">+15₽</div>
+                                            </div>
+                                            <div class="extra-check">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                        </label>
+                                        
+                                        <label class="extra-option" data-value="chocolate">
+                                            <input type="checkbox" name="extras" value="chocolate">
+                                            <div class="extra-icon">🍫</div>
+                                            <div class="extra-details">
+                                                <div class="extra-name">Шоколад</div>
+                                                <div class="extra-price">+20₽</div>
+                                            </div>
+                                            <div class="extra-check">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2097,37 +2161,70 @@
             console.log('Initializing constructor...');
             updateConstructorSummary();
             initializeConstructorEvents();
+            
+            // Open first step by default
+            const firstStep = document.querySelector('[data-step="1"]');
+            if (firstStep) {
+                firstStep.classList.add('expanded');
+            }
         }
 
         function initializeConstructorEvents() {
             console.log('Initializing constructor events...');
             
-            // Base selection
-            const baseInputs = document.querySelectorAll('input[name="base"]');
-            console.log('Found base inputs:', baseInputs.length);
-            baseInputs.forEach(input => {
-                input.addEventListener('change', updateConstructorSummary);
-            });
-            
-            // Size selection
-            const sizeInputs = document.querySelectorAll('input[name="size"]');
-            console.log('Found size inputs:', sizeInputs.length);
-            sizeInputs.forEach(input => {
-                input.addEventListener('change', updateConstructorSummary);
-            });
-            
-            // Milk selection
-            const milkInputs = document.querySelectorAll('input[name="milk"]');
-            console.log('Found milk inputs:', milkInputs.length);
-            milkInputs.forEach(input => {
-                input.addEventListener('change', updateConstructorSummary);
-            });
-            
-            // Extras selection
-            const extraInputs = document.querySelectorAll('input[name="extras"]');
-            console.log('Found extra inputs:', extraInputs.length);
-            extraInputs.forEach(input => {
-                input.addEventListener('change', updateConstructorSummary);
+            // Use event delegation for better reliability
+            document.addEventListener('click', function(e) {
+                // Base selection
+                if (e.target.closest('.modern-option')) {
+                    const option = e.target.closest('.modern-option');
+                    const input = option.querySelector('input[type="radio"]');
+                    if (input) {
+                        input.checked = true;
+                        updateConstructorSummary();
+                        updateStepProgress();
+                    }
+                }
+                
+                // Size selection
+                if (e.target.closest('.size-option')) {
+                    const option = e.target.closest('.size-option');
+                    const input = option.querySelector('input[type="radio"]');
+                    if (input) {
+                        // Remove active class from all size options
+                        document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('active'));
+                        // Add active class to clicked option
+                        option.classList.add('active');
+                        input.checked = true;
+                        updateConstructorSummary();
+                        updateStepProgress();
+                    }
+                }
+                
+                // Milk selection
+                if (e.target.closest('.milk-option')) {
+                    const option = e.target.closest('.milk-option');
+                    const input = option.querySelector('input[type="radio"]');
+                    if (input) {
+                        // Remove active class from all milk options
+                        document.querySelectorAll('.milk-option').forEach(opt => opt.classList.remove('active'));
+                        // Add active class to clicked option
+                        option.classList.add('active');
+                        input.checked = true;
+                        updateConstructorSummary();
+                        updateStepProgress();
+                    }
+                }
+                
+                // Extras selection
+                if (e.target.closest('.extra-option')) {
+                    const option = e.target.closest('.extra-option');
+                    const input = option.querySelector('input[type="checkbox"]');
+                    if (input) {
+                        input.checked = !input.checked;
+                        updateConstructorSummary();
+                        updateStepProgress();
+                    }
+                }
             });
             
             // Add to cart button
@@ -2143,6 +2240,32 @@
             if (resetBtn) {
                 resetBtn.addEventListener('click', resetConstructor);
             }
+            
+            // Initialize step progress
+            updateStepProgress();
+        }
+        
+        function updateStepProgress() {
+            const steps = document.querySelectorAll('.constructor-step');
+            let currentStep = 1;
+            
+            // Check which step should be active based on selections
+            const baseSelected = document.querySelector('input[name="base"]:checked');
+            const sizeSelected = document.querySelector('input[name="size"]:checked');
+            const milkSelected = document.querySelector('input[name="milk"]:checked');
+            
+            if (baseSelected) currentStep = 2;
+            if (sizeSelected) currentStep = 3;
+            if (milkSelected) currentStep = 4;
+            
+            steps.forEach((step, index) => {
+                const stepNumber = index + 1;
+                if (stepNumber <= currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
         }
 
         function updateConstructorSummary() {
@@ -2422,11 +2545,28 @@
             }
         }
 
+        // Constructor step toggle function
+        function toggleStep(stepNumber) {
+            const step = document.querySelector(`[data-step="${stepNumber}"]`);
+            const isExpanded = step.classList.contains('expanded');
+            
+            // Close all steps first
+            document.querySelectorAll('.constructor-step').forEach(s => {
+                s.classList.remove('expanded');
+            });
+            
+            // Open clicked step if it wasn't expanded
+            if (!isExpanded) {
+                step.classList.add('expanded');
+            }
+        }
+        
         // Make functions global for onclick handlers
         window.updateQuantity = updateQuantity;
         window.removeFromCart = removeFromCart;
         window.clearCart = clearCart;
         window.checkout = checkout;
+        window.toggleStep = toggleStep;
 
         // Utility functions
         function saveCart() {
