@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Coffee - Кофейня</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#home" class="logo">
+                    ☕ Art Coffee
+                </a>
+                <div class="nav-links">
+                    <a href="#home" class="nav-link">Главная</a>
+                    <a href="#menu" class="nav-link">Меню</a>
+                    <a href="#constructor" class="nav-link">Конструктор</a>
+                    <a href="#cart" class="cart-btn">
+                        🛒
+                        <span class="cart-badge" id="cart-badge">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Добро пожаловать в <span class="text-coffee-light">Art Coffee</span>
+                </h1>
+                <p class="hero-description">
+                    Откройте для себя мир премиального кофе. Мы тщательно отбираем лучшие зерна 
+                    и готовим каждую чашку с любовью и мастерством.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn btn-primary">Посмотреть меню</a>
+                    <a href="#constructor" class="btn btn-secondary">Создать свой кофе</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="grid grid-3">
+                <div class="card feature-card">
+                    <div class="feature-icon">☕</div>
+                    <h3>Свежие зерна</h3>
+                    <p>Мы используем только свежеобжаренные зерна премиум качества из лучших регионов мира</p>
+                </div>
+                
+                <div class="card feature-card">
+                    <div class="feature-icon">❤️</div>
+                    <h3>С любовью</h3>
+                    <p>Каждая чашка готовится с особой заботой и вниманием к деталям нашими мастерами</p>
+                </div>
+                
+                <div class="card feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Премиум качество</h3>
+                    <p>Профессиональные бариста и лучшие рецепты для идеального вкуса в каждой чашке</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header">
+                <h2>Наше меню</h2>
+                <p>Выберите из нашего разнообразного ассортимента</p>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="btn btn-primary filter-btn active" data-category="all">Все</button>
+                <button class="btn btn-secondary filter-btn" data-category="coffee">Кофе</button>
+                <button class="btn btn-secondary filter-btn" data-category="dessert">Десерты</button>
+                <button class="btn btn-secondary filter-btn" data-category="drinks">Напитки</button>
+            </div>
+
+            <div class="menu-grid" id="menu-grid">
+                <!-- Menu items will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Constructor Section -->
+    <section id="constructor" class="constructor">
+        <div class="container">
+            <div class="section-header">
+                <h2>Конструктор кофе</h2>
+                <p>Создайте свой идеальный напиток</p>
+            </div>
+
+            <div class="constructor-content">
+                <div class="constructor-options">
+                    <!-- Coffee Base -->
+                    <div class="option-group">
+                        <h3>Выберите основу *</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="base" value="espresso" checked>
+                                <div class="option-content">
+                                    <div class="option-name">Эспрессо</div>
+                                    <div class="option-description">Классическая основа</div>
+                                </div>
+                                <div class="option-price">+0₽</div>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="base" value="americano">
+                                <div class="option-content">
+                                    <div class="option-name">Американо</div>
+                                    <div class="option-description">Эспрессо + вода</div>
+                                </div>
+                                <div class="option-price">+0₽</div>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="base" value="cappuccino">
+                                <div class="option-content">
+                                    <div class="option-name">Капучино</div>
+                                    <div class="option-description">Эспрессо + молоко + пена</div>
+                                </div>
+                                <div class="option-price">+0₽</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Size -->
+                    <div class="option-group">
+                        <h3>Размер</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="size" value="small">
+                                <div class="option-content">
+                                    <div class="option-name">Маленький</div>
+                                    <div class="option-description">200мл</div>
+                                </div>
+                                <div class="option-price">+0₽</div>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="size" value="medium" checked>
+                                <div class="option-content">
+                                    <div class="option-name">Средний</div>
+                                    <div class="option-description">300мл</div>
+                                </div>
+                                <div class="option-price">+30₽</div>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="size" value="large">
+                                <div class="option-content">
+                                    <div class="option-name">Большой</div>
+                                    <div class="option-description">400мл</div>
+                                </div>
+                                <div class="option-price">+60₽</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Milk Type -->
+                    <div class="option-group">
+                        <h3>Тип молока</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="milk" value="regular" checked>
+                                <div class="option-content">
+                                    <div class="option-name">Обычное молоко</div>
+                                    <div class="option-description">Классическое коровье молоко</div>
+                                </div>
+                                <div class="option-price">+0₽</div>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="milk" value="oat">
+                                <div class="option-content">
+                                    <div class="option-name">Овсяное молоко</div>
+                                    <div class="option-description">Растительное молоко из овса</div>
+                                </div>
+                                <div class="option-price">+20₽</div>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="milk" value="almond">
+                                <div class="option-content">
+                                    <div class="option-name">Миндальное молоко</div>
+                                    <div class="option-description">Растительное молоко из миндаля</div>
+                                </div>
+                                <div class="option-price">+25₽</div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Extras -->
+                    <div class="option-group">
+                        <h3>Дополнительно</h3>
+                        <div class="options">
+                            <label class="option">
+                                <input type="checkbox" name="extras" value="vanilla">
+                                <div class="option-content">
+                                    <div class="option-name">Ванильный сироп</div>
+                                    <div class="option-description">Сладкий ванильный вкус</div>
+                                </div>
+                                <div class="option-price">+15₽</div>
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="extras" value="caramel">
+                                <div class="option-content">
+                                    <div class="option-name">Карамельный сироп</div>
+                                    <div class="option-description">Классическая карамель</div>
+                                </div>
+                                <div class="option-price">+15₽</div>
+                            </label>
+                            <label class="option">
+                                <input type="checkbox" name="extras" value="chocolate">
+                                <div class="option-content">
+                                    <div class="option-name">Шоколадный сироп</div>
+                                    <div class="option-description">Богатый шоколадный вкус</div>
+                                </div>
+                                <div class="option-price">+20₽</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <div class="summary-card">
+                        <h3>Ваш напиток</h3>
+                        <div class="summary-content">
+                            <div class="summary-item">
+                                <span>Основа:</span>
+                                <span id="summary-base">Эспрессо</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Размер:</span>
+                                <span id="summary-size">Средний</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Молоко:</span>
+                                <span id="summary-milk">Обычное молоко</span>
+                            </div>
+                            <div class="summary-item" id="summary-extras" style="display: none;">
+                                <span>Дополнительно:</span>
+                                <span id="summary-extras-text"></span>
+                            </div>
+                        </div>
+                        <div class="summary-total">
+                            <span>Итого:</span>
+                            <span id="summary-total">30₽</span>
+                        </div>
+                        <div class="summary-actions">
+                            <button class="btn btn-primary" id="add-to-cart">Добавить в корзину</button>
+                            <button class="btn btn-outline" id="reset-constructor">Сбросить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section id="cart" class="cart">
+        <div class="container">
+            <div class="section-header">
+                <h2>Корзина</h2>
+                <p>Ваш заказ</p>
+            </div>
+
+            <div class="cart-content" id="cart-content">
+                <div class="empty-cart">
+                    <div class="empty-icon">🛒</div>
+                    <h3>Корзина пуста</h3>
+                    <p>Добавьте товары из меню или создайте свой кофе в конструкторе</p>
+                    <div class="empty-actions">
+                        <a href="#menu" class="btn btn-primary">Перейти к меню</a>
+                        <a href="#constructor" class="btn btn-secondary">Создать кофе</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <div class="contact-card">
+                <h2>Приходите к нам!</h2>
+                <p>Мы ждем вас каждый день с 7:00 до 22:00</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">🕐</span>
+                        <div>
+                            <div class="contact-title">Часы работы</div>
+                            <div>Пн-Вс: 7:00 - 22:00</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <div class="contact-title">Адрес</div>
+                            <div>ул. Кофейная, 123</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <div class="contact-title">Телефон</div>
+                            <div>+7 (999) 123-45-67</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
