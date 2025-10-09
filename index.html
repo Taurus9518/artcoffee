@@ -1679,7 +1679,7 @@
                                 <div class="step-content">
                                     <div class="options-grid">
                                         <label class="modern-option" data-value="espresso">
-                                            <input type="radio" name="base" value="espresso" checked>
+                                            <input type="radio" name="base" value="espresso">
                                             <div class="option-icon">☕</div>
                                             <div class="option-details">
                                                 <div class="option-name">Эспрессо</div>
@@ -1747,8 +1747,8 @@
                                             </div>
                                         </label>
                                         
-                                        <label class="size-option active" data-value="medium">
-                                            <input type="radio" name="size" value="medium" checked>
+                                        <label class="size-option" data-value="medium">
+                                            <input type="radio" name="size" value="medium">
                                             <div class="size-cup medium-cup">
                                                 <div class="cup-icon">☕</div>
                                             </div>
@@ -1789,8 +1789,8 @@
                                 
                                 <div class="step-content">
                                     <div class="milk-options">
-                                        <label class="milk-option active" data-value="regular">
-                                            <input type="radio" name="milk" value="regular" checked>
+                                        <label class="milk-option" data-value="regular">
+                                            <input type="radio" name="milk" value="regular">
                                             <div class="milk-icon">🥛</div>
                                             <div class="milk-details">
                                                 <div class="milk-name">Обычное</div>
@@ -2307,9 +2307,9 @@
         }
 
         function updateConstructorSummary() {
-            const base = document.querySelector('input[name="base"]:checked')?.value || 'espresso';
-            const size = document.querySelector('input[name="size"]:checked')?.value || 'medium';
-            const milk = document.querySelector('input[name="milk"]:checked')?.value || 'regular';
+            const base = document.querySelector('input[name="base"]:checked')?.value;
+            const size = document.querySelector('input[name="size"]:checked')?.value;
+            const milk = document.querySelector('input[name="milk"]:checked')?.value;
             const extras = Array.from(document.querySelectorAll('input[name="extras"]:checked')).map(input => input.value);
             
             // Update summary display
@@ -2337,9 +2337,9 @@
                 chocolate: 'Шоколадный сироп'
             };
             
-            document.getElementById('summary-base').textContent = baseNames[base];
-            document.getElementById('summary-size').textContent = sizeNames[size];
-            document.getElementById('summary-milk').textContent = milkNames[milk];
+            document.getElementById('summary-base').textContent = base ? baseNames[base] : 'Не выбрано';
+            document.getElementById('summary-size').textContent = size ? sizeNames[size] : 'Не выбрано';
+            document.getElementById('summary-milk').textContent = milk ? milkNames[milk] : 'Не выбрано';
             
             // Update extras
             const extrasElement = document.getElementById('summary-extras');
@@ -2355,32 +2355,40 @@
             // Calculate total price
             let total = 0;
             
-            // Base price
-            const basePrices = { espresso: 0, americano: 0, cappuccino: 0 };
-            total += basePrices[base];
+            if (base && size && milk) {
+                // Base price
+                const basePrices = { espresso: 0, americano: 0, cappuccino: 0 };
+                total += basePrices[base] || 0;
+                
+                // Size price
+                const sizePrices = { small: 0, medium: 30, large: 60 };
+                total += sizePrices[size] || 0;
+                
+                // Milk price
+                const milkPrices = { regular: 0, oat: 20, almond: 25 };
+                total += milkPrices[milk] || 0;
+                
+                // Extras price
+                const extraPrices = { vanilla: 15, caramel: 15, chocolate: 20 };
+                extras.forEach(extra => {
+                    total += extraPrices[extra] || 0;
+                });
+            }
             
-            // Size price
-            const sizePrices = { small: 0, medium: 30, large: 60 };
-            total += sizePrices[size];
-            
-            // Milk price
-            const milkPrices = { regular: 0, oat: 20, almond: 25 };
-            total += milkPrices[milk];
-            
-            // Extras price
-            const extraPrices = { vanilla: 15, caramel: 15, chocolate: 20 };
-            extras.forEach(extra => {
-                total += extraPrices[extra];
-            });
-            
-            document.getElementById('summary-total').textContent = `${total}₽`;
+            document.getElementById('summary-total').textContent = total > 0 ? `${total}₽` : 'Выберите компоненты';
         }
 
         function addConstructorToCart() {
-            const base = document.querySelector('input[name="base"]:checked')?.value || 'espresso';
-            const size = document.querySelector('input[name="size"]:checked')?.value || 'medium';
-            const milk = document.querySelector('input[name="milk"]:checked')?.value || 'regular';
+            const base = document.querySelector('input[name="base"]:checked')?.value;
+            const size = document.querySelector('input[name="size"]:checked')?.value;
+            const milk = document.querySelector('input[name="milk"]:checked')?.value;
             const extras = Array.from(document.querySelectorAll('input[name="extras"]:checked')).map(input => input.value);
+            
+            // Check if all required components are selected
+            if (!base || !size || !milk) {
+                alert('Пожалуйста, выберите основу, размер и тип молока для создания кофе');
+                return;
+            }
             
             const baseNames = {
                 espresso: 'Эспрессо',
