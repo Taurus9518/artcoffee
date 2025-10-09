@@ -313,6 +313,7 @@
             transition: all 0.4s ease;
             margin-bottom: 0.75rem;
             overflow: hidden;
+            position: relative;
         }
         
         .constructor-step.active {
@@ -342,6 +343,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+            margin-bottom: 0;
         }
         
         .step-header:hover {
@@ -364,12 +366,15 @@
             overflow: hidden;
             transition: max-height 0.4s ease, padding 0.4s ease;
             padding: 0 1.25rem;
+            margin-top: 0;
         }
         
         .constructor-step.expanded .step-content {
             max-height: 2000px;
-            padding: 0 1.25rem 1.25rem 1.25rem;
+            padding: 1rem 1.25rem 1.25rem 1.25rem;
             overflow-y: auto;
+            margin-top: 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
         
         /* Custom scrollbar for step content */
@@ -2313,6 +2318,20 @@
         // Constructor functionality
         function initializeConstructor() {
             console.log('Initializing constructor...');
+            
+            // Clear all default selections
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            document.querySelectorAll('input[type="checkbox"]').forEach(input => {
+                input.checked = false;
+            });
+            
+            // Remove active classes
+            document.querySelectorAll('.size-option, .milk-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            
             updateConstructorSummary();
             initializeConstructorEvents();
             
