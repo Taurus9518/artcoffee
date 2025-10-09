@@ -307,11 +307,11 @@
         
         .constructor-step {
             background: white;
-            border-radius: 24px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(0, 0, 0, 0.05);
             transition: all 0.4s ease;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             overflow: hidden;
         }
         
@@ -321,15 +321,24 @@
         }
         
         .constructor-step.expanded {
-            box-shadow: 0 20px 60px rgba(139, 69, 19, 0.2);
+            box-shadow: 0 12px 32px rgba(139, 69, 19, 0.2);
             border-color: rgba(139, 69, 19, 0.3);
+        }
+        
+        .constructor-step.completed {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+        
+        .constructor-step.completed .step-number {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
         }
         
         .step-header {
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 2rem;
+            padding: 1.25rem;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -354,31 +363,31 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s ease, padding 0.4s ease;
-            padding: 0 2rem;
+            padding: 0 1.25rem;
         }
         
         .constructor-step.expanded .step-content {
             max-height: 1000px;
-            padding: 0 2rem 2rem 2rem;
+            padding: 0 1.25rem 1.25rem 1.25rem;
         }
         
         .step-number {
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: linear-gradient(135deg, #8B4513, #A0522D);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 1.25rem;
+            font-weight: bold;
+            font-size: 1rem;
         }
         
         .step-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1a1a1a;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #8B4513;
             margin-bottom: 0.25rem;
         }
         
@@ -1251,15 +1260,29 @@
             }
             
             .step-header {
-                padding: 1.5rem;
+                padding: 1rem;
             }
             
             .step-content {
-                padding: 0 1.5rem;
+                padding: 0 1rem;
             }
             
             .constructor-step.expanded .step-content {
-                padding: 0 1.5rem 1.5rem 1.5rem;
+                padding: 0 1rem 1rem 1rem;
+            }
+            
+            .step-number {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
+            
+            .step-title {
+                font-size: 1.1rem;
+            }
+            
+            .step-subtitle {
+                font-size: 0.8rem;
             }
         }
         
@@ -2182,6 +2205,10 @@
                         input.checked = true;
                         updateConstructorSummary();
                         updateStepProgress();
+                        // Auto-advance to next step
+                        setTimeout(() => {
+                            toggleStep(2);
+                        }, 500);
                     }
                 }
                 
@@ -2197,6 +2224,10 @@
                         input.checked = true;
                         updateConstructorSummary();
                         updateStepProgress();
+                        // Auto-advance to next step
+                        setTimeout(() => {
+                            toggleStep(3);
+                        }, 500);
                     }
                 }
                 
@@ -2212,6 +2243,10 @@
                         input.checked = true;
                         updateConstructorSummary();
                         updateStepProgress();
+                        // Auto-advance to next step
+                        setTimeout(() => {
+                            toggleStep(4);
+                        }, 500);
                     }
                 }
                 
@@ -2247,23 +2282,26 @@
         
         function updateStepProgress() {
             const steps = document.querySelectorAll('.constructor-step');
-            let currentStep = 1;
             
-            // Check which step should be active based on selections
+            // Check which steps are completed
             const baseSelected = document.querySelector('input[name="base"]:checked');
             const sizeSelected = document.querySelector('input[name="size"]:checked');
             const milkSelected = document.querySelector('input[name="milk"]:checked');
+            const extrasSelected = document.querySelectorAll('input[name="extras"]:checked');
             
-            if (baseSelected) currentStep = 2;
-            if (sizeSelected) currentStep = 3;
-            if (milkSelected) currentStep = 4;
-            
+            // Mark completed steps
             steps.forEach((step, index) => {
                 const stepNumber = index + 1;
-                if (stepNumber <= currentStep) {
-                    step.classList.add('active');
-                } else {
-                    step.classList.remove('active');
+                step.classList.remove('completed', 'active');
+                
+                if (stepNumber === 1 && baseSelected) {
+                    step.classList.add('completed');
+                } else if (stepNumber === 2 && sizeSelected) {
+                    step.classList.add('completed');
+                } else if (stepNumber === 3 && milkSelected) {
+                    step.classList.add('completed');
+                } else if (stepNumber === 4 && extrasSelected.length > 0) {
+                    step.classList.add('completed');
                 }
             });
         }
