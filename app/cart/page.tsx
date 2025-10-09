@@ -1,113 +1,102 @@
-import Link from 'next/link'
-
 export default function Cart() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Link href="/menu" className="text-gray-600 hover:text-coffee-600 transition-colors">
-              ← Назад к меню
-            </Link>
-            <h1 className="text-3xl font-bold text-coffee-800">Корзина</h1>
-          </div>
+    <div className="container">
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <a href="/menu" style={{ color: '#666' }}>← Назад к меню</a>
+          <h1 className="text-4xl font-bold text-coffee">Корзина</h1>
         </div>
+      </div>
 
-        <div className="text-center py-16">
-          <div className="text-6xl mb-6">🛒</div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Корзина пуста</h2>
-          <p className="text-gray-600 mb-8 text-lg">
-            Добавьте товары из меню, чтобы оформить заказ
-          </p>
-          <Link href="/menu" className="btn-primary text-lg px-8 py-3">
-            Перейти к меню
-          </Link>
-        </div>
+      <div className="text-center" style={{ padding: '64px 0' }}>
+        <div style={{ fontSize: '64px', marginBottom: '24px' }}>🛒</div>
+        <h2 className="text-4xl font-bold mb-4">Корзина пуста</h2>
+        <p className="text-xl text-gray mb-8">
+          Добавьте товары из меню, чтобы оформить заказ
+        </p>
+        <a href="/menu" className="btn btn-primary">Перейти к меню</a>
+      </div>
 
-        {/* Demo Cart Items */}
-        <div className="mt-16">
-          <h3 className="text-2xl font-bold text-coffee-800 mb-8 text-center">Пример корзины</h3>
-          
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Cart Items */}
-            <div className="lg:col-span-2">
-              <div className="space-y-4">
-                <div className="card">
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-coffee-200 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">☕</span>
-                    </div>
-                    
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-800">Эспрессо</h3>
-                      <p className="text-gray-600">150₽ за штуку</p>
-                    </div>
-
-                    <div className="text-center">
-                      <span className="text-lg font-semibold">2 шт.</span>
-                    </div>
-
-                    <div className="text-right">
-                      <div className="text-lg font-semibold text-coffee-600">300₽</div>
-                    </div>
-                  </div>
+      {/* Demo Cart Items */}
+      <div style={{ marginTop: '64px' }}>
+        <h3 className="text-2xl font-bold text-coffee mb-8 text-center">Пример корзины</h3>
+        
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '32px' }}>
+          {/* Cart Items */}
+          <div>
+            <div className="card">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div style={{ width: '64px', height: '64px', background: '#f0f0f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>
+                  ☕
+                </div>
+                
+                <div style={{ flex: 1 }}>
+                  <h3 className="text-xl font-bold mb-2">Эспрессо</h3>
+                  <p className="text-gray">150₽ за штуку</p>
                 </div>
 
-                <div className="card">
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-coffee-200 rounded-lg flex items-center justify-center">
-                      <span className="text-2xl">☕</span>
-                    </div>
-                    
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-800">Капучино</h3>
-                      <p className="text-gray-600">200₽ за штуку</p>
-                    </div>
+                <div style={{ textAlign: 'center' }}>
+                  <span className="text-xl font-bold">2 шт.</span>
+                </div>
 
-                    <div className="text-center">
-                      <span className="text-lg font-semibold">1 шт.</span>
-                    </div>
-
-                    <div className="text-right">
-                      <div className="text-lg font-semibold text-coffee-600">200₽</div>
-                    </div>
-                  </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div className="text-xl font-bold text-coffee">300₽</div>
                 </div>
               </div>
             </div>
 
-            {/* Order Summary */}
-            <div className="lg:col-span-1">
-              <div className="card sticky top-24">
-                <h2 className="text-xl font-semibold text-gray-800 mb-6">Итого</h2>
+            <div className="card">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div style={{ width: '64px', height: '64px', background: '#f0f0f0', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>
+                  ☕
+                </div>
                 
-                <div className="space-y-3 mb-6">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Эспрессо × 2</span>
-                    <span className="font-medium">300₽</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Капучино × 1</span>
-                    <span className="font-medium">200₽</span>
-                  </div>
+                <div style={{ flex: 1 }}>
+                  <h3 className="text-xl font-bold mb-2">Капучино</h3>
+                  <p className="text-gray">200₽ за штуку</p>
                 </div>
 
-                <div className="border-t pt-4 mb-6">
-                  <div className="flex justify-between text-xl font-bold text-coffee-800">
-                    <span>Общая сумма:</span>
-                    <span>500₽</span>
-                  </div>
+                <div style={{ textAlign: 'center' }}>
+                  <span className="text-xl font-bold">1 шт.</span>
                 </div>
 
-                <button className="w-full btn-primary text-lg py-3">
-                  Оформить заказ
-                </button>
-
-                <p className="text-xs text-gray-500 text-center mt-4">
-                  Оплата при получении заказа
-                </p>
+                <div style={{ textAlign: 'right' }}>
+                  <div className="text-xl font-bold text-coffee">200₽</div>
+                </div>
               </div>
+            </div>
+          </div>
+
+          {/* Order Summary */}
+          <div>
+            <div className="card" style={{ position: 'sticky', top: '100px' }}>
+              <h2 className="text-2xl font-bold mb-4">Итого</h2>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
+                  <span className="text-gray">Эспрессо × 2</span>
+                  <span style={{ fontWeight: '600' }}>300₽</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
+                  <span className="text-gray">Капучино × 1</span>
+                  <span style={{ fontWeight: '600' }}>200₽</span>
+                </div>
+              </div>
+
+              <div style={{ borderTop: '1px solid #eee', paddingTop: '16px', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '20px', fontWeight: 'bold', color: '#8B4513' }}>
+                  <span>Общая сумма:</span>
+                  <span>500₽</span>
+                </div>
+              </div>
+
+              <button className="btn btn-primary" style={{ width: '100%', fontSize: '18px', padding: '12px' }}>
+                Оформить заказ
+              </button>
+
+              <p style={{ fontSize: '12px', color: '#666', textAlign: 'center', marginTop: '16px' }}>
+                Оплата при получении заказа
+              </p>
             </div>
           </div>
         </div>

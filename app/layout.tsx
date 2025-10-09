@@ -1,9 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
-import Navigation from '@/components/Navigation'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Art Coffee - Кофейня',
@@ -17,9 +13,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className={inter.className}>
-        <Navigation />
-        <main className="min-h-screen bg-gradient-to-br from-coffee-50 to-coffee-100">
+      <body>
+        <nav style={{ background: 'white', padding: '16px 0', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 100 }}>
+          <div className="container">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '20px', fontWeight: 'bold', color: '#8B4513' }}>
+                ☕ Art Coffee
+              </a>
+              <div style={{ display: 'flex', gap: '24px' }}>
+                <a href="/" style={{ padding: '8px 16px', borderRadius: '6px', color: '#333' }}>Главная</a>
+                <a href="/menu" style={{ padding: '8px 16px', borderRadius: '6px', color: '#333' }}>Меню</a>
+                <a href="/constructor" style={{ padding: '8px 16px', borderRadius: '6px', color: '#333' }}>Конструктор</a>
+                <a href="/cart" style={{ padding: '8px 16px', borderRadius: '6px', color: '#333' }}>🛒</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <main style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%)' }}>
           {children}
         </main>
       </body>
