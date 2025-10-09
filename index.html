@@ -2319,18 +2319,24 @@
         function initializeConstructor() {
             console.log('Initializing constructor...');
             
-            // Clear all default selections
-            document.querySelectorAll('input[type="radio"]').forEach(input => {
-                input.checked = false;
-            });
-            document.querySelectorAll('input[type="checkbox"]').forEach(input => {
-                input.checked = false;
-            });
-            
-            // Remove active classes
-            document.querySelectorAll('.size-option, .milk-option').forEach(option => {
-                option.classList.remove('active');
-            });
+            // Force clear all selections with a delay to ensure DOM is ready
+            setTimeout(() => {
+                document.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.checked = false;
+                    input.removeAttribute('checked');
+                });
+                document.querySelectorAll('input[type="checkbox"]').forEach(input => {
+                    input.checked = false;
+                    input.removeAttribute('checked');
+                });
+                
+                // Remove active classes
+                document.querySelectorAll('.size-option, .milk-option').forEach(option => {
+                    option.classList.remove('active');
+                });
+                
+                console.log('All selections cleared');
+            }, 100);
             
             updateConstructorSummary();
             initializeConstructorEvents();
@@ -2604,17 +2610,21 @@
         }
 
         function resetConstructor() {
-            // Reset to default values
-            document.querySelector('input[name="base"][value="espresso"]').checked = true;
-            document.querySelector('input[name="size"][value="medium"]').checked = true;
-            document.querySelector('input[name="milk"][value="regular"]').checked = true;
-            
-            // Uncheck all extras
-            document.querySelectorAll('input[name="extras"]').forEach(input => {
+            // Clear all selections
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            document.querySelectorAll('input[type="checkbox"]').forEach(input => {
                 input.checked = false;
             });
             
+            // Remove active classes
+            document.querySelectorAll('.size-option, .milk-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            
             updateConstructorSummary();
+            updateStepProgress();
         }
 
         // Cart functionality
