@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Coffee, Plus, Minus } from 'lucide-react'
+import { Coffee } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 
 interface MenuItem {
@@ -122,8 +122,7 @@ export default function Menu() {
     addItem({
       id: item.id,
       name: item.name,
-      price: item.price,
-      image: item.image
+      price: item.price
     })
   }
 
@@ -167,9 +166,8 @@ export default function Menu() {
 
             <button
               onClick={() => handleAddToCart(item)}
-              className="w-full btn-primary flex items-center justify-center gap-2"
+              className="w-full btn-primary"
             >
-              <Plus className="w-4 h-4" />
               Добавить в корзину
             </button>
           </div>

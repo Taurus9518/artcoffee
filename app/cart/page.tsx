@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ShoppingCart, Plus, Minus, Trash2, ArrowLeft } from 'lucide-react'
+import { ShoppingCart, Trash2, ArrowLeft } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 
 export default function Cart() {
@@ -79,24 +79,10 @@ export default function Cart() {
                       <p className="text-gray-600">{item.price}₽ за штуку</p>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                        className="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors"
-                      >
-                        <Minus className="w-4 h-4" />
-                      </button>
-                      
-                      <span className="text-lg font-semibold w-8 text-center">
-                        {item.quantity}
+                    <div className="text-center">
+                      <span className="text-lg font-semibold">
+                        {item.quantity} шт.
                       </span>
-                      
-                      <button
-                        onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                        className="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center transition-colors"
-                      >
-                        <Plus className="w-4 h-4" />
-                      </button>
                     </div>
 
                     <div className="text-right">

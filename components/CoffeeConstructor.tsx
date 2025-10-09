@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Coffee, Plus, Minus, ShoppingCart, RotateCcw } from 'lucide-react'
+import { Coffee, ShoppingCart, RotateCcw } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 
 interface CoffeeOption {
@@ -130,29 +130,12 @@ export default function CoffeeConstructor() {
     }
 
     const base = coffeeBases.find(b => b.id === selectedBase)
-    const size = sizes.find(s => s.id === selectedSize)
-    const milk = milkTypes.find(m => m.id === selectedMilk)
-    const ice = iceOptions.find(i => i.id === selectedIce)
+    const customName = `Кастомный ${base?.name || 'кофе'}`
     
-    const selectedSyrupNames = selectedSyrups.map(id => syrups.find(s => s.id === id)?.name).filter(Boolean)
-    const selectedToppingNames = selectedToppings.map(id => toppings.find(t => t.id === id)?.name).filter(Boolean)
-    
-    const customName = `Кастомный ${base?.name}${size?.name !== 'Средний (300мл)' ? ` (${size?.name})` : ''}`
-    
-    const description = [
-      `Основа: ${base?.name}`,
-      `Размер: ${size?.name}`,
-      `Молоко: ${milk?.name}`,
-      ice?.name !== 'Горячий' ? `Температура: ${ice?.name}` : '',
-      selectedSyrupNames.length > 0 ? `Сиропы: ${selectedSyrupNames.join(', ')}` : '',
-      selectedToppingNames.length > 0 ? `Топпинги: ${selectedToppingNames.join(', ')}` : ''
-    ].filter(Boolean).join(' | ')
-
     addItem({
       id: `custom-${Date.now()}`,
       name: customName,
-      price: calculatePrice(),
-      image: undefined
+      price: calculatePrice()
     })
 
     alert('Кастомный напиток добавлен в корзину!')

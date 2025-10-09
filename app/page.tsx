@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Coffee, Heart, Star, Clock, Plus } from 'lucide-react'
+import { Coffee, Heart, Star, Clock } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -59,32 +59,8 @@ export default function Home() {
         <div className="text-center max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-coffee-800 mb-4">Создайте свой идеальный кофе</h2>
           <p className="text-xl text-gray-600 mb-8">
-            Используйте наш конструктор кофе, чтобы создать напиток именно по вашему вкусу. 
-            Выберите основу, размер, тип молока, добавьте сиропы и топпинги.
+            Используйте наш конструктор кофе, чтобы создать напиток именно по вашему вкусу.
           </p>
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-coffee-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Coffee className="w-8 h-8 text-coffee-600" />
-              </div>
-              <h3 className="font-semibold text-gray-800 mb-2">Выберите основу</h3>
-              <p className="text-sm text-gray-600">Эспрессо, американо, капучино, латте или мокко</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-coffee-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Plus className="w-8 h-8 text-coffee-600" />
-              </div>
-              <h3 className="font-semibold text-gray-800 mb-2">Добавьте ингредиенты</h3>
-              <p className="text-sm text-gray-600">Молоко, сиропы, топпинги и многое другое</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-coffee-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Star className="w-8 h-8 text-coffee-600" />
-              </div>
-              <h3 className="font-semibold text-gray-800 mb-2">Получите результат</h3>
-              <p className="text-sm text-gray-600">Уникальный напиток, созданный специально для вас</p>
-            </div>
-          </div>
           <Link href="/constructor" className="btn-primary text-lg px-8 py-3">
             Попробовать конструктор
           </Link>
