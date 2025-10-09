@@ -367,8 +367,28 @@
         }
         
         .constructor-step.expanded .step-content {
-            max-height: 1000px;
+            max-height: 2000px;
             padding: 0 1.25rem 1.25rem 1.25rem;
+            overflow-y: auto;
+        }
+        
+        /* Custom scrollbar for step content */
+        .step-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .step-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .step-content::-webkit-scrollbar-thumb {
+            background: #8B4513;
+            border-radius: 3px;
+        }
+        
+        .step-content::-webkit-scrollbar-thumb:hover {
+            background: #A0522D;
         }
         
         .step-number {
@@ -1367,6 +1387,7 @@
             
             .constructor-step.expanded .step-content {
                 padding: 0 1rem 1rem 1rem;
+                max-height: 1500px;
             }
             
             .step-number {
@@ -2149,6 +2170,18 @@
             updateCartBadge();
             showSection('home');
             console.log('App initialized');
+            
+            // Handle window resize for constructor steps
+            window.addEventListener('resize', function() {
+                const expandedStep = document.querySelector('.constructor-step.expanded');
+                if (expandedStep) {
+                    const content = expandedStep.querySelector('.step-content');
+                    if (content) {
+                        const contentHeight = content.scrollHeight;
+                        content.style.maxHeight = Math.min(contentHeight + 50, 2000) + 'px';
+                    }
+                }
+            });
         });
 
         // SPA Navigation
@@ -2711,6 +2744,14 @@
             // Open clicked step if it wasn't expanded
             if (!isExpanded) {
                 step.classList.add('expanded');
+                // Calculate optimal height for content
+                setTimeout(() => {
+                    const content = step.querySelector('.step-content');
+                    if (content) {
+                        const contentHeight = content.scrollHeight;
+                        content.style.maxHeight = Math.min(contentHeight + 50, 2000) + 'px';
+                    }
+                }, 100);
             }
         }
         
