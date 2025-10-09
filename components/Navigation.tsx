@@ -14,6 +14,7 @@ export default function Navigation() {
   const navItems = [
     { href: '/', label: 'Главная' },
     { href: '/menu', label: 'Меню' },
+    { href: '/constructor', label: 'Конструктор' },
   ]
 
   return (
