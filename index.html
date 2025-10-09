@@ -4,331 +4,838 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Art Coffee - Кофейня</title>
-    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Inline critical CSS to ensure it loads */
-        body { font-family: 'Inter', sans-serif; }
-        .nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
-        .hero { background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #D2691E 100%); color: white; padding: 120px 0 80px; }
-        .btn { padding: 16px 32px; border-radius: 16px; font-weight: 700; text-decoration: none; display: inline-block; transition: all 0.3s ease; }
-        .btn-primary { background: linear-gradient(135deg, #8B4513, #A0522D); color: white; }
-        .btn-secondary { background: #f8f9fa; color: #4a5568; border: 2px solid #e2e8f0; }
-        .card { background: white; border-radius: 20px; padding: 32px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); }
+        /* Critical CSS for immediate loading */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f8fafc;
+            overflow-x: hidden;
+        }
+        
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #8B4513;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: rgba(139, 69, 19, 0.1);
+            color: #8B4513;
+            transform: translateY(-2px);
+        }
+        
+        .cart-btn {
+            position: relative;
+            padding: 0.75rem;
+            border-radius: 12px;
+            background: rgba(139, 69, 19, 0.1);
+            color: #8B4513;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-btn:hover {
+            background: rgba(139, 69, 19, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding-top: 80px;
+        }
+        
+        .section {
+            display: none;
+            padding: 4rem 0;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(139, 69, 19, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary:hover {
+            background: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #8B4513;
+            border: 2px solid #8B4513;
+        }
+        
+        .btn-outline:hover {
+            background: #8B4513;
+            color: white;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B4513, #D2691E);
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .text-center { text-align: center; }
+        .text-6xl { font-size: 4rem; font-weight: 900; line-height: 1.1; }
+        .text-5xl { font-size: 3rem; font-weight: 800; line-height: 1.2; }
+        .text-4xl { font-size: 2.5rem; font-weight: 700; line-height: 1.3; }
+        .text-3xl { font-size: 2rem; font-weight: 700; line-height: 1.4; }
+        .text-2xl { font-size: 1.5rem; font-weight: 600; line-height: 1.5; }
+        .text-xl { font-size: 1.25rem; font-weight: 500; line-height: 1.6; }
+        .text-lg { font-size: 1.125rem; line-height: 1.6; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        .text-coffee { color: #8B4513; }
+        .text-coffee-light { color: #A0522D; }
+        .text-gray { color: #64748b; }
+        .text-gray-light { color: #94a3b8; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .py-16 { padding: 4rem 0; }
+        .py-12 { padding: 3rem 0; }
+        .py-8 { padding: 2rem 0; }
+        .px-6 { padding: 0 1.5rem; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+        .grid { display: grid; }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; }
+        .space-y-4 > * + * { margin-top: 1rem; }
+        .space-y-3 > * + * { margin-top: 0.75rem; }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option:hover {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.05);
+        }
+        
+        .option input[type="radio"]:checked + .option-content,
+        .option input[type="checkbox"]:checked + .option-content {
+            color: #8B4513;
+        }
+        
+        .option:has(input:checked) {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.1);
+        }
+        
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #8B4513;
+        }
+        
+        .option-content {
+            flex: 1;
+        }
+        
+        .option-name {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        
+        .option-description {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .option-price {
+            font-weight: 700;
+            color: #8B4513;
+            font-size: 16px;
+        }
+        
+        .menu-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .menu-item-image {
+            height: 200px;
+            background: linear-gradient(135deg, #f4f1eb, #f8f5f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(139, 69, 19, 0.1) 0%, transparent 70%);
+        }
+        
+        .menu-item-content {
+            padding: 24px;
+        }
+        
+        .menu-item-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        
+        .menu-item-description {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        
+        .menu-item-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: #8B4513;
+            margin-bottom: 16px;
+        }
+        
+        .menu-item-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 16px;
+        }
+        
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f4f1eb, #f8f5f0);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .cart-item-content {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        
+        .cart-item-price {
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 16px;
+        }
+        
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quantity-btn:hover {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.05);
+        }
+        
+        .quantity-number {
+            font-weight: 600;
+            color: #1a1a1a;
+            min-width: 24px;
+            text-align: center;
+        }
+        
+        .cart-item-total {
+            text-align: right;
+        }
+        
+        .cart-item-total-price {
+            font-weight: 700;
+            color: #8B4513;
+            font-size: 18px;
+        }
+        
+        .remove-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: none;
+            background: #fee2e2;
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 4px;
+        }
+        
+        .remove-btn:hover {
+            background: #fecaca;
+            transform: scale(1.1);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .empty-icon {
+            font-size: 96px;
+            margin-bottom: 32px;
+        }
+        
+        .empty-cart h3 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+        
+        .empty-cart p {
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin-bottom: 32px;
+        }
+        
+        .empty-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-content { padding: 0 1rem; }
+            .nav-links { gap: 1rem; }
+            .nav-link { padding: 0.5rem 1rem; font-size: 0.875rem; }
+            .text-6xl { font-size: 2.5rem; }
+            .text-5xl { font-size: 2rem; }
+            .text-4xl { font-size: 1.75rem; }
+            .grid-3, .grid-2 { grid-template-columns: 1fr; }
+            .container { padding: 0 1rem; }
+            .cart-item { flex-direction: column; text-align: center; }
+            .cart-item-quantity { margin: 16px 0; }
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="container">
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="navbar">
             <div class="nav-content">
-                <a href="#home" class="logo">
-                    ☕ Art Coffee
+                <a href="#" class="logo" data-section="home">
+                    <i class="fas fa-coffee"></i>
+                    Art Coffee
                 </a>
                 <div class="nav-links">
-                    <a href="#home" class="nav-link">Главная</a>
-                    <a href="#menu" class="nav-link">Меню</a>
-                    <a href="#constructor" class="nav-link">Конструктор</a>
-                    <a href="#cart" class="cart-btn">
-                        🛒
+                    <a href="#" class="nav-link active" data-section="home">
+                        <i class="fas fa-home"></i>
+                        Главная
+                    </a>
+                    <a href="#" class="nav-link" data-section="menu">
+                        <i class="fas fa-utensils"></i>
+                        Меню
+                    </a>
+                    <a href="#" class="nav-link" data-section="constructor">
+                        <i class="fas fa-cogs"></i>
+                        Конструктор
+                    </a>
+                    <a href="#" class="cart-btn" data-section="cart">
+                        <i class="fas fa-shopping-cart"></i>
                         <span class="cart-badge" id="cart-badge">0</span>
                     </a>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    Добро пожаловать в <span class="text-coffee-light">Art Coffee</span>
-                </h1>
-                <p class="hero-description">
-                    Откройте для себя мир премиального кофе. Мы тщательно отбираем лучшие зерна 
-                    и готовим каждую чашку с любовью и мастерством.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#menu" class="btn btn-primary">Посмотреть меню</a>
-                    <a href="#constructor" class="btn btn-secondary">Создать свой кофе</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="grid grid-3">
-                <div class="card feature-card">
-                    <div class="feature-icon">☕</div>
-                    <h3>Свежие зерна</h3>
-                    <p>Мы используем только свежеобжаренные зерна премиум качества из лучших регионов мира</p>
-                </div>
-                
-                <div class="card feature-card">
-                    <div class="feature-icon">❤️</div>
-                    <h3>С любовью</h3>
-                    <p>Каждая чашка готовится с особой заботой и вниманием к деталям нашими мастерами</p>
-                </div>
-                
-                <div class="card feature-card">
-                    <div class="feature-icon">⭐</div>
-                    <h3>Премиум качество</h3>
-                    <p>Профессиональные бариста и лучшие рецепты для идеального вкуса в каждой чашке</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Menu Section -->
-    <section id="menu" class="menu">
-        <div class="container">
-            <div class="section-header">
-                <h2>Наше меню</h2>
-                <p>Выберите из нашего разнообразного ассортимента</p>
-            </div>
-
-            <!-- Category Filter -->
-            <div class="category-filter">
-                <button class="btn btn-primary filter-btn active" data-category="all">Все</button>
-                <button class="btn btn-secondary filter-btn" data-category="coffee">Кофе</button>
-                <button class="btn btn-secondary filter-btn" data-category="dessert">Десерты</button>
-                <button class="btn btn-secondary filter-btn" data-category="drinks">Напитки</button>
-            </div>
-
-            <div class="menu-grid" id="menu-grid">
-                <!-- Menu items will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Constructor Section -->
-    <section id="constructor" class="constructor">
-        <div class="container">
-            <div class="section-header">
-                <h2>Конструктор кофе</h2>
-                <p>Создайте свой идеальный напиток</p>
-            </div>
-
-            <div class="constructor-content">
-                <div class="constructor-options">
-                    <!-- Coffee Base -->
-                    <div class="option-group">
-                        <h3>Выберите основу *</h3>
-                        <div class="options">
-                            <label class="option">
-                                <input type="radio" name="base" value="espresso" checked>
-                                <div class="option-content">
-                                    <div class="option-name">Эспрессо</div>
-                                    <div class="option-description">Классическая основа</div>
-                                </div>
-                                <div class="option-price">+0₽</div>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="base" value="americano">
-                                <div class="option-content">
-                                    <div class="option-name">Американо</div>
-                                    <div class="option-description">Эспрессо + вода</div>
-                                </div>
-                                <div class="option-price">+0₽</div>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="base" value="cappuccino">
-                                <div class="option-content">
-                                    <div class="option-name">Капучино</div>
-                                    <div class="option-description">Эспрессо + молоко + пена</div>
-                                </div>
-                                <div class="option-price">+0₽</div>
-                            </label>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="container">
+                    <div class="text-center">
+                        <h1 class="text-6xl font-bold mb-6">
+                            Добро пожаловать в <span class="text-coffee-light">Art Coffee</span>
+                        </h1>
+                        <p class="text-xl text-gray mb-8" style="max-width: 600px; margin: 0 auto 2rem;">
+                            Откройте для себя мир премиального кофе. Мы тщательно отбираем лучшие зерна 
+                            и готовим каждую чашку с любовью и мастерством.
+                        </p>
+                        <div class="flex justify-center gap-6" style="flex-wrap: wrap;">
+                            <a href="#" class="btn btn-primary" data-section="menu">
+                                <i class="fas fa-utensils"></i>
+                                Посмотреть меню
+                            </a>
+                            <a href="#" class="btn btn-secondary" data-section="constructor">
+                                <i class="fas fa-cogs"></i>
+                                Создать свой кофе
+                            </a>
                         </div>
                     </div>
-
-                    <!-- Size -->
-                    <div class="option-group">
-                        <h3>Размер</h3>
-                        <div class="options">
-                            <label class="option">
-                                <input type="radio" name="size" value="small">
-                                <div class="option-content">
-                                    <div class="option-name">Маленький</div>
-                                    <div class="option-description">200мл</div>
-                                </div>
-                                <div class="option-price">+0₽</div>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="size" value="medium" checked>
-                                <div class="option-content">
-                                    <div class="option-name">Средний</div>
-                                    <div class="option-description">300мл</div>
-                                </div>
-                                <div class="option-price">+30₽</div>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="size" value="large">
-                                <div class="option-content">
-                                    <div class="option-name">Большой</div>
-                                    <div class="option-description">400мл</div>
-                                </div>
-                                <div class="option-price">+60₽</div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Milk Type -->
-                    <div class="option-group">
-                        <h3>Тип молока</h3>
-                        <div class="options">
-                            <label class="option">
-                                <input type="radio" name="milk" value="regular" checked>
-                                <div class="option-content">
-                                    <div class="option-name">Обычное молоко</div>
-                                    <div class="option-description">Классическое коровье молоко</div>
-                                </div>
-                                <div class="option-price">+0₽</div>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="milk" value="oat">
-                                <div class="option-content">
-                                    <div class="option-name">Овсяное молоко</div>
-                                    <div class="option-description">Растительное молоко из овса</div>
-                                </div>
-                                <div class="option-price">+20₽</div>
-                            </label>
-                            <label class="option">
-                                <input type="radio" name="milk" value="almond">
-                                <div class="option-content">
-                                    <div class="option-name">Миндальное молоко</div>
-                                    <div class="option-description">Растительное молоко из миндаля</div>
-                                </div>
-                                <div class="option-price">+25₽</div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Extras -->
-                    <div class="option-group">
-                        <h3>Дополнительно</h3>
-                        <div class="options">
-                            <label class="option">
-                                <input type="checkbox" name="extras" value="vanilla">
-                                <div class="option-content">
-                                    <div class="option-name">Ванильный сироп</div>
-                                    <div class="option-description">Сладкий ванильный вкус</div>
-                                </div>
-                                <div class="option-price">+15₽</div>
-                            </label>
-                            <label class="option">
-                                <input type="checkbox" name="extras" value="caramel">
-                                <div class="option-content">
-                                    <div class="option-name">Карамельный сироп</div>
-                                    <div class="option-description">Классическая карамель</div>
-                                </div>
-                                <div class="option-price">+15₽</div>
-                            </label>
-                            <label class="option">
-                                <input type="checkbox" name="extras" value="chocolate">
-                                <div class="option-content">
-                                    <div class="option-name">Шоколадный сироп</div>
-                                    <div class="option-description">Богатый шоколадный вкус</div>
-                                </div>
-                                <div class="option-price">+20₽</div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Order Summary -->
-                <div class="order-summary">
-                    <div class="summary-card">
-                        <h3>Ваш напиток</h3>
-                        <div class="summary-content">
-                            <div class="summary-item">
-                                <span>Основа:</span>
-                                <span id="summary-base">Эспрессо</span>
+                    
+                    <!-- Features -->
+                    <div class="grid grid-3 mt-16">
+                        <div class="card text-center">
+                            <div style="font-size: 4rem; margin-bottom: 1.5rem; color: #8B4513;">
+                                <i class="fas fa-coffee"></i>
                             </div>
-                            <div class="summary-item">
-                                <span>Размер:</span>
-                                <span id="summary-size">Средний</span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Молоко:</span>
-                                <span id="summary-milk">Обычное молоко</span>
-                            </div>
-                            <div class="summary-item" id="summary-extras" style="display: none;">
-                                <span>Дополнительно:</span>
-                                <span id="summary-extras-text"></span>
-                            </div>
+                            <h3 class="text-2xl font-bold mb-4 text-coffee">Свежие зерна</h3>
+                            <p class="text-gray">
+                                Мы используем только свежеобжаренные зерна премиум качества из лучших регионов мира
+                            </p>
                         </div>
-                        <div class="summary-total">
-                            <span>Итого:</span>
-                            <span id="summary-total">30₽</span>
+                        
+                        <div class="card text-center">
+                            <div style="font-size: 4rem; margin-bottom: 1.5rem; color: #8B4513;">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4 text-coffee">С любовью</h3>
+                            <p class="text-gray">
+                                Каждая чашка готовится с особой заботой и вниманием к деталям нашими мастерами
+                            </p>
                         </div>
-                        <div class="summary-actions">
-                            <button class="btn btn-primary" id="add-to-cart">Добавить в корзину</button>
-                            <button class="btn btn-outline" id="reset-constructor">Сбросить</button>
+                        
+                        <div class="card text-center">
+                            <div style="font-size: 4rem; margin-bottom: 1.5rem; color: #8B4513;">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4 text-coffee">Премиум качество</h3>
+                            <p class="text-gray">
+                                Профессиональные бариста и лучшие рецепты для идеального вкуса в каждой чашке
+                            </p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Cart Section -->
-    <section id="cart" class="cart">
-        <div class="container">
-            <div class="section-header">
-                <h2>Корзина</h2>
-                <p>Ваш заказ</p>
-            </div>
+            <!-- Menu Section -->
+            <section id="menu" class="section">
+                <div class="container">
+                    <div class="text-center mb-12">
+                        <h2 class="text-5xl font-bold text-coffee mb-4">Наше меню</h2>
+                        <p class="text-xl text-gray">Выберите из нашего разнообразного ассортимента</p>
+                    </div>
 
-            <div class="cart-content" id="cart-content">
-                <div class="empty-cart">
-                    <div class="empty-icon">🛒</div>
-                    <h3>Корзина пуста</h3>
-                    <p>Добавьте товары из меню или создайте свой кофе в конструкторе</p>
-                    <div class="empty-actions">
-                        <a href="#menu" class="btn btn-primary">Перейти к меню</a>
-                        <a href="#constructor" class="btn btn-secondary">Создать кофе</a>
+                    <!-- Category Filter -->
+                    <div class="flex justify-center gap-4 mb-12" style="flex-wrap: wrap;">
+                        <button class="btn btn-primary filter-btn active" data-category="all">Все</button>
+                        <button class="btn btn-secondary filter-btn" data-category="coffee">Кофе</button>
+                        <button class="btn btn-secondary filter-btn" data-category="dessert">Десерты</button>
+                        <button class="btn btn-secondary filter-btn" data-category="drinks">Напитки</button>
+                    </div>
+
+                    <div class="grid grid-3" id="menu-grid">
+                        <!-- Menu items will be populated by JavaScript -->
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Contact Section -->
-    <section class="contact">
-        <div class="container">
-            <div class="contact-card">
-                <h2>Приходите к нам!</h2>
-                <p>Мы ждем вас каждый день с 7:00 до 22:00</p>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <span class="contact-icon">🕐</span>
+            <!-- Constructor Section -->
+            <section id="constructor" class="section">
+                <div class="container">
+                    <div class="text-center mb-12">
+                        <h2 class="text-5xl font-bold text-coffee mb-4">Конструктор кофе</h2>
+                        <p class="text-xl text-gray">Создайте свой идеальный напиток</p>
+                    </div>
+
+                    <div class="grid grid-2">
+                        <!-- Constructor Options -->
                         <div>
-                            <div class="contact-title">Часы работы</div>
-                            <div>Пн-Вс: 7:00 - 22:00</div>
+                            <!-- Coffee Base -->
+                            <div class="card mb-8">
+                                <h3 class="text-2xl font-bold text-coffee mb-6">Выберите основу *</h3>
+                                <div class="space-y-4">
+                                    <label class="option">
+                                        <input type="radio" name="base" value="espresso" checked>
+                                        <div class="option-content">
+                                            <div class="option-name">Эспрессо</div>
+                                            <div class="option-description">Классическая основа</div>
+                                        </div>
+                                        <div class="option-price">+0₽</div>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="base" value="americano">
+                                        <div class="option-content">
+                                            <div class="option-name">Американо</div>
+                                            <div class="option-description">Эспрессо + вода</div>
+                                        </div>
+                                        <div class="option-price">+0₽</div>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="base" value="cappuccino">
+                                        <div class="option-content">
+                                            <div class="option-name">Капучино</div>
+                                            <div class="option-description">Эспрессо + молоко + пена</div>
+                                        </div>
+                                        <div class="option-price">+0₽</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Size -->
+                            <div class="card mb-8">
+                                <h3 class="text-2xl font-bold text-coffee mb-6">Размер</h3>
+                                <div class="space-y-4">
+                                    <label class="option">
+                                        <input type="radio" name="size" value="small">
+                                        <div class="option-content">
+                                            <div class="option-name">Маленький</div>
+                                            <div class="option-description">200мл</div>
+                                        </div>
+                                        <div class="option-price">+0₽</div>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="size" value="medium" checked>
+                                        <div class="option-content">
+                                            <div class="option-name">Средний</div>
+                                            <div class="option-description">300мл</div>
+                                        </div>
+                                        <div class="option-price">+30₽</div>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="size" value="large">
+                                        <div class="option-content">
+                                            <div class="option-name">Большой</div>
+                                            <div class="option-description">400мл</div>
+                                        </div>
+                                        <div class="option-price">+60₽</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Milk Type -->
+                            <div class="card mb-8">
+                                <h3 class="text-2xl font-bold text-coffee mb-6">Тип молока</h3>
+                                <div class="space-y-4">
+                                    <label class="option">
+                                        <input type="radio" name="milk" value="regular" checked>
+                                        <div class="option-content">
+                                            <div class="option-name">Обычное молоко</div>
+                                            <div class="option-description">Классическое коровье молоко</div>
+                                        </div>
+                                        <div class="option-price">+0₽</div>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="milk" value="oat">
+                                        <div class="option-content">
+                                            <div class="option-name">Овсяное молоко</div>
+                                            <div class="option-description">Растительное молоко из овса</div>
+                                        </div>
+                                        <div class="option-price">+20₽</div>
+                                    </label>
+                                    <label class="option">
+                                        <input type="radio" name="milk" value="almond">
+                                        <div class="option-content">
+                                            <div class="option-name">Миндальное молоко</div>
+                                            <div class="option-description">Растительное молоко из миндаля</div>
+                                        </div>
+                                        <div class="option-price">+25₽</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Extras -->
+                            <div class="card">
+                                <h3 class="text-2xl font-bold text-coffee mb-6">Дополнительно</h3>
+                                <div class="space-y-4">
+                                    <label class="option">
+                                        <input type="checkbox" name="extras" value="vanilla">
+                                        <div class="option-content">
+                                            <div class="option-name">Ванильный сироп</div>
+                                            <div class="option-description">Сладкий ванильный вкус</div>
+                                        </div>
+                                        <div class="option-price">+15₽</div>
+                                    </label>
+                                    <label class="option">
+                                        <input type="checkbox" name="extras" value="caramel">
+                                        <div class="option-content">
+                                            <div class="option-name">Карамельный сироп</div>
+                                            <div class="option-description">Классическая карамель</div>
+                                        </div>
+                                        <div class="option-price">+15₽</div>
+                                    </label>
+                                    <label class="option">
+                                        <input type="checkbox" name="extras" value="chocolate">
+                                        <div class="option-content">
+                                            <div class="option-name">Шоколадный сироп</div>
+                                            <div class="option-description">Богатый шоколадный вкус</div>
+                                        </div>
+                                        <div class="option-price">+20₽</div>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📍</span>
+
+                        <!-- Order Summary -->
                         <div>
-                            <div class="contact-title">Адрес</div>
-                            <div>ул. Кофейная, 123</div>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-icon">📞</span>
-                        <div>
-                            <div class="contact-title">Телефон</div>
-                            <div>+7 (999) 123-45-67</div>
+                            <div class="card" style="position: sticky; top: 100px;">
+                                <h3 class="text-2xl font-bold text-coffee mb-6">Ваш напиток</h3>
+                                
+                                <div class="space-y-4 mb-6">
+                                    <div class="flex justify-between">
+                                        <span class="font-semibold">Основа:</span>
+                                        <span id="summary-base">Эспрессо</span>
+                                    </div>
+                                    
+                                    <div class="flex justify-between">
+                                        <span class="font-semibold">Размер:</span>
+                                        <span id="summary-size">Средний</span>
+                                    </div>
+                                    
+                                    <div class="flex justify-between">
+                                        <span class="font-semibold">Молоко:</span>
+                                        <span id="summary-milk">Обычное молоко</span>
+                                    </div>
+                                    
+                                    <div class="flex justify-between" id="summary-extras" style="display: none;">
+                                        <span class="font-semibold">Дополнительно:</span>
+                                        <span id="summary-extras-text"></span>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-between text-xl font-bold text-coffee py-4 border-t-2 border-coffee">
+                                    <span>Итого:</span>
+                                    <span id="summary-total">30₽</span>
+                                </div>
+                                
+                                <div class="flex gap-4 mt-6">
+                                    <button class="btn btn-primary flex-1" id="add-to-cart">
+                                        <i class="fas fa-plus"></i>
+                                        Добавить в корзину
+                                    </button>
+                                    
+                                    <button class="btn btn-outline" id="reset-constructor">
+                                        <i class="fas fa-refresh"></i>
+                                        Сбросить
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
+
+            <!-- Cart Section -->
+            <section id="cart" class="section">
+                <div class="container">
+                    <div class="text-center mb-12">
+                        <h2 class="text-5xl font-bold text-coffee mb-4">Корзина</h2>
+                        <p class="text-xl text-gray">Ваш заказ</p>
+                    </div>
+
+                    <div id="cart-content">
+                        <!-- Cart content will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <script src="script.js"></script>
 </body>

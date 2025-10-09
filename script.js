@@ -1,42 +1,86 @@
 // Menu data
-const menuItems = [
-    { id: 'espresso', name: 'Эспрессо', description: 'Классический итальянский кофе, крепкий и ароматный', price: 150, category: 'coffee' },
-    { id: 'americano', name: 'Американо', description: 'Эспрессо с добавлением горячей воды', price: 180, category: 'coffee' },
-    { id: 'cappuccino', name: 'Капучино', description: 'Эспрессо с молочной пеной и молоком', price: 200, category: 'coffee' },
-    { id: 'latte', name: 'Латте', description: 'Эспрессо с большим количеством молока', price: 220, category: 'coffee' },
-    { id: 'mocha', name: 'Мокко', description: 'Эспрессо с шоколадом и молоком', price: 250, category: 'coffee' },
-    { id: 'macchiato', name: 'Макиато', description: 'Эспрессо с каплей молочной пены', price: 190, category: 'coffee' },
-    { id: 'croissant', name: 'Круассан', description: 'Свежий французский круассан с маслом', price: 120, category: 'dessert' },
-    { id: 'cheesecake', name: 'Чизкейк', description: 'Нежный чизкейк с ягодным соусом', price: 180, category: 'dessert' },
-    { id: 'tiramisu', name: 'Тирамису', description: 'Классический итальянский десерт', price: 200, category: 'dessert' },
-    { id: 'tea', name: 'Чай', description: 'Свежезаваренный чай на выбор', price: 100, category: 'drinks' },
-    { id: 'hot_chocolate', name: 'Горячий шоколад', description: 'Густой горячий шоколад с зефиром', price: 160, category: 'drinks' },
-    { id: 'smoothie', name: 'Смузи', description: 'Фруктовый смузи с ягодами', price: 180, category: 'drinks' }
+const menuItemsData = [
+    {
+        id: 1,
+        name: 'Эспрессо',
+        description: 'Классический крепкий кофе',
+        price: 120,
+        category: 'coffee',
+        icon: '☕'
+    },
+    {
+        id: 2,
+        name: 'Американо',
+        description: 'Эспрессо с горячей водой',
+        price: 140,
+        category: 'coffee',
+        icon: '☕'
+    },
+    {
+        id: 3,
+        name: 'Капучино',
+        description: 'Эспрессо с молоком и пеной',
+        price: 160,
+        category: 'coffee',
+        icon: '☕'
+    },
+    {
+        id: 4,
+        name: 'Латте',
+        description: 'Эспрессо с большим количеством молока',
+        price: 180,
+        category: 'coffee',
+        icon: '☕'
+    },
+    {
+        id: 5,
+        name: 'Мокко',
+        description: 'Кофе с шоколадом и молоком',
+        price: 200,
+        category: 'coffee',
+        icon: '☕'
+    },
+    {
+        id: 6,
+        name: 'Тирамису',
+        description: 'Классический итальянский десерт',
+        price: 250,
+        category: 'dessert',
+        icon: '🍰'
+    },
+    {
+        id: 7,
+        name: 'Чизкейк',
+        description: 'Нежный сырный торт',
+        price: 220,
+        category: 'dessert',
+        icon: '🧀'
+    },
+    {
+        id: 8,
+        name: 'Круассан',
+        description: 'Свежая выпечка с маслом',
+        price: 80,
+        category: 'dessert',
+        icon: '🥐'
+    },
+    {
+        id: 9,
+        name: 'Горячий шоколад',
+        description: 'Густой шоколадный напиток',
+        price: 150,
+        category: 'drinks',
+        icon: '🍫'
+    },
+    {
+        id: 10,
+        name: 'Чай Earl Grey',
+        description: 'Ароматный черный чай с бергамотом',
+        price: 100,
+        category: 'drinks',
+        icon: '🍵'
+    }
 ];
-
-// Constructor options
-const constructorOptions = {
-    bases: [
-        { id: 'espresso', name: 'Эспрессо', price: 0 },
-        { id: 'americano', name: 'Американо', price: 0 },
-        { id: 'cappuccino', name: 'Капучино', price: 0 }
-    ],
-    sizes: [
-        { id: 'small', name: 'Маленький', price: 0 },
-        { id: 'medium', name: 'Средний', price: 30 },
-        { id: 'large', name: 'Большой', price: 60 }
-    ],
-    milks: [
-        { id: 'regular', name: 'Обычное молоко', price: 0 },
-        { id: 'oat', name: 'Овсяное молоко', price: 20 },
-        { id: 'almond', name: 'Миндальное молоко', price: 25 }
-    ],
-    extras: [
-        { id: 'vanilla', name: 'Ванильный сироп', price: 15 },
-        { id: 'caramel', name: 'Карамельный сироп', price: 15 },
-        { id: 'chocolate', name: 'Шоколадный сироп', price: 20 }
-    ]
-};
 
 // Cart state
 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -48,204 +92,306 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeConstructor();
     initializeCart();
     updateCartBadge();
+    showSection('home'); // Show home by default
 });
 
-// Navigation
+// SPA Navigation
 function initializeNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('[data-section]');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            
-            // Scroll to target section
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                targetSection.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-            
-            // Update active nav link
-            navLinks.forEach(navLink => navLink.classList.remove('active'));
-            this.classList.add('active');
+            const sectionId = this.getAttribute('data-section');
+            showSection(sectionId);
         });
     });
+}
+
+function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Show target section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+    
+    // Update active nav link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    const activeLink = document.querySelector(`[data-section="${sectionId}"]`);
+    if (activeLink && activeLink.classList.contains('nav-link')) {
+        activeLink.classList.add('active');
+    }
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Menu functionality
 function initializeMenu() {
     renderMenuItems();
     initializeCategoryFilter();
+    initializeAddToCart();
 }
 
 function renderMenuItems() {
     const menuGrid = document.getElementById('menu-grid');
+    if (!menuGrid) return;
+    
     menuGrid.innerHTML = '';
     
-    menuItems.forEach(item => {
+    const filteredItems = menuItemsData.filter(item => {
+        const category = document.querySelector('.filter-btn.active')?.dataset.category;
+        return category === 'all' || item.category === category;
+    });
+    
+    filteredItems.forEach(item => {
         const menuItem = document.createElement('div');
         menuItem.className = 'menu-item';
-        menuItem.dataset.category = item.category;
-        
-        const icon = item.category === 'coffee' ? '☕' : 
-                    item.category === 'dessert' ? '🍰' : '🥤';
-        
         menuItem.innerHTML = `
-            <div class="menu-item-image">${icon}</div>
+            <div class="menu-item-image">${item.icon}</div>
             <div class="menu-item-content">
                 <h3 class="menu-item-title">${item.name}</h3>
                 <p class="menu-item-description">${item.description}</p>
                 <div class="menu-item-price">${item.price}₽</div>
                 <div class="menu-item-actions">
-                    <button class="btn btn-primary add-to-cart" data-item='${JSON.stringify(item)}'>
-                        Добавить в корзину
+                    <button class="btn btn-primary add-to-cart" data-id="${item.id}">
+                        <i class="fas fa-plus"></i>
+                        Добавить
                     </button>
                 </div>
             </div>
         `;
-        
         menuGrid.appendChild(menuItem);
-    });
-    
-    // Add event listeners to add to cart buttons
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function() {
-            const item = JSON.parse(this.dataset.item);
-            addToCart(item);
-            
-            // Animation
-            this.textContent = 'Добавлено!';
-            this.style.background = '#10b981';
-            setTimeout(() => {
-                this.textContent = 'Добавить в корзину';
-                this.style.background = '';
-            }, 1000);
-        });
     });
 }
 
 function initializeCategoryFilter() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const menuItems = document.querySelectorAll('.menu-item');
+    const filterBtns = document.querySelectorAll('.filter-btn');
     
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const category = this.dataset.category;
-            
-            // Update active button
-            filterButtons.forEach(btn => btn.classList.remove('active'));
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
             this.classList.add('active');
-            
-            // Filter items
-            menuItems.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.style.display = 'block';
+            // Update button styles
+            filterBtns.forEach(b => {
+                if (b.classList.contains('active')) {
+                    b.className = 'btn btn-primary filter-btn active';
                 } else {
-                    item.style.display = 'none';
+                    b.className = 'btn btn-secondary filter-btn';
                 }
             });
+            // Re-render menu items
+            renderMenuItems();
         });
+    });
+}
+
+function initializeAddToCart() {
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.add-to-cart')) {
+            const button = e.target.closest('.add-to-cart');
+            const itemId = parseInt(button.dataset.id);
+            const item = menuItemsData.find(item => item.id === itemId);
+            
+            if (item) {
+                addToCart(item);
+                showNotification(`${item.name} добавлен в корзину!`);
+            }
+        }
     });
 }
 
 // Constructor functionality
 function initializeConstructor() {
     updateConstructorSummary();
-    
-    // Add event listeners to all constructor inputs
-    document.querySelectorAll('input[name="base"], input[name="size"], input[name="milk"]').forEach(input => {
+    initializeConstructorEvents();
+}
+
+function initializeConstructorEvents() {
+    // Base selection
+    document.querySelectorAll('input[name="base"]').forEach(input => {
         input.addEventListener('change', updateConstructorSummary);
     });
     
+    // Size selection
+    document.querySelectorAll('input[name="size"]').forEach(input => {
+        input.addEventListener('change', updateConstructorSummary);
+    });
+    
+    // Milk selection
+    document.querySelectorAll('input[name="milk"]').forEach(input => {
+        input.addEventListener('change', updateConstructorSummary);
+    });
+    
+    // Extras selection
     document.querySelectorAll('input[name="extras"]').forEach(input => {
         input.addEventListener('change', updateConstructorSummary);
     });
     
     // Add to cart button
-    document.getElementById('add-to-cart').addEventListener('click', addCustomCoffeeToCart);
+    const addToCartBtn = document.getElementById('add-to-cart');
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', addConstructorToCart);
+    }
     
     // Reset button
-    document.getElementById('reset-constructor').addEventListener('click', resetConstructor);
+    const resetBtn = document.getElementById('reset-constructor');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetConstructor);
+    }
 }
 
 function updateConstructorSummary() {
-    const base = document.querySelector('input[name="base"]:checked');
-    const size = document.querySelector('input[name="size"]:checked');
-    const milk = document.querySelector('input[name="milk"]:checked');
-    const extras = document.querySelectorAll('input[name="extras"]:checked');
+    const base = document.querySelector('input[name="base"]:checked')?.value || 'espresso';
+    const size = document.querySelector('input[name="size"]:checked')?.value || 'medium';
+    const milk = document.querySelector('input[name="milk"]:checked')?.value || 'regular';
+    const extras = Array.from(document.querySelectorAll('input[name="extras"]:checked')).map(input => input.value);
     
-    // Update summary text
-    document.getElementById('summary-base').textContent = 
-        constructorOptions.bases.find(b => b.id === base.value)?.name || '';
-    document.getElementById('summary-size').textContent = 
-        constructorOptions.sizes.find(s => s.id === size.value)?.name || '';
-    document.getElementById('summary-milk').textContent = 
-        constructorOptions.milks.find(m => m.id === milk.value)?.name || '';
+    // Update summary display
+    const baseNames = {
+        espresso: 'Эспрессо',
+        americano: 'Американо',
+        cappuccino: 'Капучино'
+    };
+    
+    const sizeNames = {
+        small: 'Маленький',
+        medium: 'Средний',
+        large: 'Большой'
+    };
+    
+    const milkNames = {
+        regular: 'Обычное молоко',
+        oat: 'Овсяное молоко',
+        almond: 'Миндальное молоко'
+    };
+    
+    const extraNames = {
+        vanilla: 'Ванильный сироп',
+        caramel: 'Карамельный сироп',
+        chocolate: 'Шоколадный сироп'
+    };
+    
+    document.getElementById('summary-base').textContent = baseNames[base];
+    document.getElementById('summary-size').textContent = sizeNames[size];
+    document.getElementById('summary-milk').textContent = milkNames[milk];
     
     // Update extras
-    const extrasText = Array.from(extras).map(extra => 
-        constructorOptions.extras.find(e => e.id === extra.value)?.name
-    ).join(', ');
-    
     const extrasElement = document.getElementById('summary-extras');
     const extrasTextElement = document.getElementById('summary-extras-text');
     
-    if (extrasText) {
+    if (extras.length > 0) {
+        extrasTextElement.textContent = extras.map(extra => extraNames[extra]).join(', ');
         extrasElement.style.display = 'flex';
-        extrasTextElement.textContent = extrasText;
     } else {
         extrasElement.style.display = 'none';
     }
     
-    // Calculate total
-    const basePrice = constructorOptions.bases.find(b => b.id === base.value)?.price || 0;
-    const sizePrice = constructorOptions.sizes.find(s => s.id === size.value)?.price || 0;
-    const milkPrice = constructorOptions.milks.find(m => m.id === milk.value)?.price || 0;
-    const extrasPrice = Array.from(extras).reduce((sum, extra) => {
-        const extraOption = constructorOptions.extras.find(e => e.id === extra.value);
-        return sum + (extraOption?.price || 0);
-    }, 0);
+    // Calculate total price
+    let total = 0;
     
-    const total = basePrice + sizePrice + milkPrice + extrasPrice;
+    // Base price
+    const basePrices = { espresso: 0, americano: 0, cappuccino: 0 };
+    total += basePrices[base];
+    
+    // Size price
+    const sizePrices = { small: 0, medium: 30, large: 60 };
+    total += sizePrices[size];
+    
+    // Milk price
+    const milkPrices = { regular: 0, oat: 20, almond: 25 };
+    total += milkPrices[milk];
+    
+    // Extras price
+    const extraPrices = { vanilla: 15, caramel: 15, chocolate: 20 };
+    extras.forEach(extra => {
+        total += extraPrices[extra];
+    });
+    
     document.getElementById('summary-total').textContent = `${total}₽`;
 }
 
-function addCustomCoffeeToCart() {
-    const base = document.querySelector('input[name="base"]:checked');
-    const size = document.querySelector('input[name="size"]:checked');
-    const milk = document.querySelector('input[name="milk"]:checked');
-    const extras = document.querySelectorAll('input[name="extras"]:checked');
+function addConstructorToCart() {
+    const base = document.querySelector('input[name="base"]:checked')?.value || 'espresso';
+    const size = document.querySelector('input[name="size"]:checked')?.value || 'medium';
+    const milk = document.querySelector('input[name="milk"]:checked')?.value || 'regular';
+    const extras = Array.from(document.querySelectorAll('input[name="extras"]:checked')).map(input => input.value);
     
-    const baseName = constructorOptions.bases.find(b => b.id === base.value)?.name || '';
-    const sizeName = constructorOptions.sizes.find(s => s.id === size.value)?.name || '';
-    const milkName = constructorOptions.milks.find(m => m.id === milk.value)?.name || '';
-    const extrasNames = Array.from(extras).map(extra => 
-        constructorOptions.extras.find(e => e.id === extra.value)?.name
-    ).join(', ');
+    const baseNames = {
+        espresso: 'Эспрессо',
+        americano: 'Американо',
+        cappuccino: 'Капучино'
+    };
     
-    const customCoffee = {
-        id: `custom-${Date.now()}`,
-        name: 'Кастомный кофе',
-        description: `${baseName}, ${sizeName}, ${milkName}${extrasNames ? ` + ${extrasNames}` : ''}`,
-        price: parseInt(document.getElementById('summary-total').textContent),
-        quantity: 1,
+    const sizeNames = {
+        small: 'Маленький',
+        medium: 'Средний',
+        large: 'Большой'
+    };
+    
+    const milkNames = {
+        regular: 'Обычное молоко',
+        oat: 'Овсяное молоко',
+        almond: 'Миндальное молоко'
+    };
+    
+    const extraNames = {
+        vanilla: 'Ванильный сироп',
+        caramel: 'Карамельный сироп',
+        chocolate: 'Шоколадный сироп'
+    };
+    
+    let name = `${baseNames[base]} (${sizeNames[size]}, ${milkNames[milk]})`;
+    if (extras.length > 0) {
+        name += ` + ${extras.map(extra => extraNames[extra]).join(', ')}`;
+    }
+    
+    // Calculate price
+    let price = 0;
+    const sizePrices = { small: 0, medium: 30, large: 60 };
+    const milkPrices = { regular: 0, oat: 20, almond: 25 };
+    const extraPrices = { vanilla: 15, caramel: 15, chocolate: 20 };
+    
+    price += sizePrices[size];
+    price += milkPrices[milk];
+    extras.forEach(extra => {
+        price += extraPrices[extra];
+    });
+    
+    const customItem = {
+        id: Date.now(),
+        name: name,
+        price: price,
+        category: 'custom',
+        icon: '☕',
         custom: true
     };
     
-    addToCart(customCoffee);
-    alert('Кастомный кофе добавлен в корзину!');
+    addToCart(customItem);
+    showNotification('Ваш кофе добавлен в корзину!');
 }
 
 function resetConstructor() {
+    // Reset to default values
     document.querySelector('input[name="base"][value="espresso"]').checked = true;
     document.querySelector('input[name="size"][value="medium"]').checked = true;
     document.querySelector('input[name="milk"][value="regular"]').checked = true;
+    
+    // Uncheck all extras
     document.querySelectorAll('input[name="extras"]').forEach(input => {
         input.checked = false;
     });
+    
     updateConstructorSummary();
 }
 
@@ -255,62 +401,46 @@ function initializeCart() {
 }
 
 function addToCart(item) {
-    const existingItem = cart.find(cartItem => cartItem.id === item.id);
+    const existingItem = cart.find(cartItem => 
+        cartItem.id === item.id && 
+        JSON.stringify(cartItem.extras || {}) === JSON.stringify(item.extras || {})
+    );
     
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        cart.push({ ...item, quantity: 1 });
+        cart.push({
+            ...item,
+            quantity: 1
+        });
     }
     
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartBadge();
+    saveCart();
     renderCart();
 }
 
 function removeFromCart(itemId) {
     cart = cart.filter(item => item.id !== itemId);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartBadge();
+    saveCart();
     renderCart();
 }
 
 function updateQuantity(itemId, newQuantity) {
-    if (newQuantity <= 0) {
-        removeFromCart(itemId);
-        return;
-    }
-    
     const item = cart.find(item => item.id === itemId);
     if (item) {
-        item.quantity = newQuantity;
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartBadge();
-        renderCart();
-    }
-}
-
-function clearCart() {
-    cart = [];
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartBadge();
-    renderCart();
-}
-
-function updateCartBadge() {
-    const badge = document.getElementById('cart-badge');
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
-    if (totalItems > 0) {
-        badge.textContent = totalItems;
-        badge.style.display = 'flex';
-    } else {
-        badge.style.display = 'none';
+        if (newQuantity <= 0) {
+            removeFromCart(itemId);
+        } else {
+            item.quantity = newQuantity;
+            saveCart();
+            renderCart();
+        }
     }
 }
 
 function renderCart() {
     const cartContent = document.getElementById('cart-content');
+    if (!cartContent) return;
     
     if (cart.length === 0) {
         cartContent.innerHTML = `
@@ -319,75 +449,135 @@ function renderCart() {
                 <h3>Корзина пуста</h3>
                 <p>Добавьте товары из меню или создайте свой кофе в конструкторе</p>
                 <div class="empty-actions">
-                    <a href="#menu" class="btn btn-primary">Перейти к меню</a>
-                    <a href="#constructor" class="btn btn-secondary">Создать кофе</a>
+                    <a href="#" class="btn btn-primary" data-section="menu">Перейти к меню</a>
+                    <a href="#" class="btn btn-secondary" data-section="constructor">Создать кофе</a>
                 </div>
             </div>
         `;
+    } else {
+        let total = 0;
+        
+        cartContent.innerHTML = cart.map(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            return `
+                <div class="cart-item">
+                    <div class="cart-item-image">${item.icon}</div>
+                    <div class="cart-item-content">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price}₽ за шт.</div>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                        <span class="quantity-number">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                    </div>
+                    <div class="cart-item-total">
+                        <div class="cart-item-total-price">${itemTotal}₽</div>
+                        <button class="remove-btn" onclick="removeFromCart(${item.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('') + `
+            <div class="card" style="margin-top: 2rem;">
+                <div class="flex justify-between text-2xl font-bold text-coffee py-4 border-t-2 border-coffee">
+                    <span>Общая сумма:</span>
+                    <span>${total}₽</span>
+                </div>
+                <div class="flex gap-4 mt-6">
+                    <button class="btn btn-primary flex-1" onclick="checkout()">
+                        <i class="fas fa-credit-card"></i>
+                        Оформить заказ
+                    </button>
+                    <button class="btn btn-outline" onclick="clearCart()">
+                        <i class="fas fa-trash"></i>
+                        Очистить корзину
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+}
+
+function clearCart() {
+    if (confirm('Вы уверены, что хотите очистить корзину?')) {
+        cart = [];
+        saveCart();
+        renderCart();
+        showNotification('Корзина очищена');
+    }
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        showNotification('Корзина пуста!', 'error');
         return;
     }
     
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     
-    cartContent.innerHTML = `
-        <div class="cart-items">
-            ${cart.map(item => `
-                <div class="cart-item">
-                    <div class="cart-item-image">
-                        ${item.category === 'coffee' ? '☕' : 
-                          item.category === 'dessert' ? '🍰' : '🥤'}
-                    </div>
-                    <div class="cart-item-content">
-                        <h3 class="cart-item-name">${item.name}</h3>
-                        <p class="cart-item-price">${item.price}₽ за штуку</p>
-                        ${item.custom ? `<p class="text-sm text-gray-light mt-1">${item.description}</p>` : ''}
-                    </div>
-                    <div class="cart-item-quantity">
-                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity - 1})">−</button>
-                        <span class="quantity-number">${item.quantity}</span>
-                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
-                    </div>
-                    <div class="cart-item-total">
-                        <div class="cart-item-total-price">${item.price * item.quantity}₽</div>
-                        <button class="remove-btn" onclick="removeFromCart('${item.id}')" title="Удалить из корзины">×</button>
-                    </div>
-                </div>
-            `).join('')}
-        </div>
-        <div class="cart-summary">
-            <div class="summary-card">
-                <h3>Итого</h3>
-                <div class="summary-content">
-                    ${cart.map(item => `
-                        <div class="summary-item">
-                            <span>${item.name} × ${item.quantity}</span>
-                            <span>${item.price * item.quantity}₽</span>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="summary-total">
-                    <span>Общая сумма:</span>
-                    <span>${total}₽</span>
-                </div>
-                <div class="summary-actions">
-                    <button class="btn btn-primary" onclick="checkout()">Оформить заказ</button>
-                    <button class="btn btn-outline" onclick="clearCart()">Очистить корзину</button>
-                </div>
-            </div>
-        </div>
+    if (confirm(`Оформить заказ на сумму ${total}₽?`)) {
+        // Simulate checkout
+        showNotification('Заказ оформлен! Спасибо за покупку!', 'success');
+        cart = [];
+        saveCart();
+        renderCart();
+    }
+}
+
+// Utility functions
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBadge();
+}
+
+function updateCartBadge() {
+    const badge = document.getElementById('cart-badge');
+    if (badge) {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        if (totalItems > 0) {
+            badge.textContent = totalItems;
+            badge.style.display = 'flex';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+}
+
+function showNotification(message, type = 'success') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : '#ef4444'};
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        z-index: 10000;
+        font-weight: 600;
+        transform: translateX(400px);
+        transition: transform 0.3s ease;
     `;
-}
-
-function checkout() {
-    if (cart.length === 0) return;
+    notification.textContent = message;
     
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    alert(`Заказ на сумму ${total}₽ оформлен! Мы свяжемся с вами для подтверждения.`);
-    clearCart();
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.transform = 'translateX(400px)';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
 }
-
-// Make functions globally available
-window.updateQuantity = updateQuantity;
-window.removeFromCart = removeFromCart;
-window.clearCart = clearCart;
-window.checkout = checkout;
