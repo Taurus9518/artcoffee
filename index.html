@@ -2168,6 +2168,13 @@
         // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
             console.log('App initializing...');
+            
+            // Clear all selections immediately on page load
+            document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+                input.checked = false;
+                input.removeAttribute('checked');
+            });
+            
             initializeNavigation();
             initializeMenu();
             initializeConstructor();
@@ -2319,15 +2326,17 @@
         function initializeConstructor() {
             console.log('Initializing constructor...');
             
-            // Force clear all selections with a delay to ensure DOM is ready
-            setTimeout(() => {
+            // Force clear all selections immediately and with delay
+            function clearAllSelections() {
                 document.querySelectorAll('input[type="radio"]').forEach(input => {
                     input.checked = false;
                     input.removeAttribute('checked');
+                    input.setAttribute('checked', 'false');
                 });
                 document.querySelectorAll('input[type="checkbox"]').forEach(input => {
                     input.checked = false;
                     input.removeAttribute('checked');
+                    input.setAttribute('checked', 'false');
                 });
                 
                 // Remove active classes
@@ -2336,7 +2345,14 @@
                 });
                 
                 console.log('All selections cleared');
-            }, 100);
+            }
+            
+            // Clear immediately
+            clearAllSelections();
+            
+            // Clear again with delay
+            setTimeout(clearAllSelections, 100);
+            setTimeout(clearAllSelections, 500);
             
             updateConstructorSummary();
             initializeConstructorEvents();
