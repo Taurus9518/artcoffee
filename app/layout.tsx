@@ -23,7 +23,6 @@ export default function RootLayout({
               <div style={{ display: 'flex', gap: '24px' }}>
                 <a href="/" style={{ padding: '8px 16px', borderRadius: '6px', color: '#333' }}>Главная</a>
                 <a href="/menu" style={{ padding: '8px 16px', borderRadius: '6px', color: '#333' }}>Меню</a>
-                <a href="/constructor" style={{ padding: '8px 16px', borderRadius: '6px', color: '#333' }}>Конструктор</a>
                 <a href="/cart" style={{ padding: '8px 16px', borderRadius: '6px', color: '#333' }}>🛒</a>
               </div>
             </div>

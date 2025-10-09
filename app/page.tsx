@@ -12,7 +12,7 @@ export default function Home() {
         </p>
         <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <a href="/menu" className="btn btn-primary">Посмотреть меню</a>
-          <a href="/constructor" className="btn btn-secondary">Создать свой кофе</a>
+          <a href="/cart" className="btn btn-secondary">Корзина</a>
         </div>
       </section>
 
