@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Coffee, Heart, Star, Clock } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -29,7 +28,9 @@ export default function Home() {
       <section className="py-16">
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <div className="card text-center">
-            <Coffee className="w-12 h-12 text-coffee-600 mx-auto mb-4" />
+            <div className="w-12 h-12 bg-coffee-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">☕</span>
+            </div>
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Свежие зерна</h3>
             <p className="text-gray-600">
               Мы используем только свежеобжаренные зерна премиум качества
@@ -37,7 +38,9 @@ export default function Home() {
           </div>
           
           <div className="card text-center">
-            <Heart className="w-12 h-12 text-coffee-600 mx-auto mb-4" />
+            <div className="w-12 h-12 bg-coffee-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">❤️</span>
+            </div>
             <h3 className="text-xl font-semibold text-gray-800 mb-2">С любовью</h3>
             <p className="text-gray-600">
               Каждая чашка готовится с особой заботой и вниманием к деталям
@@ -45,7 +48,9 @@ export default function Home() {
           </div>
           
           <div className="card text-center">
-            <Star className="w-12 h-12 text-coffee-600 mx-auto mb-4" />
+            <div className="w-12 h-12 bg-coffee-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">⭐</span>
+            </div>
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Премиум качество</h3>
             <p className="text-gray-600">
               Профессиональные бариста и лучшие рецепты для идеального вкуса
@@ -77,7 +82,7 @@ export default function Home() {
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <div className="card">
             <div className="w-full h-48 bg-coffee-200 rounded-lg mb-4 flex items-center justify-center">
-              <Coffee className="w-16 h-16 text-coffee-600" />
+              <span className="text-6xl">☕</span>
             </div>
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Эспрессо</h3>
             <p className="text-gray-600 mb-4">Классический итальянский кофе</p>
@@ -91,7 +96,7 @@ export default function Home() {
           
           <div className="card">
             <div className="w-full h-48 bg-coffee-200 rounded-lg mb-4 flex items-center justify-center">
-              <Coffee className="w-16 h-16 text-coffee-600" />
+              <span className="text-6xl">☕</span>
             </div>
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Капучино</h3>
             <p className="text-gray-600 mb-4">Идеальное сочетание кофе и молока</p>
@@ -105,7 +110,7 @@ export default function Home() {
           
           <div className="card">
             <div className="w-full h-48 bg-coffee-200 rounded-lg mb-4 flex items-center justify-center">
-              <Coffee className="w-16 h-16 text-coffee-600" />
+              <span className="text-6xl">☕</span>
             </div>
             <h3 className="text-xl font-semibold text-gray-800 mb-2">Латте</h3>
             <p className="text-gray-600 mb-4">Нежный и ароматный напиток</p>
@@ -125,7 +130,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-4">Приходите к нам!</h2>
           <div className="grid md:grid-cols-3 gap-8 mt-8">
             <div className="flex items-center justify-center gap-2">
-              <Clock className="w-5 h-5" />
+              <span>🕐</span>
               <span>Пн-Вс: 7:00 - 22:00</span>
             </div>
             <div className="flex items-center justify-center gap-2">

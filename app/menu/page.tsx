@@ -1,8 +1,4 @@
-'use client'
-
-import { useState } from 'react'
-import { Coffee } from 'lucide-react'
-import { useCart } from '@/context/CartContext'
+import Link from 'next/link'
 
 interface MenuItem {
   id: string
@@ -10,7 +6,6 @@ interface MenuItem {
   description: string
   price: number
   category: string
-  image?: string
 }
 
 const menuItems: MenuItem[] = [
@@ -103,29 +98,7 @@ const menuItems: MenuItem[] = [
   }
 ]
 
-const categories = [
-  { id: 'all', name: 'Все' },
-  { id: 'coffee', name: 'Кофе' },
-  { id: 'dessert', name: 'Десерты' },
-  { id: 'drinks', name: 'Напитки' }
-]
-
 export default function Menu() {
-  const [selectedCategory, setSelectedCategory] = useState('all')
-  const { addItem } = useCart()
-
-  const filteredItems = selectedCategory === 'all' 
-    ? menuItems 
-    : menuItems.filter(item => item.category === selectedCategory)
-
-  const handleAddToCart = (item: MenuItem) => {
-    addItem({
-      id: item.id,
-      name: item.name,
-      price: item.price
-    })
-  }
-
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-12">
@@ -133,29 +106,12 @@ export default function Menu() {
         <p className="text-xl text-gray-600">Выберите из нашего разнообразного ассортимента</p>
       </div>
 
-      {/* Category Filter */}
-      <div className="flex flex-wrap justify-center gap-4 mb-12">
-        {categories.map((category) => (
-          <button
-            key={category.id}
-            onClick={() => setSelectedCategory(category.id)}
-            className={`px-6 py-3 rounded-full font-medium transition-colors ${
-              selectedCategory === category.id
-                ? 'bg-coffee-600 text-white'
-                : 'bg-white text-gray-700 hover:bg-coffee-50 border border-gray-200'
-            }`}
-          >
-            {category.name}
-          </button>
-        ))}
-      </div>
-
       {/* Menu Items */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-        {filteredItems.map((item) => (
+        {menuItems.map((item) => (
           <div key={item.id} className="card hover:shadow-xl transition-shadow duration-300">
             <div className="w-full h-48 bg-coffee-200 rounded-lg mb-4 flex items-center justify-center">
-              <Coffee className="w-16 h-16 text-coffee-600" />
+              <span className="text-6xl">☕</span>
             </div>
             
             <div className="mb-4">
@@ -164,22 +120,12 @@ export default function Menu() {
               <div className="text-2xl font-bold text-coffee-600">{item.price}₽</div>
             </div>
 
-            <button
-              onClick={() => handleAddToCart(item)}
-              className="w-full btn-primary"
-            >
+            <Link href="/cart" className="w-full btn-primary text-center block">
               Добавить в корзину
-            </button>
+            </Link>
           </div>
         ))}
       </div>
-
-      {filteredItems.length === 0 && (
-        <div className="text-center py-12">
-          <Coffee className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-500 text-lg">В этой категории пока нет товаров</p>
-        </div>
-      )}
     </div>
   )
 }
