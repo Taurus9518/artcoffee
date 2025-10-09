@@ -460,11 +460,27 @@
             box-shadow: 0 8px 25px rgba(139, 69, 19, 0.2);
         }
         
+        /* Force reset for unselected options */
+        .modern-option:not(:has(input:checked)) {
+            border-color: #e2e8f0 !important;
+            background: #f8fafc !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        
         .modern-option:has(input:checked) .option-icon {
             background: linear-gradient(135deg, #22c55e, #16a34a);
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
             animation: pulse 2s infinite;
+        }
+        
+        /* Force reset for unselected option icons */
+        .modern-option:not(:has(input:checked)) .option-icon {
+            background: linear-gradient(135deg, #8B4513, #A0522D) !important;
+            transform: none !important;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3) !important;
+            animation: none !important;
         }
         
         @keyframes pulse {
@@ -2175,6 +2191,23 @@
                 input.removeAttribute('checked');
             });
             
+            // Force clear all visual states
+            setTimeout(() => {
+                document.querySelectorAll('.modern-option, .size-option, .milk-option, .extra-option').forEach(option => {
+                    option.style.borderColor = '';
+                    option.style.backgroundColor = '';
+                    option.style.transform = '';
+                    option.style.boxShadow = '';
+                });
+                
+                document.querySelectorAll('.option-icon, .size-cup, .milk-icon, .extra-icon').forEach(icon => {
+                    icon.style.background = '';
+                    icon.style.transform = '';
+                    icon.style.boxShadow = '';
+                    icon.style.animation = '';
+                });
+            }, 50);
+            
             initializeNavigation();
             initializeMenu();
             initializeConstructor();
@@ -2342,6 +2375,22 @@
                 // Remove active classes
                 document.querySelectorAll('.size-option, .milk-option').forEach(option => {
                     option.classList.remove('active');
+                });
+                
+                // Force remove all visual states
+                document.querySelectorAll('.modern-option, .size-option, .milk-option, .extra-option').forEach(option => {
+                    option.style.borderColor = '';
+                    option.style.backgroundColor = '';
+                    option.style.transform = '';
+                    option.style.boxShadow = '';
+                });
+                
+                // Force remove icon states
+                document.querySelectorAll('.option-icon, .size-cup, .milk-icon, .extra-icon').forEach(icon => {
+                    icon.style.background = '';
+                    icon.style.transform = '';
+                    icon.style.boxShadow = '';
+                    icon.style.animation = '';
                 });
                 
                 console.log('All selections cleared');
