@@ -87,22 +87,27 @@ let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('App initializing...');
     initializeNavigation();
     initializeMenu();
     initializeConstructor();
     initializeCart();
     updateCartBadge();
     showSection('home'); // Show home by default
+    console.log('App initialized');
 });
 
 // SPA Navigation
 function initializeNavigation() {
+    console.log('Initializing navigation...');
     const navLinks = document.querySelectorAll('[data-section]');
+    console.log('Found nav links:', navLinks.length);
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const sectionId = this.getAttribute('data-section');
+            console.log('Navigating to:', sectionId);
             showSection(sectionId);
         });
     });
@@ -197,15 +202,22 @@ function initializeCategoryFilter() {
 }
 
 function initializeAddToCart() {
+    console.log('Initializing add to cart...');
     document.addEventListener('click', function(e) {
+        console.log('Click detected on:', e.target);
         if (e.target.closest('.add-to-cart')) {
+            console.log('Add to cart button clicked');
             const button = e.target.closest('.add-to-cart');
             const itemId = parseInt(button.dataset.id);
+            console.log('Item ID:', itemId);
             const item = menuItemsData.find(item => item.id === itemId);
             
             if (item) {
+                console.log('Adding item to cart:', item);
                 addToCart(item);
                 showNotification(`${item.name} добавлен в корзину!`);
+            } else {
+                console.log('Item not found:', itemId);
             }
         }
     });
@@ -213,39 +225,52 @@ function initializeAddToCart() {
 
 // Constructor functionality
 function initializeConstructor() {
+    console.log('Initializing constructor...');
     updateConstructorSummary();
     initializeConstructorEvents();
 }
 
 function initializeConstructorEvents() {
+    console.log('Initializing constructor events...');
+    
     // Base selection
-    document.querySelectorAll('input[name="base"]').forEach(input => {
+    const baseInputs = document.querySelectorAll('input[name="base"]');
+    console.log('Found base inputs:', baseInputs.length);
+    baseInputs.forEach(input => {
         input.addEventListener('change', updateConstructorSummary);
     });
     
     // Size selection
-    document.querySelectorAll('input[name="size"]').forEach(input => {
+    const sizeInputs = document.querySelectorAll('input[name="size"]');
+    console.log('Found size inputs:', sizeInputs.length);
+    sizeInputs.forEach(input => {
         input.addEventListener('change', updateConstructorSummary);
     });
     
     // Milk selection
-    document.querySelectorAll('input[name="milk"]').forEach(input => {
+    const milkInputs = document.querySelectorAll('input[name="milk"]');
+    console.log('Found milk inputs:', milkInputs.length);
+    milkInputs.forEach(input => {
         input.addEventListener('change', updateConstructorSummary);
     });
     
     // Extras selection
-    document.querySelectorAll('input[name="extras"]').forEach(input => {
+    const extraInputs = document.querySelectorAll('input[name="extras"]');
+    console.log('Found extra inputs:', extraInputs.length);
+    extraInputs.forEach(input => {
         input.addEventListener('change', updateConstructorSummary);
     });
     
     // Add to cart button
     const addToCartBtn = document.getElementById('add-to-cart');
+    console.log('Add to cart button:', addToCartBtn);
     if (addToCartBtn) {
         addToCartBtn.addEventListener('click', addConstructorToCart);
     }
     
     // Reset button
     const resetBtn = document.getElementById('reset-constructor');
+    console.log('Reset button:', resetBtn);
     if (resetBtn) {
         resetBtn.addEventListener('click', resetConstructor);
     }
@@ -527,6 +552,12 @@ function checkout() {
         renderCart();
     }
 }
+
+// Make functions global for onclick handlers
+window.updateQuantity = updateQuantity;
+window.removeFromCart = removeFromCart;
+window.clearCart = clearCart;
+window.checkout = checkout;
 
 // Utility functions
 function saveCart() {
