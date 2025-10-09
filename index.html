@@ -6,6 +6,16 @@
     <title>Art Coffee - Кофейня</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Inline critical CSS to ensure it loads */
+        body { font-family: 'Inter', sans-serif; }
+        .nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
+        .hero { background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #D2691E 100%); color: white; padding: 120px 0 80px; }
+        .btn { padding: 16px 32px; border-radius: 16px; font-weight: 700; text-decoration: none; display: inline-block; transition: all 0.3s ease; }
+        .btn-primary { background: linear-gradient(135deg, #8B4513, #A0522D); color: white; }
+        .btn-secondary { background: #f8f9fa; color: #4a5568; border: 2px solid #e2e8f0; }
+        .card { background: white; border-radius: 20px; padding: 32px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); }
+    </style>
 </head>
 <body>
     <!-- Navigation -->

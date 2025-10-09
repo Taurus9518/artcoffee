@@ -53,22 +53,19 @@ document.addEventListener('DOMContentLoaded', function() {
 // Navigation
 function initializeNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section');
     
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             
-            // Hide all sections
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show target section
+            // Scroll to target section
             const targetSection = document.getElementById(targetId);
             if (targetSection) {
-                targetSection.classList.add('active');
+                targetSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
             
             // Update active nav link
