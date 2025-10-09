@@ -290,6 +290,531 @@
             hyphens: auto;
         }
         
+        /* Modern Constructor Styles */
+        .constructor-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .constructor-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .constructor-step {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            opacity: 0.6;
+            transform: scale(0.95);
+        }
+        
+        .constructor-step.active {
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 16px 48px rgba(139, 69, 19, 0.15);
+            border-color: rgba(139, 69, 19, 0.2);
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+        
+        .step-subtitle {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .modern-option {
+            position: relative;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 160px;
+        }
+        
+        .modern-option:hover {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.05);
+            transform: translateY(-4px);
+        }
+        
+        .modern-option:has(input:checked) {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        .modern-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .option-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .option-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .option-name {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .option-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .option-price {
+            font-weight: 700;
+            color: #8B4513;
+            font-size: 1rem;
+        }
+        
+        .option-check {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #8B4513;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+        
+        .modern-option:has(input:checked) .option-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Size Options */
+        .size-options {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        
+        .size-option {
+            position: relative;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .size-option:hover {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.05);
+            transform: translateY(-4px);
+        }
+        
+        .size-option.active {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        .size-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .size-cup {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .small-cup {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .large-cup {
+            width: 70px;
+            height: 70px;
+        }
+        
+        .cup-icon {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .size-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .size-name {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 1rem;
+        }
+        
+        .size-volume {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .size-price {
+            font-weight: 700;
+            color: #8B4513;
+            font-size: 0.9rem;
+        }
+        
+        /* Milk Options */
+        .milk-options {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .milk-option {
+            position: relative;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-width: 140px;
+        }
+        
+        .milk-option:hover {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.05);
+            transform: translateY(-4px);
+        }
+        
+        .milk-option.active {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        .milk-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .milk-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .milk-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .milk-name {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 1rem;
+        }
+        
+        .milk-description {
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        
+        .milk-price {
+            font-weight: 700;
+            color: #8B4513;
+            font-size: 0.9rem;
+        }
+        
+        /* Extras Options */
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+        
+        .extra-option {
+            position: relative;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 120px;
+        }
+        
+        .extra-option:hover {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.05);
+            transform: translateY(-4px);
+        }
+        
+        .extra-option:has(input:checked) {
+            border-color: #8B4513;
+            background: rgba(139, 69, 19, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        .extra-option input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .extra-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .extra-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .extra-name {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 0.9rem;
+        }
+        
+        .extra-price {
+            font-weight: 700;
+            color: #8B4513;
+            font-size: 0.8rem;
+        }
+        
+        .extra-check {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #8B4513;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+        
+        .extra-option:has(input:checked) .extra-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            position: sticky;
+            top: 100px;
+        }
+        
+        .summary-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .summary-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .summary-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+        
+        .coffee-preview {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .coffee-cup {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .coffee-liquid {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(135deg, #4a2c17, #6b3e1a);
+            border-radius: 0 0 50% 50%;
+        }
+        
+        .coffee-foam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20%;
+            background: linear-gradient(135deg, #f4f1eb, #e8e0d5);
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .summary-details {
+            margin-bottom: 2rem;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-label {
+            font-weight: 600;
+            color: #64748b;
+        }
+        
+        .item-value {
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-top: 2px solid #8B4513;
+            margin-bottom: 2rem;
+        }
+        
+        .total-label {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        
+        .total-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #8B4513;
+        }
+        
+        .summary-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .btn-large {
+            padding: 1.25rem 2rem;
+            font-size: 1.1rem;
+        }
+        
         .option {
             display: flex;
             align-items: center;
@@ -645,6 +1170,53 @@
             
             .hidden-mobile { display: none !important; }
             .flex-mobile { display: flex !important; }
+            
+            .constructor-wrapper {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .constructor-step {
+                padding: 1.5rem;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .size-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .milk-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .extras-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .modern-option {
+                min-height: 120px;
+                padding: 1rem;
+            }
+            
+            .size-option {
+                min-width: 100px;
+                padding: 1.5rem 1rem;
+            }
+            
+            .milk-option {
+                min-width: 120px;
+                padding: 1rem;
+            }
+            
+            .extra-option {
+                min-height: 100px;
+                padding: 1rem;
+            }
         }
         
         /* Small devices (landscape phones, 576px and up) */
@@ -685,6 +1257,29 @@
             
             .option {
                 padding: 1rem;
+            }
+            
+            .constructor-wrapper {
+                grid-template-columns: 1fr 350px;
+                gap: 2rem;
+            }
+            
+            .options-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .size-options {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .milk-options {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .extras-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         
@@ -998,169 +1593,246 @@
                         <p class="text-xl text-gray">Создайте свой идеальный напиток</p>
                     </div>
 
-                    <div class="grid grid-2">
-                        <!-- Constructor Options -->
-                        <div>
-                            <!-- Coffee Base -->
-                            <div class="card mb-8">
-                                <h3 class="text-2xl font-bold text-coffee mb-6">Выберите основу *</h3>
-                                <div class="space-y-4">
-                                    <label class="option">
+                    <div class="constructor-wrapper">
+                        <!-- Constructor Steps -->
+                        <div class="constructor-steps">
+                            <!-- Step 1: Coffee Base -->
+                            <div class="constructor-step active" data-step="1">
+                                <div class="step-header">
+                                    <div class="step-number">1</div>
+                                    <div class="step-info">
+                                        <h3 class="step-title">Выберите основу</h3>
+                                        <p class="step-subtitle">Классические варианты кофе</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="options-grid">
+                                    <label class="modern-option" data-value="espresso">
                                         <input type="radio" name="base" value="espresso" checked>
-                                        <div class="option-content">
+                                        <div class="option-icon">☕</div>
+                                        <div class="option-details">
                                             <div class="option-name">Эспрессо</div>
-                                            <div class="option-description">Классическая основа</div>
+                                            <div class="option-description">Крепкий и насыщенный</div>
+                                            <div class="option-price">+0₽</div>
                                         </div>
-                                        <div class="option-price">+0₽</div>
+                                        <div class="option-check">
+                                            <i class="fas fa-check"></i>
+                                        </div>
                                     </label>
-                                    <label class="option">
+                                    
+                                    <label class="modern-option" data-value="americano">
                                         <input type="radio" name="base" value="americano">
-                                        <div class="option-content">
+                                        <div class="option-icon">☕</div>
+                                        <div class="option-details">
                                             <div class="option-name">Американо</div>
-                                            <div class="option-description">Эспрессо + вода</div>
+                                            <div class="option-description">Эспрессо с водой</div>
+                                            <div class="option-price">+0₽</div>
                                         </div>
-                                        <div class="option-price">+0₽</div>
+                                        <div class="option-check">
+                                            <i class="fas fa-check"></i>
+                                        </div>
                                     </label>
-                                    <label class="option">
+                                    
+                                    <label class="modern-option" data-value="cappuccino">
                                         <input type="radio" name="base" value="cappuccino">
-                                        <div class="option-content">
+                                        <div class="option-icon">☕</div>
+                                        <div class="option-details">
                                             <div class="option-name">Капучино</div>
-                                            <div class="option-description">Эспрессо + молоко + пена</div>
+                                            <div class="option-description">С молоком и пеной</div>
+                                            <div class="option-price">+0₽</div>
                                         </div>
-                                        <div class="option-price">+0₽</div>
+                                        <div class="option-check">
+                                            <i class="fas fa-check"></i>
+                                        </div>
                                     </label>
                                 </div>
                             </div>
 
-                            <!-- Size -->
-                            <div class="card mb-8">
-                                <h3 class="text-2xl font-bold text-coffee mb-6">Размер</h3>
-                                <div class="space-y-4">
-                                    <label class="option">
+                            <!-- Step 2: Size -->
+                            <div class="constructor-step" data-step="2">
+                                <div class="step-header">
+                                    <div class="step-number">2</div>
+                                    <div class="step-info">
+                                        <h3 class="step-title">Размер порции</h3>
+                                        <p class="step-subtitle">Выберите объем напитка</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="size-options">
+                                    <label class="size-option" data-value="small">
                                         <input type="radio" name="size" value="small">
-                                        <div class="option-content">
-                                            <div class="option-name">Маленький</div>
-                                            <div class="option-description">200мл</div>
+                                        <div class="size-cup small-cup">
+                                            <div class="cup-icon">☕</div>
                                         </div>
-                                        <div class="option-price">+0₽</div>
+                                        <div class="size-info">
+                                            <div class="size-name">Маленький</div>
+                                            <div class="size-volume">200мл</div>
+                                            <div class="size-price">+0₽</div>
+                                        </div>
                                     </label>
-                                    <label class="option">
+                                    
+                                    <label class="size-option active" data-value="medium">
                                         <input type="radio" name="size" value="medium" checked>
-                                        <div class="option-content">
-                                            <div class="option-name">Средний</div>
-                                            <div class="option-description">300мл</div>
+                                        <div class="size-cup medium-cup">
+                                            <div class="cup-icon">☕</div>
                                         </div>
-                                        <div class="option-price">+30₽</div>
+                                        <div class="size-info">
+                                            <div class="size-name">Средний</div>
+                                            <div class="size-volume">300мл</div>
+                                            <div class="size-price">+30₽</div>
+                                        </div>
                                     </label>
-                                    <label class="option">
+                                    
+                                    <label class="size-option" data-value="large">
                                         <input type="radio" name="size" value="large">
-                                        <div class="option-content">
-                                            <div class="option-name">Большой</div>
-                                            <div class="option-description">400мл</div>
+                                        <div class="size-cup large-cup">
+                                            <div class="cup-icon">☕</div>
                                         </div>
-                                        <div class="option-price">+60₽</div>
+                                        <div class="size-info">
+                                            <div class="size-name">Большой</div>
+                                            <div class="size-volume">400мл</div>
+                                            <div class="size-price">+60₽</div>
+                                        </div>
                                     </label>
                                 </div>
                             </div>
 
-                            <!-- Milk Type -->
-                            <div class="card mb-8">
-                                <h3 class="text-2xl font-bold text-coffee mb-6">Тип молока</h3>
-                                <div class="space-y-4">
-                                    <label class="option">
+                            <!-- Step 3: Milk Type -->
+                            <div class="constructor-step" data-step="3">
+                                <div class="step-header">
+                                    <div class="step-number">3</div>
+                                    <div class="step-info">
+                                        <h3 class="step-title">Тип молока</h3>
+                                        <p class="step-subtitle">Выберите молоко по вкусу</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="milk-options">
+                                    <label class="milk-option active" data-value="regular">
                                         <input type="radio" name="milk" value="regular" checked>
-                                        <div class="option-content">
-                                            <div class="option-name">Обычное молоко</div>
-                                            <div class="option-description">Классическое коровье молоко</div>
+                                        <div class="milk-icon">🥛</div>
+                                        <div class="milk-details">
+                                            <div class="milk-name">Обычное</div>
+                                            <div class="milk-description">Коровье молоко</div>
+                                            <div class="milk-price">+0₽</div>
                                         </div>
-                                        <div class="option-price">+0₽</div>
                                     </label>
-                                    <label class="option">
+                                    
+                                    <label class="milk-option" data-value="oat">
                                         <input type="radio" name="milk" value="oat">
-                                        <div class="option-content">
-                                            <div class="option-name">Овсяное молоко</div>
-                                            <div class="option-description">Растительное молоко из овса</div>
+                                        <div class="milk-icon">🌾</div>
+                                        <div class="milk-details">
+                                            <div class="milk-name">Овсяное</div>
+                                            <div class="milk-description">Растительное</div>
+                                            <div class="milk-price">+20₽</div>
                                         </div>
-                                        <div class="option-price">+20₽</div>
                                     </label>
-                                    <label class="option">
+                                    
+                                    <label class="milk-option" data-value="almond">
                                         <input type="radio" name="milk" value="almond">
-                                        <div class="option-content">
-                                            <div class="option-name">Миндальное молоко</div>
-                                            <div class="option-description">Растительное молоко из миндаля</div>
+                                        <div class="milk-icon">🥜</div>
+                                        <div class="milk-details">
+                                            <div class="milk-name">Миндальное</div>
+                                            <div class="milk-description">Ореховое</div>
+                                            <div class="milk-price">+25₽</div>
                                         </div>
-                                        <div class="option-price">+25₽</div>
                                     </label>
                                 </div>
                             </div>
 
-                            <!-- Extras -->
-                            <div class="card">
-                                <h3 class="text-2xl font-bold text-coffee mb-6">Дополнительно</h3>
-                                <div class="space-y-4">
-                                    <label class="option">
+                            <!-- Step 4: Extras -->
+                            <div class="constructor-step" data-step="4">
+                                <div class="step-header">
+                                    <div class="step-number">4</div>
+                                    <div class="step-info">
+                                        <h3 class="step-title">Дополнительно</h3>
+                                        <p class="step-subtitle">Добавьте сиропы и топпинги</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="extras-grid">
+                                    <label class="extra-option" data-value="vanilla">
                                         <input type="checkbox" name="extras" value="vanilla">
-                                        <div class="option-content">
-                                            <div class="option-name">Ванильный сироп</div>
-                                            <div class="option-description">Сладкий ванильный вкус</div>
+                                        <div class="extra-icon">🍦</div>
+                                        <div class="extra-details">
+                                            <div class="extra-name">Ваниль</div>
+                                            <div class="extra-price">+15₽</div>
                                         </div>
-                                        <div class="option-price">+15₽</div>
+                                        <div class="extra-check">
+                                            <i class="fas fa-plus"></i>
+                                        </div>
                                     </label>
-                                    <label class="option">
+                                    
+                                    <label class="extra-option" data-value="caramel">
                                         <input type="checkbox" name="extras" value="caramel">
-                                        <div class="option-content">
-                                            <div class="option-name">Карамельный сироп</div>
-                                            <div class="option-description">Классическая карамель</div>
+                                        <div class="extra-icon">🍯</div>
+                                        <div class="extra-details">
+                                            <div class="extra-name">Карамель</div>
+                                            <div class="extra-price">+15₽</div>
                                         </div>
-                                        <div class="option-price">+15₽</div>
+                                        <div class="extra-check">
+                                            <i class="fas fa-plus"></i>
+                                        </div>
                                     </label>
-                                    <label class="option">
+                                    
+                                    <label class="extra-option" data-value="chocolate">
                                         <input type="checkbox" name="extras" value="chocolate">
-                                        <div class="option-content">
-                                            <div class="option-name">Шоколадный сироп</div>
-                                            <div class="option-description">Богатый шоколадный вкус</div>
+                                        <div class="extra-icon">🍫</div>
+                                        <div class="extra-details">
+                                            <div class="extra-name">Шоколад</div>
+                                            <div class="extra-price">+20₽</div>
                                         </div>
-                                        <div class="option-price">+20₽</div>
+                                        <div class="extra-check">
+                                            <i class="fas fa-plus"></i>
+                                        </div>
                                     </label>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Order Summary -->
-                        <div>
-                            <div class="card" style="position: sticky; top: 100px;">
-                                <h3 class="text-2xl font-bold text-coffee mb-6">Ваш напиток</h3>
+                        <div class="order-summary">
+                            <div class="summary-card">
+                                <div class="summary-header">
+                                    <h3 class="summary-title">Ваш напиток</h3>
+                                    <div class="coffee-preview">
+                                        <div class="coffee-cup" id="coffee-cup">
+                                            <div class="coffee-liquid"></div>
+                                            <div class="coffee-foam"></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 
-                                <div class="space-y-4 mb-6">
-                                    <div class="flex justify-between">
-                                        <span class="font-semibold">Основа:</span>
-                                        <span id="summary-base">Эспрессо</span>
+                                <div class="summary-details">
+                                    <div class="summary-item">
+                                        <span class="item-label">Основа:</span>
+                                        <span class="item-value" id="summary-base">Эспрессо</span>
                                     </div>
                                     
-                                    <div class="flex justify-between">
-                                        <span class="font-semibold">Размер:</span>
-                                        <span id="summary-size">Средний</span>
+                                    <div class="summary-item">
+                                        <span class="item-label">Размер:</span>
+                                        <span class="item-value" id="summary-size">Средний</span>
                                     </div>
                                     
-                                    <div class="flex justify-between">
-                                        <span class="font-semibold">Молоко:</span>
-                                        <span id="summary-milk">Обычное молоко</span>
+                                    <div class="summary-item">
+                                        <span class="item-label">Молоко:</span>
+                                        <span class="item-value" id="summary-milk">Обычное</span>
                                     </div>
                                     
-                                    <div class="flex justify-between" id="summary-extras" style="display: none;">
-                                        <span class="font-semibold">Дополнительно:</span>
-                                        <span id="summary-extras-text"></span>
+                                    <div class="summary-item" id="summary-extras" style="display: none;">
+                                        <span class="item-label">Дополнительно:</span>
+                                        <span class="item-value" id="summary-extras-text"></span>
                                     </div>
                                 </div>
 
-                                <div class="flex justify-between text-xl font-bold text-coffee py-4 border-t-2 border-coffee">
-                                    <span>Итого:</span>
-                                    <span id="summary-total">30₽</span>
+                                <div class="summary-total">
+                                    <div class="total-label">Итого:</div>
+                                    <div class="total-price" id="summary-total">30₽</div>
                                 </div>
                                 
-                                <div class="flex gap-4 mt-6">
-                                    <button class="btn btn-primary flex-1" id="add-to-cart">
-                                        <i class="fas fa-plus"></i>
+                                <div class="summary-actions">
+                                    <button class="btn btn-primary btn-large" id="add-to-cart">
+                                        <i class="fas fa-shopping-cart"></i>
                                         Добавить в корзину
                                     </button>
                                     
