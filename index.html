@@ -1262,6 +1262,105 @@
                 rgba(230, 230, 200, 0.8) 70%,
                 rgba(220, 220, 180, 0.6) 100%);
         }
+
+        /* Component layers for old visualization */
+        .component-layer {
+            position: absolute;
+            left: 0;
+            right: 0;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .milk-layer-realistic {
+            top: 0;
+            height: 25px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.4) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0.1) 100%);
+            animation: syrupFlow 0.7s ease-out;
+        }
+
+        .oat-milk-realistic {
+            background: linear-gradient(to bottom, 
+                rgba(255, 248, 220, 0.5) 0%,
+                rgba(245, 245, 220, 0.3) 50%,
+                rgba(230, 230, 200, 0.2) 100%);
+        }
+
+        .almond-milk-realistic {
+            background: linear-gradient(to bottom, 
+                rgba(255, 250, 205, 0.5) 0%,
+                rgba(245, 245, 220, 0.3) 50%,
+                rgba(230, 230, 200, 0.2) 100%);
+        }
+
+        .coconut-milk-realistic {
+            background: linear-gradient(to bottom, 
+                rgba(255, 248, 220, 0.6) 0%,
+                rgba(245, 245, 220, 0.4) 50%,
+                rgba(230, 230, 200, 0.3) 100%);
+        }
+
+        .soy-milk-realistic {
+            background: linear-gradient(to bottom, 
+                rgba(240, 248, 255, 0.5) 0%,
+                rgba(245, 245, 220, 0.3) 50%,
+                rgba(230, 230, 200, 0.2) 100%);
+        }
+
+        .syrup-layer-realistic {
+            bottom: 0;
+            height: 8px;
+            opacity: 0.9;
+            animation: syrupFlow 0.8s ease-out;
+        }
+
+        .vanilla-syrup-realistic { 
+            background: linear-gradient(to top, #FFF8DC, #F5DEB3, #FFFACD);
+            height: 6px;
+        }
+        .caramel-syrup-realistic { 
+            background: linear-gradient(to top, #D2691E, #CD853F, #DEB887);
+            height: 7px;
+        }
+        .chocolate-syrup-realistic { 
+            background: linear-gradient(to top, #8B4513, #A0522D, #D2691E);
+            height: 8px;
+        }
+        .cinnamon-syrup-realistic { 
+            background: linear-gradient(to top, #D2691E, #CD853F, #DEB887);
+            height: 6px;
+        }
+        .cocoa-syrup-realistic { 
+            background: linear-gradient(to top, #8B4513, #A0522D, #D2691E);
+            height: 7px;
+        }
+
+        .topping-layer-realistic {
+            top: 0;
+            height: 12px;
+            border-radius: 0 0 15px 15px;
+            animation: toppingFall 0.6s ease-out, toppingPulse 2s ease-in-out infinite 0.6s;
+        }
+
+        .nuts-topping-realistic { 
+            background: linear-gradient(to bottom, #8B4513, #A0522D, #CD853F);
+            height: 8px;
+        }
+        .coconut-topping-realistic { 
+            background: linear-gradient(to bottom, #F5F5DC, #DEB887, #F0E68C);
+            height: 6px;
+        }
+        .sprinkles-topping-realistic { 
+            background: linear-gradient(to bottom, #FF69B4, #FFB6C1, #87CEEB, #98FB98, #FFD700);
+            height: 4px;
+            animation: sprinklesTwinkle 1.5s ease-in-out infinite;
+        }
+        .coffee-beans-topping-realistic { 
+            background: linear-gradient(to bottom, #8B4513, #A0522D, #CD853F);
+            height: 7px;
+        }
         
         .coffee-foam::before {
             content: '';
@@ -1300,6 +1399,11 @@
         @keyframes toppingFall {
             0% { opacity: 0; transform: translateY(-10px) scale(0.8); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes sprinklesTwinkle {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
         }
         
         @keyframes bubble1 {
@@ -3653,6 +3757,10 @@
                 coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
                 coffeeLiquid.classList.add(base);
                 coffeeFoam.classList.add(base);
+            } else {
+                // Reset to default if no base selected
+                coffeeLiquid.classList.remove('espresso', 'americano', 'cappuccino');
+                coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
             }
             
             // Update size visualization
