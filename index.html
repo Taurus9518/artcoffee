@@ -1304,15 +1304,15 @@
             position: fixed;
             top: 80px;
             right: 20px;
-            width: 180px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 220px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             z-index: 9999;
             transform: translateX(100%);
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
         }
 
@@ -1321,48 +1321,45 @@
             opacity: 1;
         }
 
-        .floating-coffee-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .floating-coffee-header h4 {
-            margin: 0;
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-        }
-
         .close-floating-coffee {
-            background: none;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.1);
             border: none;
-            font-size: 18px;
+            font-size: 16px;
             color: #666;
             cursor: pointer;
             padding: 0;
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
             transition: all 0.2s ease;
+            z-index: 10;
         }
 
         .close-floating-coffee:hover {
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.2);
             color: #333;
+            transform: scale(1.1);
         }
 
         .floating-coffee-content {
-            padding: 16px;
+            padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 120px;
+            align-items: flex-start;
+            min-height: 140px;
+        }
+
+        .coffee-visualization-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            width: 100%;
         }
 
         /* Realistic Coffee Cup */
@@ -1510,38 +1507,94 @@
         }
         .coffee-beans-topping-realistic { background: linear-gradient(90deg, #8B4513, #A0522D); }
 
+        /* Ingredients List */
+        .ingredients-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding-top: 8px;
+        }
+
+        .ingredient-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 8px;
+            font-size: 12px;
+            color: #8B4513;
+            font-weight: 500;
+            animation: ingredientAppear 0.3s ease-out;
+        }
+
+        .ingredient-item::before {
+            content: '•';
+            color: #8B4513;
+            font-weight: bold;
+        }
+
+        .ingredient-item.base { background: rgba(139, 69, 19, 0.15); }
+        .ingredient-item.size { background: rgba(160, 82, 45, 0.15); }
+        .ingredient-item.milk { background: rgba(255, 248, 220, 0.8); color: #8B4513; }
+        .ingredient-item.extra { background: rgba(255, 182, 193, 0.3); color: #8B4513; }
+
+        @keyframes ingredientAppear {
+            0% {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         /* Mobile responsiveness for floating window */
         @media (max-width: 768px) {
             .floating-coffee-window {
                 top: 70px;
                 right: 10px;
-                width: 140px;
+                width: 180px;
                 z-index: 9999;
             }
 
+            .coffee-visualization-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+
             .realistic-coffee-cup {
-                width: 45px;
-                height: 60px;
+                width: 50px;
+                height: 65px;
             }
 
             .cup-body {
-                width: 35px;
-                height: 50px;
+                width: 40px;
+                height: 55px;
                 border-radius: 0 0 10px 10px;
             }
 
             .coffee-liquid-realistic {
                 height: 50%;
-                border-radius: 0 0 10px 10px;
+                border-radius: 0 0 8px 8px;
             }
 
             .coffee-foam-realistic {
-                height: 12px;
-                border-radius: 0 0 10px 10px;
+                height: 10px;
+                border-radius: 0 0 8px 8px;
             }
 
-            .floating-coffee-header h4 {
+            .ingredients-list {
+                width: 100%;
+                padding-top: 0;
+            }
+
+            .ingredient-item {
                 font-size: 11px;
+                padding: 3px 6px;
             }
         }
 
@@ -2332,18 +2385,20 @@
 
     <!-- Floating Coffee Visualization -->
     <div class="floating-coffee-window" id="floating-coffee-window">
-        <div class="floating-coffee-header">
-            <h4>Ваш напиток</h4>
-            <button class="close-floating-coffee" onclick="toggleFloatingCoffee()">×</button>
-        </div>
+        <button class="close-floating-coffee" onclick="toggleFloatingCoffee()">×</button>
         <div class="floating-coffee-content">
-            <div class="realistic-coffee-cup" id="realistic-coffee-cup">
-                <div class="cup-body">
-                    <div class="cup-rim"></div>
-                    <div class="coffee-liquid-realistic" id="coffee-liquid-realistic">
-                        <div class="coffee-foam-realistic" id="coffee-foam-realistic"></div>
+            <div class="coffee-visualization-container">
+                <div class="realistic-coffee-cup" id="realistic-coffee-cup">
+                    <div class="cup-body">
+                        <div class="cup-rim"></div>
+                        <div class="coffee-liquid-realistic" id="coffee-liquid-realistic">
+                            <div class="coffee-foam-realistic" id="coffee-foam-realistic"></div>
+                        </div>
+                        <div class="cup-handle"></div>
                     </div>
-                    <div class="cup-handle"></div>
+                </div>
+                <div class="ingredients-list" id="ingredients-list">
+                    <!-- Ingredients will be added dynamically -->
                 </div>
             </div>
         </div>
@@ -3463,12 +3518,14 @@
             const realisticCup = document.getElementById('realistic-coffee-cup');
             const coffeeLiquidRealistic = document.getElementById('coffee-liquid-realistic');
             const coffeeFoamRealistic = document.getElementById('coffee-foam-realistic');
+            const ingredientsList = document.getElementById('ingredients-list');
             
-            if (!realisticCup || !coffeeLiquidRealistic || !coffeeFoamRealistic) return;
+            if (!realisticCup || !coffeeLiquidRealistic || !coffeeFoamRealistic || !ingredientsList) return;
             
-            // Clear existing component layers
+            // Clear existing component layers and ingredients
             const existingLayers = realisticCup.querySelectorAll('.component-layer-realistic');
             existingLayers.forEach(layer => layer.remove());
+            ingredientsList.innerHTML = '';
             
             // Update coffee liquid color based on base
             if (base) {
@@ -3524,6 +3581,76 @@
                 };
                 coffeeFoamRealistic.style.background = foamColors[milk] || foamColors.regular;
             }
+            
+            // Update ingredients list
+            updateIngredientsList(base, size, milk, extras);
+        }
+
+        function updateIngredientsList(base, size, milk, extras) {
+            const ingredientsList = document.getElementById('ingredients-list');
+            if (!ingredientsList) return;
+            
+            const baseNames = {
+                espresso: 'Эспрессо',
+                americano: 'Американо',
+                cappuccino: 'Капучино'
+            };
+            
+            const sizeNames = {
+                small: 'Маленький',
+                medium: 'Средний',
+                large: 'Большой'
+            };
+            
+            const milkNames = {
+                regular: 'Обычное молоко',
+                oat: 'Овсяное молоко',
+                almond: 'Миндальное молоко'
+            };
+            
+            const extraNames = {
+                vanilla: 'Ванильный сироп',
+                caramel: 'Карамельный сироп',
+                chocolate: 'Шоколадный сироп',
+                cinnamon: 'Корица',
+                cocoa: 'Какао',
+                nuts: 'Орехи',
+                coconut: 'Кокос',
+                sprinkles: 'Посыпка',
+                'coffee-beans': 'Зерно'
+            };
+            
+            // Add base
+            if (base) {
+                const baseItem = document.createElement('div');
+                baseItem.className = 'ingredient-item base';
+                baseItem.textContent = baseNames[base] || base;
+                ingredientsList.appendChild(baseItem);
+            }
+            
+            // Add size
+            if (size) {
+                const sizeItem = document.createElement('div');
+                sizeItem.className = 'ingredient-item size';
+                sizeItem.textContent = sizeNames[size] || size;
+                ingredientsList.appendChild(sizeItem);
+            }
+            
+            // Add milk
+            if (milk) {
+                const milkItem = document.createElement('div');
+                milkItem.className = 'ingredient-item milk';
+                milkItem.textContent = milkNames[milk] || milk;
+                ingredientsList.appendChild(milkItem);
+            }
+            
+            // Add extras
+            extras.forEach(extra => {
+                const extraItem = document.createElement('div');
+                extraItem.className = 'ingredient-item extra';
+                extraItem.textContent = extraNames[extra] || extra;
+                ingredientsList.appendChild(extraItem);
+            });
         }
 
         function addConstructorToCart() {
