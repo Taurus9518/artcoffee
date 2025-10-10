@@ -3303,17 +3303,7 @@
                     const stepNumber = parseInt(header.getAttribute('data-step'));
                     console.log('Toggling step:', stepNumber);
                     
-                    // Prevent multiple rapid calls
-                    if (window.toggleInProgress) {
-                        console.log('Toggle already in progress, ignoring');
-                        return;
-                    }
-                    
-                    window.toggleInProgress = true;
                     toggleStep(stepNumber);
-                    setTimeout(() => {
-                        window.toggleInProgress = false;
-                    }, 100);
                 }
             });
             
@@ -3456,6 +3446,14 @@
 
         // Constructor step toggle function
         function toggleStep(stepNumber) {
+            // Prevent multiple rapid calls
+            if (window.toggleInProgress) {
+                console.log('Toggle already in progress, ignoring');
+                return;
+            }
+            
+            window.toggleInProgress = true;
+            
             const step = document.querySelector(`[data-step="${stepNumber}"]`);
             const isExpanded = step.classList.contains('expanded');
             
@@ -3498,6 +3496,11 @@
             
             // Update arrow icons
             updateStepArrows();
+            
+            // Reset toggle protection after a delay
+            setTimeout(() => {
+                window.toggleInProgress = false;
+            }, 200);
         }
         
         function updateStepArrows() {
