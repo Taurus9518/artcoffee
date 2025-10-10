@@ -2192,7 +2192,7 @@
                         <div class="constructor-steps">
                             <!-- Step 1: Coffee Base -->
                             <div class="constructor-step active" data-step="1">
-                                <div class="step-header" onclick="toggleStep(1)">
+                                <div class="step-header" data-step="1">
                                     <div class="step-number">1</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Выберите основу</h3>
@@ -2249,7 +2249,7 @@
 
                             <!-- Step 2: Size -->
                             <div class="constructor-step" data-step="2">
-                                <div class="step-header" onclick="toggleStep(2)">
+                                <div class="step-header" data-step="2">
                                     <div class="step-number">2</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Размер порции</h3>
@@ -2303,7 +2303,7 @@
 
                             <!-- Step 3: Milk Type -->
                             <div class="constructor-step" data-step="3">
-                                <div class="step-header" onclick="toggleStep(3)">
+                                <div class="step-header" data-step="3">
                                     <div class="step-number">3</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Тип молока</h3>
@@ -2351,7 +2351,7 @@
 
                             <!-- Step 4: Extras -->
                             <div class="constructor-step" data-step="4">
-                                <div class="step-header" onclick="toggleStep(4)">
+                                <div class="step-header" data-step="4">
                                     <div class="step-number">4</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Дополнительно</h3>
@@ -2880,6 +2880,7 @@
             document.addEventListener('click', function(e) {
                 // Base selection
                 if (e.target.closest('.modern-option')) {
+                    e.stopPropagation();
                     const option = e.target.closest('.modern-option');
                     const input = option.querySelector('input[type="radio"]');
                     if (input) {
@@ -2900,6 +2901,7 @@
                 
                 // Size selection
                 if (e.target.closest('.size-option')) {
+                    e.stopPropagation();
                     const option = e.target.closest('.size-option');
                     const input = option.querySelector('input[type="radio"]');
                     if (input) {
@@ -2924,6 +2926,7 @@
                 
                 // Milk selection
                 if (e.target.closest('.milk-option')) {
+                    e.stopPropagation();
                     const option = e.target.closest('.milk-option');
                     const input = option.querySelector('input[type="radio"]');
                     if (input) {
@@ -2948,6 +2951,7 @@
                 
                 // Extras selection
                 if (e.target.closest('.extra-option')) {
+                    e.stopPropagation();
                     const option = e.target.closest('.extra-option');
                     const input = option.querySelector('input[type="checkbox"]');
                     if (input) {
@@ -3250,6 +3254,20 @@
             
             // Initialize step arrows
             updateStepArrows();
+            
+            // Initialize step header click handlers
+            initializeStepHeaders();
+        }
+        
+        function initializeStepHeaders() {
+            document.querySelectorAll('.step-header').forEach(header => {
+                header.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const stepNumber = parseInt(this.getAttribute('data-step'));
+                    toggleStep(stepNumber);
+                });
+            });
         }
 
         // Cart functionality
