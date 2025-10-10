@@ -529,8 +529,6 @@
             padding: 0 1.25rem;
             margin-top: 0;
             border-top: none;
-            opacity: 0;
-            visibility: hidden;
         }
         
         /* Custom scrollbar for step content */
@@ -3270,6 +3268,18 @@
             
             // Initialize step arrows
             updateStepArrows();
+            
+            // Force close all steps and reset their styles
+            document.querySelectorAll('.constructor-step').forEach(step => {
+                step.classList.remove('expanded', 'active');
+                const content = step.querySelector('.step-content');
+                if (content) {
+                    content.style.maxHeight = '0';
+                    content.style.padding = '0 1.25rem';
+                    content.style.marginTop = '0';
+                    content.style.borderTop = 'none';
+                }
+            });
         }
         
         // Global flag to prevent multiple event listeners
@@ -3440,33 +3450,20 @@
             
             console.log('Toggle step:', stepNumber, 'isExpanded:', isExpanded);
             
-            // If the step is already expanded, close it
-            if (isExpanded) {
-                step.classList.remove('expanded', 'active');
-                console.log('Closing step:', stepNumber);
-                
-                // Force reset content styles
-                const content = step.querySelector('.step-content');
-                if (content) {
-                    content.style.maxHeight = '0';
-                    content.style.padding = '0 1.25rem';
-                    content.style.marginTop = '0';
-                    content.style.borderTop = 'none';
+            // Close all steps first
+            document.querySelectorAll('.constructor-step').forEach(s => {
+                s.classList.remove('expanded', 'active');
+                const sContent = s.querySelector('.step-content');
+                if (sContent) {
+                    sContent.style.maxHeight = '0';
+                    sContent.style.padding = '0 1.25rem';
+                    sContent.style.marginTop = '0';
+                    sContent.style.borderTop = 'none';
                 }
-            } else {
-                // Close all other steps first
-                document.querySelectorAll('.constructor-step').forEach(s => {
-                    s.classList.remove('expanded', 'active');
-                    const sContent = s.querySelector('.step-content');
-                    if (sContent) {
-                        sContent.style.maxHeight = '0';
-                        sContent.style.padding = '0 1.25rem';
-                        sContent.style.marginTop = '0';
-                        sContent.style.borderTop = 'none';
-                    }
-                });
-                
-                // Open the clicked step
+            });
+            
+            // If the step was not expanded, open it
+            if (!isExpanded) {
                 step.classList.add('expanded', 'active');
                 console.log('Opening step:', stepNumber);
                 
@@ -3480,7 +3477,9 @@
                         content.style.marginTop = '0.5rem';
                         content.style.borderTop = '1px solid rgba(0, 0, 0, 0.1)';
                     }
-                }, 100);
+                }, 50);
+            } else {
+                console.log('Closing step:', stepNumber);
             }
             
             // Update step progress
