@@ -4125,20 +4125,20 @@
                 coffeeLiquid.style.height = sizeHeights[size] || '60%';
             }
             
-            // Add milk layer first if not regular milk
-            if (milk && milk !== 'regular') {
-                const milkLayer = document.createElement('div');
-                milkLayer.className = `component-layer milk-layer-realistic ${milk}-milk-realistic`;
-                coffeeLiquid.appendChild(milkLayer);
-            }
-            
             // Add syrup layers at the bottom of the cup (below milk)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    coffeeCup.appendChild(syrupLayer);
+                    coffeeLiquid.appendChild(syrupLayer);
                 });
+            }
+            
+            // Add milk layer first if not regular milk
+            if (milk && milk !== 'regular') {
+                const milkLayer = document.createElement('div');
+                milkLayer.className = `component-layer milk-layer-realistic ${milk}-milk-realistic`;
+                coffeeLiquid.appendChild(milkLayer);
             }
             
             // Add topping layers (on top of milk)
@@ -4197,20 +4197,20 @@
                 coffeeLiquidRealistic.style.height = sizeHeights[size] || '60%';
             }
             
-            // Add milk layer first if not regular milk
-            if (milk && milk !== 'regular') {
-                const milkLayer = document.createElement('div');
-                milkLayer.className = `component-layer-realistic milk-layer-realistic ${milk}-milk-realistic`;
-                coffeeLiquidRealistic.appendChild(milkLayer);
-            }
-            
             // Add syrup layers at the bottom of the cup (below milk)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    realisticCup.appendChild(syrupLayer);
+                    coffeeLiquidRealistic.appendChild(syrupLayer);
                 });
+            }
+            
+            // Add milk layer first if not regular milk
+            if (milk && milk !== 'regular') {
+                const milkLayer = document.createElement('div');
+                milkLayer.className = `component-layer-realistic milk-layer-realistic ${milk}-milk-realistic`;
+                coffeeLiquidRealistic.appendChild(milkLayer);
             }
             
             // Add topping layers (on top of milk)
@@ -4681,18 +4681,16 @@
             }
         }
         
-        // Check if we're in the extras steps and should not auto-advance
+        // Check if we're in the toppings step and should not auto-advance
         function isInExtrasStep() {
-            const syrupsStep = document.querySelector('[data-step="4"]');
             const toppingsStep = document.querySelector('[data-step="5"]');
-            return (syrupsStep && syrupsStep.classList.contains('expanded')) || 
-                   (toppingsStep && toppingsStep.classList.contains('expanded'));
+            return toppingsStep && toppingsStep.classList.contains('expanded');
         }
         
         // Check progress and auto-advance when user manually changes selection
         function checkProgressAndAdvance() {
             setTimeout(() => {
-                // Don't auto-advance if we're in the extras step (step 4)
+                // Don't auto-advance if we're in the toppings step (step 5)
                 if (!isInExtrasStep()) {
                     smartAutoAdvance();
                 } else {
