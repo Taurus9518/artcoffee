@@ -810,6 +810,12 @@
                 0 8px 16px rgba(220, 38, 38, 0.4);
         }
         
+        .modern-option:has(input:checked) .option-name,
+        .modern-option:has(input:checked) .option-description,
+        .modern-option:has(input:checked) .option-price {
+            color: #f5f1e8 !important;
+        }
+        
         /* Force reset for unselected options */
         .modern-option:not(:has(input:checked)) {
             border-color: #2d1810 !important;
@@ -991,6 +997,13 @@
                 0 8px 16px rgba(220, 38, 38, 0.4);
         }
         
+        .size-option.active .size-label,
+        .size-option.active .size-name,
+        .size-option.active .size-volume,
+        .size-option.active .size-price {
+            color: #f5f1e8 !important;
+        }
+        
         .size-option.active .size-cup {
             background: linear-gradient(135deg, #333333, #000000);
             transform: scale(1.05);
@@ -1106,6 +1119,12 @@
             box-shadow: 
                 0 4px 0px #2d1810,
                 0 8px 16px rgba(220, 38, 38, 0.4);
+        }
+        
+        .milk-option.active .option-name,
+        .milk-option.active .option-description,
+        .milk-option.active .option-price {
+            color: #f5f1e8 !important;
         }
         
         .milk-option.active .milk-icon {
@@ -1233,6 +1252,12 @@
             box-shadow: 
                 0 4px 0px #2d1810,
                 0 8px 16px rgba(220, 38, 38, 0.4);
+        }
+        
+        .extra-option:has(input:checked) .option-name,
+        .extra-option:has(input:checked) .option-description,
+        .extra-option:has(input:checked) .option-price {
+            color: #f5f1e8 !important;
         }
         
         .extra-option:has(input:checked) .extra-icon {
