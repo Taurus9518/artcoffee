@@ -1560,7 +1560,10 @@
         }
 
         .topping-layer-realistic {
+            position: absolute;
             top: 0;
+            left: 0;
+            right: 0;
             height: 12px;
             border-radius: 0 0 15px 15px;
             animation: toppingFall 0.6s ease-out, toppingPulse 2s ease-in-out infinite 0.6s;
@@ -4055,8 +4058,7 @@
         
         function updateCoffeeVisualization(base, size, milk, syrups, toppings) {
             // Update both old and new visualization
-            const allExtras = [...(syrups || []), ...(toppings || [])];
-            updateOldCoffeeVisualization(base, size, milk, allExtras);
+            updateOldCoffeeVisualization(base, size, milk, syrups, toppings);
             updateRealisticCoffeeVisualization(base, size, milk, syrups, toppings);
             
             // Check scroll-based visibility
@@ -4113,7 +4115,7 @@
                 toppings.forEach((topping, index) => {
                     const toppingLayer = document.createElement('div');
                     toppingLayer.className = `component-layer topping-layer-realistic ${topping}-topping-realistic`;
-                    coffeeLiquid.appendChild(toppingLayer);
+                    coffeeCup.appendChild(toppingLayer);
                 });
             }
             
@@ -4185,7 +4187,7 @@
                 toppings.forEach((topping, index) => {
                     const toppingLayer = document.createElement('div');
                     toppingLayer.className = `component-layer-realistic topping-layer-realistic ${topping}-topping-realistic`;
-                    coffeeLiquidRealistic.appendChild(toppingLayer);
+                    realisticCup.appendChild(toppingLayer);
                 });
             }
             
