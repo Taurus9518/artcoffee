@@ -4218,12 +4218,12 @@
                 coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
             }
             
-            // Add syrup layers at the very bottom of the liquid - FIRST
+            // Add syrup layers at the very bottom of the cup - FIRST
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    coffeeLiquid.appendChild(syrupLayer);
+                    coffeeCup.appendChild(syrupLayer);
                 });
             }
             
@@ -4286,12 +4286,12 @@
                 coffeeFoamRealistic.classList.add(base);
             }
             
-            // Add syrup layers at the very bottom of the liquid - FIRST
+            // Add syrup layers at the very bottom of the cup - FIRST
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    coffeeLiquidRealistic.appendChild(syrupLayer);
+                    realisticCup.appendChild(syrupLayer);
                 });
             }
             
