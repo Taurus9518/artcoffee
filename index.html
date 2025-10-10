@@ -837,16 +837,16 @@
         
         .modern-option {
             position: relative;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
+            background: #f5f1e8;
+            border: 3px solid #2d1810;
             border-radius: 8px;
-            padding: 0.75rem;
+            padding: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             text-align: left;
-            min-height: 60px;
+            min-height: 80px;
             overflow: hidden;
         }
         
@@ -866,10 +866,12 @@
         }
         
         .modern-option:hover {
-            border-color: #8B4513;
-            background: rgba(139, 69, 19, 0.05);
+            border-color: #dc2626;
+            background: #f5f1e8;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+            box-shadow: 
+                0 4px 0px #dc2626,
+                0 8px 16px rgba(220, 38, 38, 0.3);
         }
         
         .modern-option:hover .option-icon {
@@ -878,16 +880,20 @@
         }
         
         .modern-option:has(input:checked) {
-            border-color: #000000;
-            background: rgba(0, 0, 0, 0.05);
+            border-color: #dc2626;
+            background: #dc2626;
+            color: #f5f1e8;
             transform: none;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: 
+                0 4px 0px #2d1810,
+                0 8px 16px rgba(220, 38, 38, 0.4);
         }
         
         /* Force reset for unselected options */
         .modern-option:not(:has(input:checked)) {
-            border-color: #e2e8f0 !important;
-            background: #f8fafc !important;
+            border-color: #2d1810 !important;
+            background: #f5f1e8 !important;
+            color: #2d1810 !important;
             transform: none !important;
             box-shadow: none !important;
         }
@@ -1143,16 +1149,16 @@
         
         .milk-option {
             position: relative;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
+            background: #f5f1e8;
+            border: 3px solid #2d1810;
             border-radius: 8px;
-            padding: 0.75rem;
+            padding: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             text-align: left;
-            min-height: 60px;
+            min-height: 80px;
             overflow: hidden;
         }
         
@@ -1172,10 +1178,12 @@
         }
         
         .milk-option:hover {
-            border-color: #8B4513;
-            background: rgba(139, 69, 19, 0.05);
+            border-color: #dc2626;
+            background: #f5f1e8;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+            box-shadow: 
+                0 4px 0px #dc2626,
+                0 8px 16px rgba(220, 38, 38, 0.3);
         }
         
         .milk-option:hover .milk-icon {
@@ -1184,10 +1192,13 @@
         }
         
         .milk-option.active {
-            border-color: #000000;
-            background: rgba(0, 0, 0, 0.05);
+            border-color: #dc2626;
+            background: #dc2626;
+            color: #f5f1e8;
             transform: none;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: 
+                0 4px 0px #2d1810,
+                0 8px 16px rgba(220, 38, 38, 0.4);
         }
         
         .milk-option.active .milk-icon {
@@ -1278,9 +1289,9 @@
         
         .extra-option {
             position: relative;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
+            background: #f5f1e8;
+            border: 3px solid #2d1810;
+            border-radius: 8px;
             padding: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1308,10 +1319,12 @@
         }
         
         .extra-option:hover {
-            border-color: #8B4513;
-            background: rgba(139, 69, 19, 0.05);
+            border-color: #dc2626;
+            background: #f5f1e8;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+            box-shadow: 
+                0 4px 0px #dc2626,
+                0 8px 16px rgba(220, 38, 38, 0.3);
         }
         
         .extra-option:hover .extra-icon {
@@ -1320,10 +1333,13 @@
         }
         
         .extra-option:has(input:checked) {
-            border-color: #000000;
-            background: rgba(0, 0, 0, 0.05);
+            border-color: #dc2626;
+            background: #dc2626;
+            color: #f5f1e8;
             transform: none;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: 
+                0 4px 0px #2d1810,
+                0 8px 16px rgba(220, 38, 38, 0.4);
         }
         
         .extra-option:has(input:checked) .extra-icon {
