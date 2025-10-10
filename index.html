@@ -2190,9 +2190,16 @@
                     <div class="constructor-wrapper">
                         <!-- Constructor Steps -->
                         <div class="constructor-steps">
+                            <!-- Test button for debugging -->
+                            <div style="text-align: center; margin-bottom: 1rem;">
+                                <button onclick="testToggle()" style="padding: 0.5rem 1rem; background: #333; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                                    Test Toggle Step 1
+                                </button>
+                            </div>
+                            
                             <!-- Step 1: Coffee Base -->
                             <div class="constructor-step active" data-step="1">
-                                <div class="step-header" data-step="1">
+                                <div class="step-header" data-step="1" onclick="toggleStep(1)">
                                     <div class="step-number">1</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Выберите основу</h3>
@@ -2249,7 +2256,7 @@
 
                             <!-- Step 2: Size -->
                             <div class="constructor-step" data-step="2">
-                                <div class="step-header" data-step="2">
+                                <div class="step-header" data-step="2" onclick="toggleStep(2)">
                                     <div class="step-number">2</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Размер порции</h3>
@@ -2303,7 +2310,7 @@
 
                             <!-- Step 3: Milk Type -->
                             <div class="constructor-step" data-step="3">
-                                <div class="step-header" data-step="3">
+                                <div class="step-header" data-step="3" onclick="toggleStep(3)">
                                     <div class="step-number">3</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Тип молока</h3>
@@ -2351,7 +2358,7 @@
 
                             <!-- Step 4: Extras -->
                             <div class="constructor-step" data-step="4">
-                                <div class="step-header" data-step="4">
+                                <div class="step-header" data-step="4" onclick="toggleStep(4)">
                                     <div class="step-number">4</div>
                                     <div class="step-info">
                                         <h3 class="step-title">Дополнительно</h3>
@@ -3261,7 +3268,15 @@
             updateStepArrows();
         }
         
+        // Global flag to prevent multiple event listeners
+        let stepHeadersInitialized = false;
+        
         function initializeStepHeaders() {
+            if (stepHeadersInitialized) {
+                console.log('Step headers already initialized');
+                return;
+            }
+            
             console.log('Initializing step headers...');
             
             // Use event delegation for step headers
@@ -3277,6 +3292,7 @@
                 }
             });
             
+            stepHeadersInitialized = true;
             console.log('Step headers initialized with event delegation');
         }
 
@@ -3462,12 +3478,19 @@
             });
         }
         
+        // Test function for debugging
+        function testToggle() {
+            console.log('Test toggle called');
+            toggleStep(1);
+        }
+        
         // Make functions global for onclick handlers
         window.updateQuantity = updateQuantity;
         window.removeFromCart = removeFromCart;
         window.clearCart = clearCart;
         window.checkout = checkout;
         window.toggleStep = toggleStep;
+        window.testToggle = testToggle;
 
         // Utility functions
         function saveCart() {
