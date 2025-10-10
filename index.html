@@ -1298,6 +1298,243 @@
             0%, 100% { opacity: 0.6; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.1); }
         }
+
+        /* Floating Coffee Window */
+        .floating-coffee-window {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .floating-coffee-window.visible {
+            transform: translateX(0);
+        }
+
+        .floating-coffee-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .floating-coffee-header h4 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .close-floating-coffee {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #666;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .close-floating-coffee:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .floating-coffee-content {
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Realistic Coffee Cup */
+        .realistic-coffee-cup {
+            position: relative;
+            width: 80px;
+            height: 100px;
+        }
+
+        .cup-body {
+            position: relative;
+            width: 60px;
+            height: 80px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 0 0 12px 12px;
+            border: 2px solid #333;
+            box-shadow: 
+                0 4px 8px rgba(0, 0, 0, 0.1),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .cup-rim {
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            height: 4px;
+            background: linear-gradient(90deg, #333, #666, #333);
+            border-radius: 2px;
+        }
+
+        .coffee-liquid-realistic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+        }
+
+        .coffee-foam-realistic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(245, 245, 220, 0.8) 50%,
+                rgba(230, 230, 250, 0.7) 100%);
+            border-radius: 0 0 10px 10px;
+            animation: foamBubble 2s ease-in-out infinite;
+        }
+
+        .coffee-foam-realistic::before,
+        .coffee-foam-realistic::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: bubble1 3s ease-in-out infinite;
+        }
+
+        .coffee-foam-realistic::before {
+            width: 8px;
+            height: 8px;
+            top: 5px;
+            left: 15px;
+            animation-delay: 0.5s;
+        }
+
+        .coffee-foam-realistic::after {
+            width: 6px;
+            height: 6px;
+            top: 8px;
+            right: 20px;
+            animation-delay: 1s;
+        }
+
+        .cup-handle {
+            position: absolute;
+            top: 20px;
+            right: -8px;
+            width: 12px;
+            height: 20px;
+            border: 2px solid #333;
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+            background: transparent;
+        }
+
+        .cup-saucer {
+            position: absolute;
+            bottom: -8px;
+            left: -10px;
+            right: -10px;
+            height: 8px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid #333;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Component layers for realistic cup */
+        .component-layer-realistic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0 0 10px 10px;
+            opacity: 0.8;
+        }
+
+        .milk-layer-realistic {
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0.1) 100%);
+        }
+
+        .syrup-layer-realistic {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            border-radius: 1px;
+        }
+
+        .vanilla-syrup-realistic { background: linear-gradient(90deg, #FFF8DC, #F5DEB3); }
+        .caramel-syrup-realistic { background: linear-gradient(90deg, #D2691E, #CD853F); }
+        .chocolate-syrup-realistic { background: linear-gradient(90deg, #8B4513, #A0522D); }
+        .cinnamon-syrup-realistic { background: linear-gradient(90deg, #D2691E, #CD853F); }
+        .cocoa-syrup-realistic { background: linear-gradient(90deg, #8B4513, #A0522D); }
+
+        .topping-layer-realistic {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            border-radius: 4px;
+            animation: toppingPulse 2s ease-in-out infinite;
+        }
+
+        .nuts-topping-realistic { background: linear-gradient(90deg, #8B4513, #A0522D); }
+        .coconut-topping-realistic { background: linear-gradient(90deg, #F5F5DC, #DEB887); }
+        .sprinkles-topping-realistic { 
+            background: linear-gradient(90deg, #FF69B4, #FFB6C1, #87CEEB, #98FB98);
+            animation: sprinklesTwinkle 1.5s ease-in-out infinite;
+        }
+        .coffee-beans-topping-realistic { background: linear-gradient(90deg, #8B4513, #A0522D); }
+
+        /* Mobile responsiveness for floating window */
+        @media (max-width: 768px) {
+            .floating-coffee-window {
+                top: 10px;
+                right: 10px;
+                width: 160px;
+            }
+
+            .realistic-coffee-cup {
+                width: 60px;
+                height: 80px;
+            }
+
+            .cup-body {
+                width: 45px;
+                height: 60px;
+            }
+
+            .floating-coffee-header h4 {
+                font-size: 12px;
+            }
+        }
         
         .summary-details {
             margin-bottom: 2rem;
@@ -2077,6 +2314,26 @@
         <div class="coffee-bean">🫘</div>
     </div>
 
+    <!-- Floating Coffee Visualization -->
+    <div class="floating-coffee-window" id="floating-coffee-window">
+        <div class="floating-coffee-header">
+            <h4>Ваш напиток</h4>
+            <button class="close-floating-coffee" onclick="toggleFloatingCoffee()">×</button>
+        </div>
+        <div class="floating-coffee-content">
+            <div class="realistic-coffee-cup" id="realistic-coffee-cup">
+                <div class="cup-body">
+                    <div class="cup-rim"></div>
+                    <div class="coffee-liquid-realistic" id="coffee-liquid-realistic">
+                        <div class="coffee-foam-realistic" id="coffee-foam-realistic"></div>
+                    </div>
+                    <div class="cup-handle"></div>
+                </div>
+                <div class="cup-saucer"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="app-container">
         <!-- Navigation -->
         <nav class="navbar">
@@ -2535,6 +2792,11 @@
                                     <button class="btn btn-outline" id="reset-constructor">
                                         <i class="fas fa-refresh"></i>
                                         Сбросить
+                                    </button>
+                                    
+                                    <button onclick="toggleFloatingCoffee()" class="btn btn-outline">
+                                        <i class="fas fa-eye"></i>
+                                        Показать напиток
                                     </button>
                                 </div>
                             </div>
@@ -3100,9 +3362,22 @@
         }
         
         function updateCoffeeVisualization(base, size, milk, extras) {
+            // Update both old and new visualization
+            updateOldCoffeeVisualization(base, size, milk, extras);
+            updateRealisticCoffeeVisualization(base, size, milk, extras);
+            
+            // Show floating window when there's a selection
+            if (base || size || milk || (extras && extras.length > 0)) {
+                showFloatingCoffee();
+            }
+        }
+
+        function updateOldCoffeeVisualization(base, size, milk, extras) {
             const coffeeCup = document.getElementById('coffee-cup');
             const coffeeLiquid = document.getElementById('coffee-liquid');
             const coffeeFoam = document.getElementById('coffee-foam');
+            
+            if (!coffeeCup || !coffeeLiquid || !coffeeFoam) return;
             
             // Clear existing component layers
             const existingLayers = coffeeCup.querySelectorAll('.component-layer');
@@ -3159,6 +3434,73 @@
                     soy: 'linear-gradient(to bottom, #F0F8FF, #F5F5DC, #E6E6FA)'
                 };
                 coffeeFoam.style.background = foamColors[milk] || foamColors.regular;
+            }
+        }
+
+        function updateRealisticCoffeeVisualization(base, size, milk, extras) {
+            const realisticCup = document.getElementById('realistic-coffee-cup');
+            const coffeeLiquidRealistic = document.getElementById('coffee-liquid-realistic');
+            const coffeeFoamRealistic = document.getElementById('coffee-foam-realistic');
+            
+            if (!realisticCup || !coffeeLiquidRealistic || !coffeeFoamRealistic) return;
+            
+            // Clear existing component layers
+            const existingLayers = realisticCup.querySelectorAll('.component-layer-realistic');
+            existingLayers.forEach(layer => layer.remove());
+            
+            // Update coffee liquid color based on base
+            if (base) {
+                const baseColors = {
+                    espresso: 'linear-gradient(to top, #1a0f0a, #2d1810, #4a2c17)',
+                    americano: 'linear-gradient(to top, #2d1810, #4a2c17, #6b3e1a)',
+                    cappuccino: 'linear-gradient(to top, #4a2c17, #6b3e1a, #8b4513)'
+                };
+                coffeeLiquidRealistic.style.background = baseColors[base] || baseColors.espresso;
+            }
+            
+            // Update liquid height based on size
+            if (size) {
+                const sizeHeights = {
+                    small: '60%',
+                    medium: '70%',
+                    large: '80%'
+                };
+                coffeeLiquidRealistic.style.height = sizeHeights[size] || '70%';
+            }
+            
+            // Add milk layer if not regular milk
+            if (milk && milk !== 'regular') {
+                const milkLayer = document.createElement('div');
+                milkLayer.className = 'component-layer-realistic milk-layer-realistic';
+                coffeeLiquidRealistic.appendChild(milkLayer);
+            }
+            
+            // Add syrup layers
+            const syrupExtras = extras.filter(extra => ['vanilla', 'caramel', 'chocolate', 'cinnamon', 'cocoa'].includes(extra));
+            syrupExtras.forEach((syrup, index) => {
+                const syrupLayer = document.createElement('div');
+                syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
+                coffeeLiquidRealistic.appendChild(syrupLayer);
+            });
+            
+            // Add topping layers
+            const toppingExtras = extras.filter(extra => ['nuts', 'coconut', 'sprinkles', 'coffee-beans'].includes(extra));
+            toppingExtras.forEach((topping, index) => {
+                const toppingLayer = document.createElement('div');
+                toppingLayer.className = `component-layer-realistic topping-layer-realistic ${topping}-topping-realistic`;
+                coffeeLiquidRealistic.appendChild(toppingLayer);
+            });
+            
+            // Update foam based on milk type
+            if (milk) {
+                const foamColors = {
+                    regular: 'linear-gradient(to bottom, #FFFFFF, #F5F5DC, #E6E6FA)',
+                    oat: 'linear-gradient(to bottom, #FFF8DC, #F5F5DC, #E6E6FA)',
+                    almond: 'linear-gradient(to bottom, #FFFACD, #F5F5DC, #E6E6FA)',
+                    coconut: 'linear-gradient(to bottom, #FFF8DC, #F5F5DC, #E6E6FA)',
+                    soy: 'linear-gradient(to bottom, #F0F8FF, #F5F5DC, #E6E6FA)'
+                };
+                coffeeFoamRealistic.style.background = foamColors[milk] || foamColors.regular;
             }
         }
 
@@ -3548,12 +3890,29 @@
             });
         }
         
+        // Floating coffee window functions
+        function toggleFloatingCoffee() {
+            const window = document.getElementById('floating-coffee-window');
+            window.classList.toggle('visible');
+        }
+
+        function showFloatingCoffee() {
+            const window = document.getElementById('floating-coffee-window');
+            window.classList.add('visible');
+        }
+
+        function hideFloatingCoffee() {
+            const window = document.getElementById('floating-coffee-window');
+            window.classList.remove('visible');
+        }
+
         // Make functions global for onclick handlers
         window.updateQuantity = updateQuantity;
         window.removeFromCart = removeFromCart;
         window.clearCart = clearCart;
         window.checkout = checkout;
         window.toggleStep = toggleStep;
+        window.toggleFloatingCoffee = toggleFloatingCoffee;
 
         // Utility functions
         function saveCart() {
