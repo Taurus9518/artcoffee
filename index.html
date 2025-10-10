@@ -1361,26 +1361,30 @@
             padding: 16px;
             display: flex;
             justify-content: center;
+            align-items: center;
+            min-height: 120px;
         }
 
         /* Realistic Coffee Cup */
         .realistic-coffee-cup {
             position: relative;
-            width: 80px;
-            height: 100px;
+            width: 70px;
+            height: 90px;
+            margin: 0 auto;
         }
 
         .cup-body {
             position: relative;
-            width: 60px;
-            height: 80px;
+            width: 50px;
+            height: 70px;
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 0 0 15px 15px;
+            border-radius: 0 0 12px 12px;
             border: 2px solid #333;
             box-shadow: 
                 0 4px 8px rgba(0, 0, 0, 0.1),
                 inset 0 2px 4px rgba(255, 255, 255, 0.3);
             overflow: hidden;
+            margin: 0 auto;
         }
 
         .cup-rim {
@@ -1445,27 +1449,16 @@
 
         .cup-handle {
             position: absolute;
-            top: 25px;
-            right: -10px;
-            width: 14px;
-            height: 18px;
+            top: 20px;
+            right: -8px;
+            width: 12px;
+            height: 16px;
             border: 2px solid #333;
             border-left: none;
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 8px 8px 0;
             background: transparent;
         }
 
-        .cup-saucer {
-            position: absolute;
-            bottom: -8px;
-            left: -10px;
-            right: -10px;
-            height: 8px;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border: 2px solid #333;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
 
         /* Component layers for realistic cup */
         .component-layer-realistic {
@@ -1527,14 +1520,14 @@
             }
 
             .realistic-coffee-cup {
-                width: 50px;
-                height: 70px;
+                width: 45px;
+                height: 60px;
             }
 
             .cup-body {
                 width: 35px;
                 height: 50px;
-                border-radius: 0 0 12px 12px;
+                border-radius: 0 0 10px 10px;
             }
 
             .coffee-liquid-realistic {
@@ -2352,7 +2345,6 @@
                     </div>
                     <div class="cup-handle"></div>
                 </div>
-                <div class="cup-saucer"></div>
             </div>
         </div>
     </div>
