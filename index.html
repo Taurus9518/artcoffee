@@ -3321,6 +3321,12 @@
             
             saveCart();
             renderCart();
+            
+            // Close the extras step after successful addition
+            const extrasStep = document.querySelector('[data-step="4"]');
+            if (extrasStep && extrasStep.classList.contains('expanded')) {
+                toggleStep(4);
+            }
         }
 
         function removeFromCart(itemId) {
@@ -3513,10 +3519,21 @@
             }
         }
         
+        // Check if we're in the extras step and should not auto-advance
+        function isInExtrasStep() {
+            const extrasStep = document.querySelector('[data-step="4"]');
+            return extrasStep && extrasStep.classList.contains('expanded');
+        }
+        
         // Check progress and auto-advance when user manually changes selection
         function checkProgressAndAdvance() {
             setTimeout(() => {
-                smartAutoAdvance();
+                // Don't auto-advance if we're in the extras step (step 4)
+                if (!isInExtrasStep()) {
+                    smartAutoAdvance();
+                } else {
+                    console.log('In extras step, not auto-advancing');
+                }
             }, 100);
         }
         
