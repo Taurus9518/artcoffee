@@ -1358,7 +1358,7 @@
         .coffee-visualization-container {
             display: flex;
             align-items: flex-start;
-            gap: 16px;
+            gap: 20px;
             width: 100%;
         }
 
@@ -1405,6 +1405,22 @@
             background: linear-gradient(to top, #1a0f0a, #2d1810, #4a2c17);
         }
 
+        /* Different coffee base styles */
+        .coffee-liquid-realistic.espresso {
+            background: linear-gradient(to top, #0d0a08, #1a0f0a, #2d1810);
+            height: 40%;
+        }
+
+        .coffee-liquid-realistic.americano {
+            background: linear-gradient(to top, #1a0f0a, #2d1810, #4a2c17, #6b3e1a);
+            height: 70%;
+        }
+
+        .coffee-liquid-realistic.cappuccino {
+            background: linear-gradient(to top, #2d1810, #4a2c17, #6b3e1a);
+            height: 50%;
+        }
+
         .coffee-foam-realistic {
             position: absolute;
             top: 0;
@@ -1417,6 +1433,30 @@
                 rgba(230, 230, 250, 0.7) 100%);
             border-radius: 0 0 13px 13px;
             animation: foamBubble 2s ease-in-out infinite;
+        }
+
+        /* Different foam styles for different coffee types */
+        .coffee-foam-realistic.espresso {
+            height: 5px;
+            background: linear-gradient(to bottom, 
+                rgba(200, 180, 160, 0.8) 0%,
+                rgba(180, 160, 140, 0.6) 100%);
+        }
+
+        .coffee-foam-realistic.americano {
+            height: 8px;
+            background: linear-gradient(to bottom, 
+                rgba(220, 200, 180, 0.7) 0%,
+                rgba(200, 180, 160, 0.5) 100%);
+        }
+
+        .coffee-foam-realistic.cappuccino {
+            height: 25px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(245, 245, 220, 0.9) 30%,
+                rgba(230, 230, 200, 0.8) 70%,
+                rgba(220, 220, 180, 0.6) 100%);
         }
 
         .coffee-foam-realistic::before,
@@ -1479,33 +1519,68 @@
             top: 20px;
             left: 0;
             right: 0;
-            height: 2px;
-            border-radius: 1px;
+            height: 3px;
+            border-radius: 2px;
+            opacity: 0.8;
         }
 
-        .vanilla-syrup-realistic { background: linear-gradient(90deg, #FFF8DC, #F5DEB3); }
-        .caramel-syrup-realistic { background: linear-gradient(90deg, #D2691E, #CD853F); }
-        .chocolate-syrup-realistic { background: linear-gradient(90deg, #8B4513, #A0522D); }
-        .cinnamon-syrup-realistic { background: linear-gradient(90deg, #D2691E, #CD853F); }
-        .cocoa-syrup-realistic { background: linear-gradient(90deg, #8B4513, #A0522D); }
+        .vanilla-syrup-realistic { 
+            background: linear-gradient(90deg, #FFF8DC, #F5DEB3, #FFFACD);
+            top: 15px;
+            height: 2px;
+        }
+        .caramel-syrup-realistic { 
+            background: linear-gradient(90deg, #D2691E, #CD853F, #DEB887);
+            top: 18px;
+            height: 2px;
+        }
+        .chocolate-syrup-realistic { 
+            background: linear-gradient(90deg, #8B4513, #A0522D, #D2691E);
+            top: 12px;
+            height: 3px;
+        }
+        .cinnamon-syrup-realistic { 
+            background: linear-gradient(90deg, #D2691E, #CD853F, #DEB887);
+            top: 16px;
+            height: 2px;
+        }
+        .cocoa-syrup-realistic { 
+            background: linear-gradient(90deg, #8B4513, #A0522D, #D2691E);
+            top: 14px;
+            height: 2px;
+        }
 
         .topping-layer-realistic {
             position: absolute;
-            top: 15px;
+            top: 5px;
             left: 0;
             right: 0;
-            height: 8px;
-            border-radius: 4px;
+            height: 6px;
+            border-radius: 3px;
             animation: toppingPulse 2s ease-in-out infinite;
         }
 
-        .nuts-topping-realistic { background: linear-gradient(90deg, #8B4513, #A0522D); }
-        .coconut-topping-realistic { background: linear-gradient(90deg, #F5F5DC, #DEB887); }
+        .nuts-topping-realistic { 
+            background: linear-gradient(90deg, #8B4513, #A0522D, #CD853F);
+            top: 8px;
+            height: 4px;
+        }
+        .coconut-topping-realistic { 
+            background: linear-gradient(90deg, #F5F5DC, #DEB887, #F0E68C);
+            top: 6px;
+            height: 3px;
+        }
         .sprinkles-topping-realistic { 
-            background: linear-gradient(90deg, #FF69B4, #FFB6C1, #87CEEB, #98FB98);
+            background: linear-gradient(90deg, #FF69B4, #FFB6C1, #87CEEB, #98FB98, #FFD700);
+            top: 4px;
+            height: 2px;
             animation: sprinklesTwinkle 1.5s ease-in-out infinite;
         }
-        .coffee-beans-topping-realistic { background: linear-gradient(90deg, #8B4513, #A0522D); }
+        .coffee-beans-topping-realistic { 
+            background: linear-gradient(90deg, #8B4513, #A0522D, #CD853F);
+            top: 7px;
+            height: 3px;
+        }
 
         /* Ingredients List */
         .ingredients-list {
@@ -1563,7 +1638,14 @@
             .coffee-visualization-container {
                 flex-direction: column;
                 align-items: center;
-                gap: 12px;
+                gap: 16px;
+            }
+
+            .ingredients-list {
+                width: 100%;
+                padding-top: 0;
+                max-height: 120px;
+                overflow-y: auto;
             }
 
             .realistic-coffee-cup {
@@ -3527,14 +3609,15 @@
             existingLayers.forEach(layer => layer.remove());
             ingredientsList.innerHTML = '';
             
-            // Update coffee liquid color based on base
+            // Update coffee liquid color and class based on base
             if (base) {
-                const baseColors = {
-                    espresso: 'linear-gradient(to top, #1a0f0a, #2d1810, #4a2c17)',
-                    americano: 'linear-gradient(to top, #2d1810, #4a2c17, #6b3e1a)',
-                    cappuccino: 'linear-gradient(to top, #4a2c17, #6b3e1a, #8b4513)'
-                };
-                coffeeLiquidRealistic.style.background = baseColors[base] || baseColors.espresso;
+                // Remove existing base classes
+                coffeeLiquidRealistic.classList.remove('espresso', 'americano', 'cappuccino');
+                coffeeFoamRealistic.classList.remove('espresso', 'americano', 'cappuccino');
+                
+                // Add new base class
+                coffeeLiquidRealistic.classList.add(base);
+                coffeeFoamRealistic.classList.add(base);
             }
             
             // Update liquid height based on size
