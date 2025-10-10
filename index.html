@@ -812,7 +812,8 @@
         
         .modern-option:has(input:checked) .option-name,
         .modern-option:has(input:checked) .option-description,
-        .modern-option:has(input:checked) .option-price {
+        .modern-option:has(input:checked) .option-price,
+        .modern-option:has(input:checked) .option-details .option-price {
             color: #f5f1e8 !important;
         }
         
@@ -1004,6 +1005,14 @@
             color: #f5f1e8 !important;
         }
         
+        /* Universal rule for all selected elements with red background */
+        .modern-option:has(input:checked) *,
+        .milk-option.active *,
+        .extra-option:has(input:checked) *,
+        .size-option.active * {
+            color: #f5f1e8 !important;
+        }
+        
         .size-option.active .size-cup {
             background: linear-gradient(135deg, #333333, #000000);
             transform: scale(1.05);
@@ -1123,7 +1132,8 @@
         
         .milk-option.active .option-name,
         .milk-option.active .option-description,
-        .milk-option.active .option-price {
+        .milk-option.active .option-price,
+        .milk-option.active .option-details .option-price {
             color: #f5f1e8 !important;
         }
         
@@ -1256,7 +1266,8 @@
         
         .extra-option:has(input:checked) .option-name,
         .extra-option:has(input:checked) .option-description,
-        .extra-option:has(input:checked) .option-price {
+        .extra-option:has(input:checked) .option-price,
+        .extra-option:has(input:checked) .option-details .option-price {
             color: #f5f1e8 !important;
         }
         
