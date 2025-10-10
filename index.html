@@ -2889,9 +2889,11 @@
                         // Auto-advance to next step
                         setTimeout(() => {
                             // Close current step
-                            document.querySelector('[data-step="1"]').classList.remove('expanded');
+                            document.querySelector('[data-step="1"]').classList.remove('expanded', 'active');
                             // Open next step
-                            document.querySelector('[data-step="2"]').classList.add('expanded');
+                            document.querySelector('[data-step="2"]').classList.add('expanded', 'active');
+                            updateStepProgress();
+                            updateStepArrows();
                         }, 300);
                     }
                 }
@@ -2911,9 +2913,11 @@
                         // Auto-advance to next step
                         setTimeout(() => {
                             // Close current step
-                            document.querySelector('[data-step="2"]').classList.remove('expanded');
+                            document.querySelector('[data-step="2"]').classList.remove('expanded', 'active');
                             // Open next step
-                            document.querySelector('[data-step="3"]').classList.add('expanded');
+                            document.querySelector('[data-step="3"]').classList.add('expanded', 'active');
+                            updateStepProgress();
+                            updateStepArrows();
                         }, 300);
                     }
                 }
@@ -2933,9 +2937,11 @@
                         // Auto-advance to next step
                         setTimeout(() => {
                             // Close current step
-                            document.querySelector('[data-step="3"]').classList.remove('expanded');
+                            document.querySelector('[data-step="3"]').classList.remove('expanded', 'active');
                             // Open next step
-                            document.querySelector('[data-step="4"]').classList.add('expanded');
+                            document.querySelector('[data-step="4"]').classList.add('expanded', 'active');
+                            updateStepProgress();
+                            updateStepArrows();
                         }, 300);
                     }
                 }
@@ -3241,6 +3247,9 @@
             
             // Initialize coffee visualization
             updateCoffeeVisualization(null, null, null, []);
+            
+            // Initialize step arrows
+            updateStepArrows();
         }
 
         // Cart functionality
@@ -3383,12 +3392,12 @@
             
             // Close all steps first
             document.querySelectorAll('.constructor-step').forEach(s => {
-                s.classList.remove('expanded');
+                s.classList.remove('expanded', 'active');
             });
             
             // Open clicked step if it wasn't expanded
             if (!isExpanded) {
-                step.classList.add('expanded');
+                step.classList.add('expanded', 'active');
                 // Calculate optimal height for content
                 setTimeout(() => {
                     const content = step.querySelector('.step-content');
@@ -3398,6 +3407,23 @@
                     }
                 }, 100);
             }
+            
+            // Update step progress
+            updateStepProgress();
+            
+            // Update arrow icons
+            updateStepArrows();
+        }
+        
+        function updateStepArrows() {
+            document.querySelectorAll('.step-arrow i').forEach(arrow => {
+                const step = arrow.closest('.constructor-step');
+                if (step.classList.contains('expanded')) {
+                    arrow.className = 'fas fa-chevron-up';
+                } else {
+                    arrow.className = 'fas fa-chevron-down';
+                }
+            });
         }
         
         // Make functions global for onclick handlers
