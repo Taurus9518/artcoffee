@@ -1252,6 +1252,16 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.01); }
         }
+
+        @keyframes syrupFlow {
+            0% { opacity: 0; transform: translateY(-5px); }
+            100% { opacity: 0.9; transform: translateY(0); }
+        }
+
+        @keyframes toppingFall {
+            0% { opacity: 0; transform: translateY(-10px) scale(0.8); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
         
         @keyframes bubble1 {
             0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
@@ -1525,77 +1535,105 @@
         }
 
         .milk-layer-realistic {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 25px;
+            border-radius: 0 0 13px 13px;
             background: linear-gradient(to bottom, 
-                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0.4) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
                 rgba(255, 255, 255, 0.1) 100%);
+            animation: syrupFlow 0.7s ease-out;
+        }
+
+        .oat-milk-realistic {
+            background: linear-gradient(to bottom, 
+                rgba(255, 248, 220, 0.5) 0%,
+                rgba(245, 245, 220, 0.3) 50%,
+                rgba(230, 230, 200, 0.2) 100%);
+        }
+
+        .almond-milk-realistic {
+            background: linear-gradient(to bottom, 
+                rgba(255, 250, 205, 0.5) 0%,
+                rgba(245, 245, 220, 0.3) 50%,
+                rgba(230, 230, 200, 0.2) 100%);
+        }
+
+        .coconut-milk-realistic {
+            background: linear-gradient(to bottom, 
+                rgba(255, 248, 220, 0.6) 0%,
+                rgba(245, 245, 220, 0.4) 50%,
+                rgba(230, 230, 200, 0.3) 100%);
+        }
+
+        .soy-milk-realistic {
+            background: linear-gradient(to bottom, 
+                rgba(240, 248, 255, 0.5) 0%,
+                rgba(245, 245, 220, 0.3) 50%,
+                rgba(230, 230, 200, 0.2) 100%);
         }
 
         .syrup-layer-realistic {
             position: absolute;
-            top: 20px;
+            bottom: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            border-radius: 2px;
-            opacity: 0.8;
+            height: 8px;
+            border-radius: 0 0 13px 13px;
+            opacity: 0.9;
+            animation: syrupFlow 0.8s ease-out;
         }
 
         .vanilla-syrup-realistic { 
-            background: linear-gradient(90deg, #FFF8DC, #F5DEB3, #FFFACD);
-            top: 15px;
-            height: 2px;
+            background: linear-gradient(to top, #FFF8DC, #F5DEB3, #FFFACD);
+            height: 6px;
         }
         .caramel-syrup-realistic { 
-            background: linear-gradient(90deg, #D2691E, #CD853F, #DEB887);
-            top: 18px;
-            height: 2px;
+            background: linear-gradient(to top, #D2691E, #CD853F, #DEB887);
+            height: 7px;
         }
         .chocolate-syrup-realistic { 
-            background: linear-gradient(90deg, #8B4513, #A0522D, #D2691E);
-            top: 12px;
-            height: 3px;
+            background: linear-gradient(to top, #8B4513, #A0522D, #D2691E);
+            height: 8px;
         }
         .cinnamon-syrup-realistic { 
-            background: linear-gradient(90deg, #D2691E, #CD853F, #DEB887);
-            top: 16px;
-            height: 2px;
+            background: linear-gradient(to top, #D2691E, #CD853F, #DEB887);
+            height: 6px;
         }
         .cocoa-syrup-realistic { 
-            background: linear-gradient(90deg, #8B4513, #A0522D, #D2691E);
-            top: 14px;
-            height: 2px;
+            background: linear-gradient(to top, #8B4513, #A0522D, #D2691E);
+            height: 7px;
         }
 
         .topping-layer-realistic {
             position: absolute;
-            top: 5px;
+            top: 0;
             left: 0;
             right: 0;
-            height: 6px;
-            border-radius: 3px;
-            animation: toppingPulse 2s ease-in-out infinite;
+            height: 12px;
+            border-radius: 0 0 13px 13px;
+            animation: toppingFall 0.6s ease-out, toppingPulse 2s ease-in-out infinite 0.6s;
         }
 
         .nuts-topping-realistic { 
-            background: linear-gradient(90deg, #8B4513, #A0522D, #CD853F);
-            top: 8px;
-            height: 4px;
+            background: linear-gradient(to bottom, #8B4513, #A0522D, #CD853F);
+            height: 8px;
         }
         .coconut-topping-realistic { 
-            background: linear-gradient(90deg, #F5F5DC, #DEB887, #F0E68C);
-            top: 6px;
-            height: 3px;
+            background: linear-gradient(to bottom, #F5F5DC, #DEB887, #F0E68C);
+            height: 6px;
         }
         .sprinkles-topping-realistic { 
-            background: linear-gradient(90deg, #FF69B4, #FFB6C1, #87CEEB, #98FB98, #FFD700);
-            top: 4px;
-            height: 2px;
+            background: linear-gradient(to bottom, #FF69B4, #FFB6C1, #87CEEB, #98FB98, #FFD700);
+            height: 4px;
             animation: sprinklesTwinkle 1.5s ease-in-out infinite;
         }
         .coffee-beans-topping-realistic { 
-            background: linear-gradient(90deg, #8B4513, #A0522D, #CD853F);
-            top: 7px;
-            height: 3px;
+            background: linear-gradient(to bottom, #8B4513, #A0522D, #CD853F);
+            height: 7px;
         }
 
         /* Ingredients List */
@@ -3662,7 +3700,7 @@
             // Add milk layer if not regular milk
             if (milk && milk !== 'regular') {
                 const milkLayer = document.createElement('div');
-                milkLayer.className = 'component-layer-realistic milk-layer-realistic';
+                milkLayer.className = `component-layer-realistic milk-layer-realistic ${milk}-milk-realistic`;
                 coffeeLiquidRealistic.appendChild(milkLayer);
             }
             
