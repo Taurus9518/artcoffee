@@ -3297,13 +3297,13 @@
                                 </div>
                             </div>
 
-                            <!-- Step 4: Extras -->
+                            <!-- Step 4: Syrups -->
                             <div class="constructor-step" data-step="4">
                                 <div class="step-header" data-step="4">
                                     <div class="step-number">4</div>
                                     <div class="step-info">
-                                        <h3 class="step-title">Дополнительно</h3>
-                                        <p class="step-subtitle">Добавьте сиропы и топпинги</p>
+                                        <h3 class="step-title">Сиропы</h3>
+                                        <p class="step-subtitle">Выберите сиропы</p>
                                     </div>
                                     <div class="step-arrow">
                                         <i class="fas fa-chevron-down"></i>
@@ -3311,10 +3311,7 @@
                                 </div>
                                 
                                 <div class="step-content">
-                                    <div class="extras-categories">
-                                        <div class="extras-category">
-                                            <h4 class="category-title">🍯 Сиропы</h4>
-                                            <div class="extras-grid">
+                                    <div class="options-grid">
                                         <label class="extra-option" data-value="vanilla">
                                             <input type="checkbox" name="syrups" value="vanilla">
                                             <div class="extra-icon">🍦</div>
@@ -3350,9 +3347,27 @@
                                                 <i class="fas fa-plus"></i>
                                             </div>
                                         </label>
-                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 5: Toppings -->
+                            <div class="constructor-step" data-step="5">
+                                <div class="step-header" data-step="5">
+                                    <div class="step-number">5</div>
+                                    <div class="step-info">
+                                        <h3 class="step-title">Топпинги</h3>
+                                        <p class="step-subtitle">Выберите посыпки</p>
+                                    </div>
+                                    <div class="step-arrow">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="step-content">
+                                    <div class="options-grid">
                                         <label class="extra-option" data-value="cinnamon">
-                                            <input type="checkbox" name="syrups" value="cinnamon">
+                                            <input type="checkbox" name="toppings" value="cinnamon">
                                             <div class="extra-icon">🌿</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Корица</div>
@@ -3364,7 +3379,7 @@
                                         </label>
                                         
                                         <label class="extra-option" data-value="cocoa">
-                                            <input type="checkbox" name="syrups" value="cocoa">
+                                            <input type="checkbox" name="toppings" value="cocoa">
                                             <div class="extra-icon">☕</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Какао</div>
@@ -3374,12 +3389,7 @@
                                                 <i class="fas fa-plus"></i>
                                             </div>
                                         </label>
-                                            </div>
-                                        </div>
                                         
-                                        <div class="extras-category">
-                                            <h4 class="category-title">✨ Топпинги</h4>
-                                            <div class="extras-grid">
                                         <label class="extra-option" data-value="nuts">
                                             <input type="checkbox" name="toppings" value="nuts">
                                             <div class="extra-icon">🥜</div>
@@ -3427,8 +3437,6 @@
                                                 <i class="fas fa-plus"></i>
                                             </div>
                                         </label>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -4129,7 +4137,7 @@
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    coffeeLiquid.appendChild(syrupLayer);
+                    coffeeCup.appendChild(syrupLayer);
                 });
             }
             
@@ -4201,7 +4209,7 @@
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    coffeeLiquidRealistic.appendChild(syrupLayer);
+                    realisticCup.appendChild(syrupLayer);
                 });
             }
             
@@ -4476,10 +4484,10 @@
             saveCart();
             renderCart();
             
-            // Close the extras step after successful addition
-            const extrasStep = document.querySelector('[data-step="4"]');
-            if (extrasStep && extrasStep.classList.contains('expanded')) {
-                toggleStep(4);
+            // Close the toppings step after successful addition
+            const toppingsStep = document.querySelector('[data-step="5"]');
+            if (toppingsStep && toppingsStep.classList.contains('expanded')) {
+                toggleStep(5);
             }
         }
 
@@ -4659,8 +4667,8 @@
             const milk = document.querySelector('input[name="milk"]:checked');
             
             if (base && size && milk) {
-                // All required steps completed, open the last step (extras)
-                console.log('All required steps completed, opening extras step');
+                // All required steps completed, open syrups step
+                console.log('All required steps completed, opening syrups step');
                 toggleStep(4);
             } else if (base && size) {
                 // Base and size completed, open milk step
@@ -4673,10 +4681,12 @@
             }
         }
         
-        // Check if we're in the extras step and should not auto-advance
+        // Check if we're in the extras steps and should not auto-advance
         function isInExtrasStep() {
-            const extrasStep = document.querySelector('[data-step="4"]');
-            return extrasStep && extrasStep.classList.contains('expanded');
+            const syrupsStep = document.querySelector('[data-step="4"]');
+            const toppingsStep = document.querySelector('[data-step="5"]');
+            return (syrupsStep && syrupsStep.classList.contains('expanded')) || 
+                   (toppingsStep && toppingsStep.classList.contains('expanded'));
         }
         
         // Check progress and auto-advance when user manually changes selection
