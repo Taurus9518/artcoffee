@@ -3995,10 +3995,13 @@
                 almond: 'Миндальное молоко'
             };
             
-            const extraNames = {
+            const syrupNames = {
                 vanilla: 'Ванильный сироп',
                 caramel: 'Карамельный сироп',
-                chocolate: 'Шоколадный сироп',
+                chocolate: 'Шоколадный сироп'
+            };
+            
+            const toppingNames = {
                 cinnamon: 'Корица',
                 cocoa: 'Какао',
                 nuts: 'Орехи',
@@ -4011,12 +4014,24 @@
             document.getElementById('summary-size').textContent = size ? sizeNames[size] : 'Не выбрано';
             document.getElementById('summary-milk').textContent = milk ? milkNames[milk] : 'Не выбрано';
             
-            // Update extras
+            // Update extras - separate syrups and toppings
             const extrasElement = document.getElementById('summary-extras');
             const extrasTextElement = document.getElementById('summary-extras-text');
             
-            if (extras.length > 0) {
-                extrasTextElement.textContent = extras.map(extra => extraNames[extra]).join(', ');
+            const syrupTexts = selectedSyrups.map(syrup => syrupNames[syrup]).join(', ');
+            const toppingTexts = selectedToppings.map(topping => toppingNames[topping]).join(', ');
+            
+            let allExtrasText = '';
+            if (syrupTexts && toppingTexts) {
+                allExtrasText = `${syrupTexts}, ${toppingTexts}`;
+            } else if (syrupTexts) {
+                allExtrasText = syrupTexts;
+            } else if (toppingTexts) {
+                allExtrasText = toppingTexts;
+            }
+            
+            if (allExtrasText) {
+                extrasTextElement.textContent = allExtrasText;
                 extrasElement.style.display = 'flex';
             } else {
                 extrasElement.style.display = 'none';
@@ -4212,11 +4227,10 @@
             }
             
             // Update ingredients list
-            const allExtras = [...(syrups || []), ...(toppings || [])];
-            updateIngredientsList(base, size, milk, allExtras);
+            updateIngredientsList(base, size, milk, syrups, toppings);
         }
 
-        function updateIngredientsList(base, size, milk, extras) {
+        function updateIngredientsList(base, size, milk, syrups, toppings) {
             const ingredientsList = document.getElementById('ingredients-list');
             if (!ingredientsList) return;
             
@@ -4238,10 +4252,13 @@
                 almond: 'Миндальное молоко'
             };
             
-            const extraNames = {
+            const syrupNames = {
                 vanilla: 'Ванильный сироп',
                 caramel: 'Карамельный сироп',
-                chocolate: 'Шоколадный сироп',
+                chocolate: 'Шоколадный сироп'
+            };
+            
+            const toppingNames = {
                 cinnamon: 'Корица',
                 cocoa: 'Какао',
                 nuts: 'Орехи',
@@ -4274,13 +4291,25 @@
                 ingredientsList.appendChild(milkItem);
             }
             
-            // Add extras
-            extras.forEach(extra => {
-                const extraItem = document.createElement('div');
-                extraItem.className = 'ingredient-item extra';
-                extraItem.textContent = extraNames[extra] || extra;
-                ingredientsList.appendChild(extraItem);
-            });
+            // Add syrups
+            if (syrups && syrups.length > 0) {
+                syrups.forEach(syrup => {
+                    const syrupItem = document.createElement('div');
+                    syrupItem.className = 'ingredient-item syrup';
+                    syrupItem.textContent = syrupNames[syrup] || syrup;
+                    ingredientsList.appendChild(syrupItem);
+                });
+            }
+            
+            // Add toppings
+            if (toppings && toppings.length > 0) {
+                toppings.forEach(topping => {
+                    const toppingItem = document.createElement('div');
+                    toppingItem.className = 'ingredient-item topping';
+                    toppingItem.textContent = toppingNames[topping] || topping;
+                    ingredientsList.appendChild(toppingItem);
+                });
+            }
         }
 
         function addConstructorToCart() {
