@@ -322,6 +322,48 @@
             position: relative;
             overflow: hidden;
         }
+
+        .step-actions {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
+
+        .step-done-btn {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+        }
+
+        .step-done-btn:hover {
+            background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+        }
+
+        .step-done-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(220, 38, 38, 0.3);
+        }
+
+        .step-done-btn:disabled {
+            background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
         
         .btn::before {
             content: '';
@@ -3192,6 +3234,12 @@
                                             </div>
                                         </label>
                                     </div>
+                                    <div class="step-actions">
+                                        <button class="btn btn-primary step-done-btn" data-step="1">
+                                            <i class="fas fa-check"></i>
+                                            Готово
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -3246,6 +3294,12 @@
                                             </div>
                                         </label>
                                     </div>
+                                    <div class="step-actions">
+                                        <button class="btn btn-primary step-done-btn" data-step="2">
+                                            <i class="fas fa-check"></i>
+                                            Готово
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -3293,6 +3347,12 @@
                                                 <div class="milk-price">+25₽</div>
                                             </div>
                                         </label>
+                                    </div>
+                                    <div class="step-actions">
+                                        <button class="btn btn-primary step-done-btn" data-step="3">
+                                            <i class="fas fa-check"></i>
+                                            Готово
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -3347,6 +3407,12 @@
                                                 <i class="fas fa-plus"></i>
                                             </div>
                                         </label>
+                                    </div>
+                                    <div class="step-actions">
+                                        <button class="btn btn-primary step-done-btn" data-step="4">
+                                            <i class="fas fa-check"></i>
+                                            Готово
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -3437,6 +3503,12 @@
                                                 <i class="fas fa-plus"></i>
                                             </div>
                                         </label>
+                                    </div>
+                                    <div class="step-actions">
+                                        <button class="btn btn-primary step-done-btn" data-step="5">
+                                            <i class="fas fa-check"></i>
+                                            Готово
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -3862,6 +3934,43 @@
             
             // Use event delegation for better reliability
             document.addEventListener('click', function(e) {
+                // Step done button
+                if (e.target.closest('.step-done-btn')) {
+                    e.stopPropagation();
+                    const button = e.target.closest('.step-done-btn');
+                    const stepNumber = parseInt(button.dataset.step);
+                    console.log('Step done button clicked for step:', stepNumber);
+                    
+                    // Check if step has required selection
+                    if (stepNumber === 1) {
+                        const base = document.querySelector('input[name="base"]:checked');
+                        if (!base) {
+                            alert('Пожалуйста, выберите основу кофе');
+                            return;
+                        }
+                    } else if (stepNumber === 2) {
+                        const size = document.querySelector('input[name="size"]:checked');
+                        if (!size) {
+                            alert('Пожалуйста, выберите размер порции');
+                            return;
+                        }
+                    } else if (stepNumber === 3) {
+                        const milk = document.querySelector('input[name="milk"]:checked');
+                        if (!milk) {
+                            alert('Пожалуйста, выберите тип молока');
+                            return;
+                        }
+                    }
+                    
+                    // Close current step and open next step
+                    toggleStep(stepNumber);
+                    if (stepNumber < 5) {
+                        setTimeout(() => {
+                            toggleStep(stepNumber + 1);
+                        }, 300);
+                    }
+                }
+                
                 // Base selection
                 if (e.target.closest('.modern-option')) {
                     e.stopPropagation();
@@ -3871,10 +3980,6 @@
                         input.checked = true;
                         updateConstructorSummary();
                         updateStepProgress();
-                        // Smart auto-advance
-                        setTimeout(() => {
-                            smartAutoAdvance();
-                        }, 300);
                     }
                 }
                 
@@ -3891,10 +3996,6 @@
                         input.checked = true;
                         updateConstructorSummary();
                         updateStepProgress();
-                        // Smart auto-advance
-                        setTimeout(() => {
-                            smartAutoAdvance();
-                        }, 300);
                     }
                 }
                 
@@ -3911,10 +4012,6 @@
                         input.checked = true;
                         updateConstructorSummary();
                         updateStepProgress();
-                        // Smart auto-advance
-                        setTimeout(() => {
-                            smartAutoAdvance();
-                        }, 300);
                     }
                 }
                 
@@ -4048,8 +4145,8 @@
             // Update coffee visualization with separate syrups and toppings
             updateCoffeeVisualization(base, size, milk, selectedSyrups, selectedToppings);
             
-            // Check progress and auto-advance
-            checkProgressAndAdvance();
+            // Update summary only (no auto-advance)
+            // checkProgressAndAdvance();
             
             // Calculate total price
             let total = 0;
