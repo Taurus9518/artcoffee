@@ -1272,13 +1272,14 @@
         }
 
         .milk-layer-realistic {
-            top: 0;
+            bottom: 8px;
             height: 25px;
             background: linear-gradient(to bottom, 
-                rgba(255, 255, 255, 0.4) 0%,
-                rgba(255, 255, 255, 0.2) 50%,
-                rgba(255, 255, 255, 0.1) 100%);
+                rgba(255, 255, 255, 0.6) 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.2) 100%);
             animation: syrupFlow 0.7s ease-out;
+            z-index: 2;
         }
 
         .oat-milk-realistic {
@@ -1314,6 +1315,7 @@
             height: 8px;
             opacity: 0.9;
             animation: syrupFlow 0.8s ease-out;
+            z-index: 1;
         }
 
         .vanilla-syrup-realistic { 
@@ -1342,6 +1344,7 @@
             height: 12px;
             border-radius: 0 0 15px 15px;
             animation: toppingFall 0.6s ease-out, toppingPulse 2s ease-in-out infinite 0.6s;
+            z-index: 3;
         }
 
         .nuts-topping-realistic { 
@@ -1679,16 +1682,17 @@
 
         .milk-layer-realistic {
             position: absolute;
-            top: 0;
+            bottom: 8px;
             left: 0;
             right: 0;
             height: 25px;
             border-radius: 0 0 13px 13px;
             background: linear-gradient(to bottom, 
-                rgba(255, 255, 255, 0.4) 0%,
-                rgba(255, 255, 255, 0.2) 50%,
-                rgba(255, 255, 255, 0.1) 100%);
+                rgba(255, 255, 255, 0.6) 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0.2) 100%);
             animation: syrupFlow 0.7s ease-out;
+            z-index: 2;
         }
 
         .oat-milk-realistic {
@@ -1728,6 +1732,7 @@
             border-radius: 0 0 13px 13px;
             opacity: 0.9;
             animation: syrupFlow 0.8s ease-out;
+            z-index: 1;
         }
 
         .vanilla-syrup-realistic { 
@@ -1759,6 +1764,7 @@
             height: 12px;
             border-radius: 0 0 13px 13px;
             animation: toppingFall 0.6s ease-out, toppingPulse 2s ease-in-out infinite 0.6s;
+            z-index: 3;
         }
 
         .nuts-topping-realistic { 
@@ -3769,20 +3775,20 @@
                 coffeeLiquid.style.height = sizeHeights[size] || '60%';
             }
             
-            // Add milk layer if not regular milk
-            if (milk && milk !== 'regular') {
-                const milkLayer = document.createElement('div');
-                milkLayer.className = `component-layer milk-layer-realistic ${milk}-milk-realistic`;
-                coffeeLiquid.appendChild(milkLayer);
-            }
-            
-            // Add syrup layers (at the bottom of the cup)
+            // Add syrup layers first (at the bottom of the cup)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
                     coffeeLiquid.appendChild(syrupLayer);
                 });
+            }
+            
+            // Add milk layer above syrups if not regular milk
+            if (milk && milk !== 'regular') {
+                const milkLayer = document.createElement('div');
+                milkLayer.className = `component-layer milk-layer-realistic ${milk}-milk-realistic`;
+                coffeeLiquid.appendChild(milkLayer);
             }
             
             // Add topping layers (at the top of the cup)
