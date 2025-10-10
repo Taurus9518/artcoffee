@@ -1375,11 +1375,12 @@
             width: 60px;
             height: 80px;
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 0 0 12px 12px;
+            border-radius: 0 0 15px 15px;
             border: 2px solid #333;
             box-shadow: 
                 0 4px 8px rgba(0, 0, 0, 0.1),
                 inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            overflow: hidden;
         }
 
         .cup-rim {
@@ -1394,12 +1395,13 @@
 
         .coffee-liquid-realistic {
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            border-radius: 0 0 10px 10px;
+            height: 60%;
+            border-radius: 0 0 13px 13px;
             overflow: hidden;
+            background: linear-gradient(to top, #1a0f0a, #2d1810, #4a2c17);
         }
 
         .coffee-foam-realistic {
@@ -1407,12 +1409,12 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 20px;
+            height: 15px;
             background: linear-gradient(to bottom, 
                 rgba(255, 255, 255, 0.9) 0%,
                 rgba(245, 245, 220, 0.8) 50%,
                 rgba(230, 230, 250, 0.7) 100%);
-            border-radius: 0 0 10px 10px;
+            border-radius: 0 0 13px 13px;
             animation: foamBubble 2s ease-in-out infinite;
         }
 
@@ -1443,13 +1445,13 @@
 
         .cup-handle {
             position: absolute;
-            top: 20px;
-            right: -8px;
-            width: 12px;
-            height: 20px;
+            top: 25px;
+            right: -10px;
+            width: 14px;
+            height: 18px;
             border: 2px solid #333;
             border-left: none;
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 10px 10px 0;
             background: transparent;
         }
 
@@ -1532,6 +1534,17 @@
             .cup-body {
                 width: 35px;
                 height: 50px;
+                border-radius: 0 0 12px 12px;
+            }
+
+            .coffee-liquid-realistic {
+                height: 50%;
+                border-radius: 0 0 10px 10px;
+            }
+
+            .coffee-foam-realistic {
+                height: 12px;
+                border-radius: 0 0 10px 10px;
             }
 
             .floating-coffee-header h4 {
@@ -3478,11 +3491,11 @@
             // Update liquid height based on size
             if (size) {
                 const sizeHeights = {
-                    small: '60%',
-                    medium: '70%',
-                    large: '80%'
+                    small: '50%',
+                    medium: '60%',
+                    large: '70%'
                 };
-                coffeeLiquidRealistic.style.height = sizeHeights[size] || '70%';
+                coffeeLiquidRealistic.style.height = sizeHeights[size] || '60%';
             }
             
             // Add milk layer if not regular milk
