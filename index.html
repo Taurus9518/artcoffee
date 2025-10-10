@@ -2672,6 +2672,11 @@
             initializeMenu();
             initializeConstructor();
             initializeCart();
+            
+            // Initialize step headers after everything is loaded
+            setTimeout(() => {
+                initializeStepHeaders();
+            }, 100);
             updateCartBadge();
             showSection('home');
             console.log('App initialized');
@@ -3254,20 +3259,25 @@
             
             // Initialize step arrows
             updateStepArrows();
-            
-            // Initialize step header click handlers
-            initializeStepHeaders();
         }
         
         function initializeStepHeaders() {
-            document.querySelectorAll('.step-header').forEach(header => {
-                header.addEventListener('click', function(e) {
+            console.log('Initializing step headers...');
+            
+            // Use event delegation for step headers
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.step-header')) {
                     e.preventDefault();
                     e.stopPropagation();
-                    const stepNumber = parseInt(this.getAttribute('data-step'));
+                    console.log('Step header clicked');
+                    const header = e.target.closest('.step-header');
+                    const stepNumber = parseInt(header.getAttribute('data-step'));
+                    console.log('Toggling step:', stepNumber);
                     toggleStep(stepNumber);
-                });
+                }
             });
+            
+            console.log('Step headers initialized with event delegation');
         }
 
         // Cart functionality
