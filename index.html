@@ -1017,44 +1017,6 @@
             overflow: hidden;
         }
         
-        .size-visualization {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        
-        .cup-preview {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-        }
-        
-        .cup-body-preview {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border: 2px solid #2d1810;
-            border-radius: 0 0 8px 8px;
-            position: relative;
-            box-shadow: 
-                0 2px 0px #2d1810,
-                0 4px 8px rgba(45, 24, 16, 0.2);
-        }
-        
-        .cup-body-preview.small {
-            width: 30px;
-            height: 40px;
-        }
-        
-        .cup-body-preview.medium {
-            width: 40px;
-            height: 55px;
-        }
-        
-        .cup-body-preview.large {
-            width: 50px;
-            height: 70px;
-        }
         
         .size-label {
             font-size: 1.5rem;
@@ -3369,28 +3331,8 @@
                                 
                                 <div class="step-content">
                                     <div class="size-options-row">
-                                        <label class="size-option" data-value="small">
-                                            <input type="radio" name="size" value="small">
-                                            <div class="size-visualization">
-                                                <div class="cup-preview small-cup">
-                                                    <div class="cup-body-preview small"></div>
-                                                </div>
-                                            </div>
-                                            <div class="size-info">
-                                                <div class="size-label">S</div>
-                                                <div class="size-name">Маленький</div>
-                                                <div class="size-volume">200мл</div>
-                                                <div class="size-price">+0₽</div>
-                                            </div>
-                                        </label>
-                                        
                                         <label class="size-option" data-value="medium">
                                             <input type="radio" name="size" value="medium">
-                                            <div class="size-visualization">
-                                                <div class="cup-preview medium-cup">
-                                                    <div class="cup-body-preview medium"></div>
-                                                </div>
-                                            </div>
                                             <div class="size-info">
                                                 <div class="size-label">M</div>
                                                 <div class="size-name">Средний</div>
@@ -3401,11 +3343,6 @@
                                         
                                         <label class="size-option" data-value="large">
                                             <input type="radio" name="size" value="large">
-                                            <div class="size-visualization">
-                                                <div class="cup-preview large-cup">
-                                                    <div class="cup-body-preview large"></div>
-                                                </div>
-                                            </div>
                                             <div class="size-info">
                                                 <div class="size-label">L</div>
                                                 <div class="size-name">Большой</div>
@@ -4194,8 +4131,14 @@
 
         function updateConstructorSummary() {
             const base = document.querySelector('input[name="base"]:checked')?.value;
-            const size = document.querySelector('input[name="size"]:checked')?.value;
+            let size = document.querySelector('input[name="size"]:checked')?.value;
             const milk = document.querySelector('input[name="milk"]:checked')?.value;
+            
+            // For espresso, automatically set size to small
+            if (base === 'espresso') {
+                size = 'small';
+            }
+            
             // Get selected syrups and toppings separately
             const selectedSyrups = Array.from(document.querySelectorAll('input[name="syrups"]:checked')).map(input => input.value);
             const selectedToppings = Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(input => input.value);
@@ -4264,6 +4207,14 @@
             
             // Update coffee visualization with separate syrups and toppings
             updateCoffeeVisualization(base, size, milk, selectedSyrups, selectedToppings);
+            
+            // Hide size step if espresso is selected
+            const sizeStep = document.querySelector('[data-step="2"]');
+            if (base === 'espresso') {
+                sizeStep.style.display = 'none';
+            } else {
+                sizeStep.style.display = 'block';
+            }
             
             // Update summary only (no auto-advance)
             // checkProgressAndAdvance();
@@ -4424,6 +4375,9 @@
                     large: '70%'
                 };
                 coffeeLiquidRealistic.style.height = sizeHeights[size] || '60%';
+            } else if (base === 'espresso') {
+                // For espresso, automatically set small size
+                coffeeLiquidRealistic.style.height = '50%';
             }
             
             // Add milk layer in coffeeLiquidRealistic (above syrups)
@@ -4910,11 +4864,21 @@
         // Check progress and auto-advance when user manually changes selection
         function checkProgressAndAdvance() {
             setTimeout(() => {
-                // Don't auto-advance if we're in the toppings step (step 5)
-                if (!isInExtrasStep()) {
-                    smartAutoAdvance();
+                const selectedBase = document.querySelector('input[name="base"]:checked');
+                
+                // For espresso, skip size step and go directly to milk
+                if (selectedBase && selectedBase.value === 'espresso') {
+                    const selectedMilk = document.querySelector('input[name="milk"]:checked');
+                    if (!selectedMilk) {
+                        toggleStep(3);
+                    }
                 } else {
-                    console.log('In extras step, not auto-advancing');
+                    // For other bases, use normal auto-advance
+                    if (!isInExtrasStep()) {
+                        smartAutoAdvance();
+                    } else {
+                        console.log('In extras step, not auto-advancing');
+                    }
                 }
             }, 100);
         }
