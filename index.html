@@ -976,6 +976,30 @@
         }
         
         /* Extras Options */
+        .extras-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .extras-category {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+
         .extras-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -2772,9 +2796,12 @@
                                 </div>
                                 
                                 <div class="step-content">
-                                    <div class="extras-grid">
+                                    <div class="extras-categories">
+                                        <div class="extras-category">
+                                            <h4 class="category-title">🍯 Сиропы</h4>
+                                            <div class="extras-grid">
                                         <label class="extra-option" data-value="vanilla">
-                                            <input type="checkbox" name="extras" value="vanilla">
+                                            <input type="checkbox" name="syrups" value="vanilla">
                                             <div class="extra-icon">🍦</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Ваниль</div>
@@ -2786,7 +2813,7 @@
                                         </label>
                                         
                                         <label class="extra-option" data-value="caramel">
-                                            <input type="checkbox" name="extras" value="caramel">
+                                            <input type="checkbox" name="syrups" value="caramel">
                                             <div class="extra-icon">🍯</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Карамель</div>
@@ -2798,7 +2825,7 @@
                                         </label>
                                         
                                         <label class="extra-option" data-value="chocolate">
-                                            <input type="checkbox" name="extras" value="chocolate">
+                                            <input type="checkbox" name="syrups" value="chocolate">
                                             <div class="extra-icon">🍫</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Шоколад</div>
@@ -2810,7 +2837,7 @@
                                         </label>
                                         
                                         <label class="extra-option" data-value="cinnamon">
-                                            <input type="checkbox" name="extras" value="cinnamon">
+                                            <input type="checkbox" name="syrups" value="cinnamon">
                                             <div class="extra-icon">🌿</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Корица</div>
@@ -2822,7 +2849,7 @@
                                         </label>
                                         
                                         <label class="extra-option" data-value="cocoa">
-                                            <input type="checkbox" name="extras" value="cocoa">
+                                            <input type="checkbox" name="syrups" value="cocoa">
                                             <div class="extra-icon">☕</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Какао</div>
@@ -2832,9 +2859,14 @@
                                                 <i class="fas fa-plus"></i>
                                             </div>
                                         </label>
+                                            </div>
+                                        </div>
                                         
+                                        <div class="extras-category">
+                                            <h4 class="category-title">✨ Топпинги</h4>
+                                            <div class="extras-grid">
                                         <label class="extra-option" data-value="nuts">
-                                            <input type="checkbox" name="extras" value="nuts">
+                                            <input type="checkbox" name="toppings" value="nuts">
                                             <div class="extra-icon">🥜</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Орехи</div>
@@ -2846,7 +2878,7 @@
                                         </label>
                                         
                                         <label class="extra-option" data-value="coconut">
-                                            <input type="checkbox" name="extras" value="coconut">
+                                            <input type="checkbox" name="toppings" value="coconut">
                                             <div class="extra-icon">🥥</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Кокос</div>
@@ -2858,7 +2890,7 @@
                                         </label>
                                         
                                         <label class="extra-option" data-value="sprinkles">
-                                            <input type="checkbox" name="extras" value="sprinkles">
+                                            <input type="checkbox" name="toppings" value="sprinkles">
                                             <div class="extra-icon">✨</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Посыпка</div>
@@ -2870,7 +2902,7 @@
                                         </label>
                                         
                                         <label class="extra-option" data-value="coffee-beans">
-                                            <input type="checkbox" name="extras" value="coffee-beans">
+                                            <input type="checkbox" name="toppings" value="coffee-beans">
                                             <div class="extra-icon">🫘</div>
                                             <div class="extra-details">
                                                 <div class="extra-name">Зерно</div>
@@ -2880,6 +2912,8 @@
                                                 <i class="fas fa-plus"></i>
                                             </div>
                                         </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -3418,7 +3452,10 @@
             const base = document.querySelector('input[name="base"]:checked')?.value;
             const size = document.querySelector('input[name="size"]:checked')?.value;
             const milk = document.querySelector('input[name="milk"]:checked')?.value;
-            const extras = Array.from(document.querySelectorAll('input[name="extras"]:checked')).map(input => input.value);
+            // Get selected syrups and toppings separately
+            const selectedSyrups = Array.from(document.querySelectorAll('input[name="syrups"]:checked')).map(input => input.value);
+            const selectedToppings = Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(input => input.value);
+            const extras = [...selectedSyrups, ...selectedToppings];
             
             // Update summary display
             const baseNames = {
@@ -3466,8 +3503,8 @@
                 extrasElement.style.display = 'none';
             }
             
-            // Update coffee visualization
-            updateCoffeeVisualization(base, size, milk, extras);
+            // Update coffee visualization with separate syrups and toppings
+            updateCoffeeVisualization(base, size, milk, selectedSyrups, selectedToppings);
             
             // Check progress and auto-advance
             checkProgressAndAdvance();
@@ -3508,13 +3545,14 @@
             document.getElementById('summary-total').textContent = total > 0 ? `${total}₽` : 'Выберите компоненты';
         }
         
-        function updateCoffeeVisualization(base, size, milk, extras) {
+        function updateCoffeeVisualization(base, size, milk, syrups, toppings) {
             // Update both old and new visualization
-            updateOldCoffeeVisualization(base, size, milk, extras);
-            updateRealisticCoffeeVisualization(base, size, milk, extras);
+            const allExtras = [...(syrups || []), ...(toppings || [])];
+            updateOldCoffeeVisualization(base, size, milk, allExtras);
+            updateRealisticCoffeeVisualization(base, size, milk, syrups, toppings);
             
             // Show floating window only when there's a meaningful selection
-            const hasSelection = base || size || milk || (extras && extras.length > 0);
+            const hasSelection = base || size || milk || (syrups && syrups.length > 0) || (toppings && toppings.length > 0);
             if (hasSelection) {
                 showFloatingCoffee();
             } else {
@@ -3587,7 +3625,7 @@
             }
         }
 
-        function updateRealisticCoffeeVisualization(base, size, milk, extras) {
+        function updateRealisticCoffeeVisualization(base, size, milk, syrups, toppings) {
             const realisticCup = document.getElementById('realistic-coffee-cup');
             const coffeeLiquidRealistic = document.getElementById('coffee-liquid-realistic');
             const coffeeFoamRealistic = document.getElementById('coffee-foam-realistic');
@@ -3628,21 +3666,23 @@
                 coffeeLiquidRealistic.appendChild(milkLayer);
             }
             
-            // Add syrup layers
-            const syrupExtras = extras.filter(extra => ['vanilla', 'caramel', 'chocolate', 'cinnamon', 'cocoa'].includes(extra));
-            syrupExtras.forEach((syrup, index) => {
-                const syrupLayer = document.createElement('div');
-                syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                coffeeLiquidRealistic.appendChild(syrupLayer);
-            });
+            // Add syrup layers (at the bottom of the cup)
+            if (syrups && syrups.length > 0) {
+                syrups.forEach((syrup, index) => {
+                    const syrupLayer = document.createElement('div');
+                    syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
+                    coffeeLiquidRealistic.appendChild(syrupLayer);
+                });
+            }
             
-            // Add topping layers
-            const toppingExtras = extras.filter(extra => ['nuts', 'coconut', 'sprinkles', 'coffee-beans'].includes(extra));
-            toppingExtras.forEach((topping, index) => {
-                const toppingLayer = document.createElement('div');
-                toppingLayer.className = `component-layer-realistic topping-layer-realistic ${topping}-topping-realistic`;
-                coffeeLiquidRealistic.appendChild(toppingLayer);
-            });
+            // Add topping layers (at the top of the cup)
+            if (toppings && toppings.length > 0) {
+                toppings.forEach((topping, index) => {
+                    const toppingLayer = document.createElement('div');
+                    toppingLayer.className = `component-layer-realistic topping-layer-realistic ${topping}-topping-realistic`;
+                    coffeeLiquidRealistic.appendChild(toppingLayer);
+                });
+            }
             
             // Update foam based on milk type
             if (milk) {
@@ -3657,7 +3697,8 @@
             }
             
             // Update ingredients list
-            updateIngredientsList(base, size, milk, extras);
+            const allExtras = [...(syrups || []), ...(toppings || [])];
+            updateIngredientsList(base, size, milk, allExtras);
         }
 
         function updateIngredientsList(base, size, milk, extras) {
@@ -3731,7 +3772,10 @@
             const base = document.querySelector('input[name="base"]:checked')?.value;
             const size = document.querySelector('input[name="size"]:checked')?.value;
             const milk = document.querySelector('input[name="milk"]:checked')?.value;
-            const extras = Array.from(document.querySelectorAll('input[name="extras"]:checked')).map(input => input.value);
+            // Get selected syrups and toppings separately
+            const selectedSyrups = Array.from(document.querySelectorAll('input[name="syrups"]:checked')).map(input => input.value);
+            const selectedToppings = Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(input => input.value);
+            const extras = [...selectedSyrups, ...selectedToppings];
             
             // Check if all required components are selected
             if (!base || !size || !milk) {
