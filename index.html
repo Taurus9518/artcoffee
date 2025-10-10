@@ -1586,6 +1586,7 @@
             animation: syrupFlow 0.8s ease-out;
             z-index: 1;
             border-radius: 0 0 15px 15px;
+            transform: translateY(0);
         }
 
         .vanilla-syrup-realistic { 
@@ -2046,6 +2047,7 @@
             opacity: 0.9;
             animation: syrupFlow 0.8s ease-out;
             z-index: 1;
+            transform: translateY(0);
         }
 
         .vanilla-syrup-realistic { 
@@ -4216,19 +4218,19 @@
                 coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
             }
             
-            // Update size visualization
-            if (size) {
-                const sizeHeights = { small: '50%', medium: '60%', large: '70%' };
-                coffeeLiquid.style.height = sizeHeights[size] || '60%';
-            }
-            
-            // Add syrup layers at the very bottom of the cup (below everything)
+            // Add syrup layers at the very bottom of the cup (below everything) - FIRST
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
                     coffeeCup.appendChild(syrupLayer);
                 });
+            }
+            
+            // Update size visualization
+            if (size) {
+                const sizeHeights = { small: '50%', medium: '60%', large: '70%' };
+                coffeeLiquid.style.height = sizeHeights[size] || '60%';
             }
             
             // Add milk layer in coffeeLiquid (above syrups)
@@ -4284,6 +4286,15 @@
                 coffeeFoamRealistic.classList.add(base);
             }
             
+            // Add syrup layers at the very bottom of the cup (below everything) - FIRST
+            if (syrups && syrups.length > 0) {
+                syrups.forEach((syrup, index) => {
+                    const syrupLayer = document.createElement('div');
+                    syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
+                    realisticCup.appendChild(syrupLayer);
+                });
+            }
+            
             // Update liquid height based on size
             if (size) {
                 const sizeHeights = {
@@ -4292,15 +4303,6 @@
                     large: '70%'
                 };
                 coffeeLiquidRealistic.style.height = sizeHeights[size] || '60%';
-            }
-            
-            // Add syrup layers at the very bottom of the cup (below everything)
-            if (syrups && syrups.length > 0) {
-                syrups.forEach((syrup, index) => {
-                    const syrupLayer = document.createElement('div');
-                    syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    realisticCup.appendChild(syrupLayer);
-                });
             }
             
             // Add milk layer in coffeeLiquidRealistic (above syrups)
