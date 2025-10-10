@@ -1302,21 +1302,23 @@
         /* Floating Coffee Window */
         .floating-coffee-window {
             position: fixed;
-            top: 20px;
+            top: 80px;
             right: 20px;
-            width: 200px;
+            width: 180px;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             z-index: 9999;
             transform: translateX(100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
         }
 
         .floating-coffee-window.visible {
             transform: translateX(0);
+            opacity: 1;
         }
 
         .floating-coffee-header {
@@ -1516,24 +1518,24 @@
         /* Mobile responsiveness for floating window */
         @media (max-width: 768px) {
             .floating-coffee-window {
-                top: 10px;
+                top: 70px;
                 right: 10px;
-                width: 160px;
+                width: 140px;
                 z-index: 9999;
             }
 
             .realistic-coffee-cup {
-                width: 60px;
-                height: 80px;
+                width: 50px;
+                height: 70px;
             }
 
             .cup-body {
-                width: 45px;
-                height: 60px;
+                width: 35px;
+                height: 50px;
             }
 
             .floating-coffee-header h4 {
-                font-size: 12px;
+                font-size: 11px;
             }
         }
 
@@ -2959,10 +2961,8 @@
             updateCartBadge();
             showSection('home');
             
-            // Show floating coffee window by default
-            setTimeout(() => {
-                showFloatingCoffee();
-            }, 500);
+            // Don't show floating coffee window by default
+            // It will appear only when user makes selections in constructor
             
             console.log('App initialized');
             
@@ -3380,9 +3380,12 @@
             updateOldCoffeeVisualization(base, size, milk, extras);
             updateRealisticCoffeeVisualization(base, size, milk, extras);
             
-            // Show floating window when there's a selection
-            if (base || size || milk || (extras && extras.length > 0)) {
+            // Show floating window only when there's a meaningful selection
+            const hasSelection = base || size || milk || (extras && extras.length > 0);
+            if (hasSelection) {
                 showFloatingCoffee();
+            } else {
+                hideFloatingCoffee();
             }
         }
 
@@ -3607,8 +3610,9 @@
             updateConstructorSummary();
             updateStepProgress();
             
-            // Initialize coffee visualization
+            // Initialize coffee visualization and hide floating window
             updateCoffeeVisualization(null, null, null, []);
+            hideFloatingCoffee();
             
             // Initialize step arrows
             updateStepArrows();
