@@ -4272,15 +4272,18 @@
 
         function updateRealisticCoffeeVisualization(base, size, milk, syrups, toppings) {
             const realisticCup = document.getElementById('realistic-coffee-cup');
+            const cupBody = realisticCup.querySelector('.cup-body');
             const coffeeLiquidRealistic = document.getElementById('coffee-liquid-realistic');
             const coffeeFoamRealistic = document.getElementById('coffee-foam-realistic');
             const ingredientsList = document.getElementById('ingredients-list');
             
-            if (!realisticCup || !coffeeLiquidRealistic || !coffeeFoamRealistic || !ingredientsList) return;
+            if (!realisticCup || !cupBody || !coffeeLiquidRealistic || !coffeeFoamRealistic || !ingredientsList) return;
             
             // Clear existing component layers and ingredients
             const existingLayers = realisticCup.querySelectorAll('.component-layer-realistic');
             existingLayers.forEach(layer => layer.remove());
+            const existingSyrups = cupBody.querySelectorAll('.syrup-layer-realistic');
+            existingSyrups.forEach(layer => layer.remove());
             ingredientsList.innerHTML = '';
             
             // Update coffee liquid color and class based on base
@@ -4294,12 +4297,12 @@
                 coffeeFoamRealistic.classList.add(base);
             }
             
-            // Add syrup layers at the very bottom of the cup - FIRST (in cup container)
+            // Add syrup layers at the very bottom of the cup - FIRST (inside cup body)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    realisticCup.appendChild(syrupLayer);
+                    cupBody.appendChild(syrupLayer);
                 });
             }
             
