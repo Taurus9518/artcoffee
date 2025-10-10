@@ -4222,16 +4222,16 @@
                 coffeeLiquid.style.height = sizeHeights[size] || '60%';
             }
             
-            // Add syrup layers at the bottom of the cup (below milk)
+            // Add syrup layers at the very bottom of the cup (below everything)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    coffeeLiquid.appendChild(syrupLayer);
+                    coffeeCup.appendChild(syrupLayer);
                 });
             }
             
-            // Add milk layer first if not regular milk
+            // Add milk layer in coffeeLiquid (above syrups)
             if (milk && milk !== 'regular') {
                 const milkLayer = document.createElement('div');
                 milkLayer.className = `component-layer milk-layer-realistic ${milk}-milk-realistic`;
@@ -4294,16 +4294,16 @@
                 coffeeLiquidRealistic.style.height = sizeHeights[size] || '60%';
             }
             
-            // Add syrup layers at the bottom of the cup (below milk)
+            // Add syrup layers at the very bottom of the cup (below everything)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    coffeeLiquidRealistic.appendChild(syrupLayer);
+                    realisticCup.appendChild(syrupLayer);
                 });
             }
             
-            // Add milk layer first if not regular milk
+            // Add milk layer in coffeeLiquidRealistic (above syrups)
             if (milk && milk !== 'regular') {
                 const milkLayer = document.createElement('div');
                 milkLayer.className = `component-layer-realistic milk-layer-realistic ${milk}-milk-realistic`;
