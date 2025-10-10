@@ -1493,7 +1493,7 @@
 
         .milk-layer-realistic {
             position: absolute;
-            bottom: 20px;
+            bottom: 12px;
             left: 0;
             right: 0;
             height: 40px;
@@ -1569,7 +1569,7 @@
 
         .topping-layer-realistic {
             position: absolute;
-            bottom: 20px;
+            bottom: 52px;
             left: 0;
             right: 0;
             height: 15px;
@@ -1953,7 +1953,7 @@
 
         .milk-layer-realistic {
             position: absolute;
-            bottom: 20px;
+            bottom: 12px;
             left: 0;
             right: 0;
             height: 40px;
@@ -2029,7 +2029,7 @@
 
         .topping-layer-realistic {
             position: absolute;
-            bottom: 20px;
+            bottom: 52px;
             left: 0;
             right: 0;
             height: 15px;
@@ -4601,9 +4601,9 @@
         }
 
         // Constructor step toggle function
-        function toggleStep(stepNumber) {
-            // Prevent multiple rapid calls
-            if (window.toggleInProgress) {
+        function toggleStep(stepNumber, force = false) {
+            // Prevent multiple rapid calls unless forced (for auto-advance)
+            if (window.toggleInProgress && !force) {
                 console.log('Toggle already in progress, ignoring');
                 return;
             }
@@ -4669,15 +4669,15 @@
             if (base && size && milk) {
                 // All required steps completed, open syrups step
                 console.log('All required steps completed, opening syrups step');
-                toggleStep(4);
+                toggleStep(4, true);
             } else if (base && size) {
                 // Base and size completed, open milk step
                 console.log('Base and size completed, opening milk step');
-                toggleStep(3);
+                toggleStep(3, true);
             } else if (base) {
                 // Only base completed, open size step
                 console.log('Base completed, opening size step');
-                toggleStep(2);
+                toggleStep(2, true);
             }
         }
         
