@@ -4177,11 +4177,21 @@
         }
 
         function updateOldCoffeeVisualization(base, size, milk, syrups, toppings) {
+            console.log('🔍 updateOldCoffeeVisualization called with:', { base, size, milk, syrups, toppings });
+            
             const coffeeCup = document.getElementById('coffee-cup');
+            const cupBody = coffeeCup.querySelector('.cup-body');
             const coffeeLiquid = document.getElementById('coffee-liquid');
             const coffeeFoam = document.getElementById('coffee-foam');
             
-            if (!coffeeCup || !coffeeLiquid || !coffeeFoam) return;
+            console.log('🔍 Old visualization elements found:', { 
+                coffeeCup: !!coffeeCup, 
+                cupBody: !!cupBody, 
+                coffeeLiquid: !!coffeeLiquid, 
+                coffeeFoam: !!coffeeFoam 
+            });
+            
+            if (!coffeeCup || !cupBody || !coffeeLiquid || !coffeeFoam) return;
             
             // Clear existing component layers
             const existingLayers = coffeeCup.querySelectorAll('.component-layer');
@@ -4200,12 +4210,19 @@
             }
             
             // Add syrup layers at the very bottom of the cup - FIRST (inside cup body)
+            console.log('🔍 Old visualization - Processing syrups:', syrups);
             if (syrups && syrups.length > 0) {
+                console.log('🔍 Old visualization - Adding syrups to cupBody:', cupBody);
                 syrups.forEach((syrup, index) => {
+                    console.log(`🔍 Old visualization - Creating syrup layer for: ${syrup}`);
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
+                    console.log('🔍 Old visualization - Syrup layer created:', syrupLayer);
                     cupBody.appendChild(syrupLayer);
+                    console.log('🔍 Old visualization - Syrup layer appended to cupBody');
                 });
+            } else {
+                console.log('🔍 Old visualization - No syrups to add');
             }
             
             // Update size visualization
