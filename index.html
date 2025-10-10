@@ -4048,6 +4048,13 @@
             const selectedToppings = Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(input => input.value);
             const extras = [...selectedSyrups, ...selectedToppings];
             
+            console.log('🔍 updateConstructorSummary - Selected items:', { 
+                base, size, milk, 
+                selectedSyrups, 
+                selectedToppings, 
+                extras 
+            });
+            
             // Update summary display
             const baseNames = {
                 espresso: 'Эспрессо',
@@ -4110,6 +4117,7 @@
             }
             
             // Update coffee visualization with separate syrups and toppings
+            console.log('🔍 Calling updateCoffeeVisualization with:', { base, size, milk, selectedSyrups, selectedToppings });
             updateCoffeeVisualization(base, size, milk, selectedSyrups, selectedToppings);
             
             // Hide size step if espresso is selected
@@ -4236,11 +4244,21 @@
         }
 
         function updateRealisticCoffeeVisualization(base, size, milk, syrups, toppings) {
+            console.log('🔍 updateRealisticCoffeeVisualization called with:', { base, size, milk, syrups, toppings });
+            
             const realisticCup = document.getElementById('realistic-coffee-cup');
             const cupBody = realisticCup.querySelector('.cup-body');
             const coffeeLiquidRealistic = document.getElementById('coffee-liquid-realistic');
             const coffeeFoamRealistic = document.getElementById('coffee-foam-realistic');
             const ingredientsList = document.getElementById('ingredients-list');
+            
+            console.log('🔍 Elements found:', { 
+                realisticCup: !!realisticCup, 
+                cupBody: !!cupBody, 
+                coffeeLiquidRealistic: !!coffeeLiquidRealistic, 
+                coffeeFoamRealistic: !!coffeeFoamRealistic,
+                ingredientsList: !!ingredientsList
+            });
             
             if (!realisticCup || !cupBody || !coffeeLiquidRealistic || !coffeeFoamRealistic || !ingredientsList) return;
             
@@ -4263,12 +4281,19 @@
             }
             
             // Add syrup layers at the very bottom of the cup - FIRST (in realistic cup)
+            console.log('🔍 Processing syrups:', syrups);
             if (syrups && syrups.length > 0) {
+                console.log('🔍 Adding syrups to cupBody:', cupBody);
                 syrups.forEach((syrup, index) => {
+                    console.log(`🔍 Creating syrup layer for: ${syrup}`);
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    cupBodyRealistic.appendChild(syrupLayer);
+                    console.log('🔍 Syrup layer created:', syrupLayer);
+                    cupBody.appendChild(syrupLayer);
+                    console.log('🔍 Syrup layer appended to cupBody');
                 });
+            } else {
+                console.log('🔍 No syrups to add');
             }
             
             // Update liquid height based on size
@@ -4317,8 +4342,12 @@
         }
 
         function updateIngredientsList(base, size, milk, syrups, toppings) {
+            console.log('🔍 updateIngredientsList called with:', { base, size, milk, syrups, toppings });
             const ingredientsList = document.getElementById('ingredients-list');
-            if (!ingredientsList) return;
+            if (!ingredientsList) {
+                console.log('🔍 ingredientsList not found!');
+                return;
+            }
             
             const baseNames = {
                 espresso: 'Эспрессо',
@@ -4378,13 +4407,19 @@
             }
             
             // Add syrups
+            console.log('🔍 Processing syrups for ingredients list:', syrups);
             if (syrups && syrups.length > 0) {
+                console.log('🔍 Adding syrups to ingredients list');
                 syrups.forEach(syrup => {
+                    console.log(`🔍 Adding syrup to list: ${syrup}`);
                     const syrupItem = document.createElement('div');
                     syrupItem.className = 'ingredient-item syrup';
                     syrupItem.textContent = syrupNames[syrup] || syrup;
                     ingredientsList.appendChild(syrupItem);
+                    console.log('🔍 Syrup added to ingredients list:', syrupItem);
                 });
+            } else {
+                console.log('🔍 No syrups to add to ingredients list');
             }
             
             // Add toppings
