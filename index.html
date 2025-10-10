@@ -4284,7 +4284,7 @@
             // Clear existing component layers and ingredients
             const existingLayers = realisticCup.querySelectorAll('.component-layer-realistic');
             existingLayers.forEach(layer => layer.remove());
-            const existingSyrups = cupBody.querySelectorAll('.syrup-layer-realistic');
+            const existingSyrups = coffeeLiquidRealistic.querySelectorAll('.syrup-layer-realistic');
             existingSyrups.forEach(layer => layer.remove());
             ingredientsList.innerHTML = '';
             
@@ -4299,12 +4299,12 @@
                 coffeeFoamRealistic.classList.add(base);
             }
             
-            // Add syrup layers at the very bottom of the cup - FIRST (inside cup body)
+            // Add syrup layers at the very bottom of the cup - FIRST (inside coffee liquid)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    cupBody.insertBefore(syrupLayer, cupBody.firstChild);
+                    coffeeLiquidRealistic.insertBefore(syrupLayer, coffeeLiquidRealistic.firstChild);
                 });
             }
             
