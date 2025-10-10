@@ -1223,6 +1223,45 @@
             animation: foamBubble 2s ease-in-out infinite;
             position: relative;
         }
+
+        /* Apply realistic styles to old visualization */
+        .coffee-liquid.espresso {
+            background: linear-gradient(to top, #0d0a08, #1a0f0a, #2d1810);
+            height: 40%;
+        }
+
+        .coffee-liquid.americano {
+            background: linear-gradient(to top, #1a0f0a, #2d1810, #4a2c17, #6b3e1a);
+            height: 70%;
+        }
+
+        .coffee-liquid.cappuccino {
+            background: linear-gradient(to top, #2d1810, #4a2c17, #6b3e1a);
+            height: 50%;
+        }
+
+        .coffee-foam.espresso {
+            height: 5px;
+            background: linear-gradient(to bottom, 
+                rgba(200, 180, 160, 0.8) 0%,
+                rgba(180, 160, 140, 0.6) 100%);
+        }
+
+        .coffee-foam.americano {
+            height: 8px;
+            background: linear-gradient(to bottom, 
+                rgba(220, 200, 180, 0.7) 0%,
+                rgba(200, 180, 160, 0.5) 100%);
+        }
+
+        .coffee-foam.cappuccino {
+            height: 25px;
+            background: linear-gradient(to bottom, 
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(245, 245, 220, 0.9) 30%,
+                rgba(230, 230, 200, 0.8) 70%,
+                rgba(220, 220, 180, 0.6) 100%);
+        }
         
         .coffee-foam::before {
             content: '';
@@ -1336,7 +1375,7 @@
         /* Floating Coffee Window */
         .floating-coffee-window {
             position: fixed;
-            top: 80px;
+            top: 120px;
             right: 20px;
             width: 220px;
             background: rgba(255, 255, 255, 0.98);
@@ -1683,7 +1722,7 @@
         /* Mobile responsiveness for floating window */
         @media (max-width: 768px) {
             .floating-coffee-window {
-                top: 70px;
+                top: 100px;
                 right: 10px;
                 width: 180px;
                 z-index: 9999;
@@ -3169,6 +3208,10 @@
             // Don't show floating coffee window by default
             // It will appear only when user makes selections in constructor
             
+            // Add scroll listener for floating window visibility
+            window.addEventListener('scroll', handleScrollVisibility);
+            window.addEventListener('resize', handleScrollVisibility);
+            
             console.log('App initialized');
             
             // Handle window resize for constructor steps
@@ -3589,16 +3632,11 @@
             updateOldCoffeeVisualization(base, size, milk, allExtras);
             updateRealisticCoffeeVisualization(base, size, milk, syrups, toppings);
             
-            // Show floating window only when there's a meaningful selection
-            const hasSelection = base || size || milk || (syrups && syrups.length > 0) || (toppings && toppings.length > 0);
-            if (hasSelection) {
-                showFloatingCoffee();
-            } else {
-                hideFloatingCoffee();
-            }
+            // Check scroll-based visibility
+            handleScrollVisibility();
         }
 
-        function updateOldCoffeeVisualization(base, size, milk, extras) {
+        function updateOldCoffeeVisualization(base, size, milk, syrups, toppings) {
             const coffeeCup = document.getElementById('coffee-cup');
             const coffeeLiquid = document.getElementById('coffee-liquid');
             const coffeeFoam = document.getElementById('coffee-foam');
@@ -3609,46 +3647,44 @@
             const existingLayers = coffeeCup.querySelectorAll('.component-layer');
             existingLayers.forEach(layer => layer.remove());
             
-            // Update base coffee color
+            // Update base coffee color and class
             if (base) {
-                const baseColors = {
-                    espresso: 'linear-gradient(to top, #1a0f0a, #2d1810, #4a2c17)',
-                    americano: 'linear-gradient(to top, #2d1810, #4a2c17, #6b3e1a)',
-                    cappuccino: 'linear-gradient(to top, #4a2c17, #6b3e1a, #8b4513)'
-                };
-                coffeeLiquid.style.background = baseColors[base] || baseColors.espresso;
+                coffeeLiquid.classList.remove('espresso', 'americano', 'cappuccino');
+                coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
+                coffeeLiquid.classList.add(base);
+                coffeeFoam.classList.add(base);
             }
             
             // Update size visualization
             if (size) {
-                const sizeHeights = { small: '60%', medium: '70%', large: '80%' };
-                coffeeLiquid.style.height = sizeHeights[size] || '70%';
+                const sizeHeights = { small: '50%', medium: '60%', large: '70%' };
+                coffeeLiquid.style.height = sizeHeights[size] || '60%';
             }
             
-            // Add milk layer
+            // Add milk layer if not regular milk
             if (milk && milk !== 'regular') {
                 const milkLayer = document.createElement('div');
-                milkLayer.className = 'component-layer milk-layer';
-                coffeeCup.appendChild(milkLayer);
+                milkLayer.className = `component-layer milk-layer-realistic ${milk}-milk-realistic`;
+                coffeeLiquid.appendChild(milkLayer);
             }
             
-            // Add syrup layers
-            const syrupExtras = extras.filter(extra => ['vanilla', 'caramel', 'chocolate', 'cinnamon', 'cocoa'].includes(extra));
-            syrupExtras.forEach((syrup, index) => {
-                const syrupLayer = document.createElement('div');
-                syrupLayer.className = `component-layer syrup-layer ${syrup}-syrup`;
-                syrupLayer.style.bottom = `${20 + (index * 5)}%`;
-                coffeeCup.appendChild(syrupLayer);
-            });
+            // Add syrup layers (at the bottom of the cup)
+            if (syrups && syrups.length > 0) {
+                syrups.forEach((syrup, index) => {
+                    const syrupLayer = document.createElement('div');
+                    syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
+                    coffeeLiquid.appendChild(syrupLayer);
+                });
+            }
             
-            // Add topping layers
-            const toppingExtras = extras.filter(extra => ['nuts', 'coconut', 'sprinkles', 'coffee-beans'].includes(extra));
-            toppingExtras.forEach((topping, index) => {
-                const toppingLayer = document.createElement('div');
-                toppingLayer.className = `component-layer topping-layer ${topping}-topping`;
-                toppingLayer.style.top = `${index * 8}%`;
-                coffeeCup.appendChild(toppingLayer);
-            });
+            // Add topping layers (at the top of the cup)
+            if (toppings && toppings.length > 0) {
+                toppings.forEach((topping, index) => {
+                    const toppingLayer = document.createElement('div');
+                    toppingLayer.className = `component-layer topping-layer-realistic ${topping}-topping-realistic`;
+                    coffeeLiquid.appendChild(toppingLayer);
+                });
+            }
             
             // Update foam based on milk type
             if (milk) {
@@ -4210,6 +4246,37 @@
         function hideFloatingCoffee() {
             const window = document.getElementById('floating-coffee-window');
             window.classList.remove('visible');
+        }
+
+        // Scroll-based visibility control
+        function handleScrollVisibility() {
+            const floatingWindow = document.getElementById('floating-coffee-window');
+            const bottomVisualization = document.querySelector('.order-summary');
+            
+            if (!floatingWindow || !bottomVisualization) return;
+            
+            const floatingRect = floatingWindow.getBoundingClientRect();
+            const bottomRect = bottomVisualization.getBoundingClientRect();
+            
+            // Check if bottom visualization is visible
+            const isBottomVisible = bottomRect.top < window.innerHeight && bottomRect.bottom > 0;
+            
+            // Show floating window only when bottom visualization is not visible
+            if (isBottomVisible) {
+                hideFloatingCoffee();
+            } else {
+                // Only show if there are selections
+                const base = document.querySelector('input[name="base"]:checked')?.value;
+                const size = document.querySelector('input[name="size"]:checked')?.value;
+                const milk = document.querySelector('input[name="milk"]:checked')?.value;
+                const syrups = Array.from(document.querySelectorAll('input[name="syrups"]:checked')).map(input => input.value);
+                const toppings = Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(input => input.value);
+                
+                const hasSelection = base || size || milk || syrups.length > 0 || toppings.length > 0;
+                if (hasSelection) {
+                    showFloatingCoffee();
+                }
+            }
         }
 
         // Make functions global for onclick handlers
