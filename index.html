@@ -2901,14 +2901,9 @@
                         input.checked = true;
                         updateConstructorSummary();
                         updateStepProgress();
-                        // Auto-advance to next step
+                        // Smart auto-advance
                         setTimeout(() => {
-                            // Close current step
-                            document.querySelector('[data-step="1"]').classList.remove('expanded', 'active');
-                            // Open next step
-                            document.querySelector('[data-step="2"]').classList.add('expanded', 'active');
-                            updateStepProgress();
-                            updateStepArrows();
+                            smartAutoAdvance();
                         }, 300);
                     }
                 }
@@ -2926,14 +2921,9 @@
                         input.checked = true;
                         updateConstructorSummary();
                         updateStepProgress();
-                        // Auto-advance to next step
+                        // Smart auto-advance
                         setTimeout(() => {
-                            // Close current step
-                            document.querySelector('[data-step="2"]').classList.remove('expanded', 'active');
-                            // Open next step
-                            document.querySelector('[data-step="3"]').classList.add('expanded', 'active');
-                            updateStepProgress();
-                            updateStepArrows();
+                            smartAutoAdvance();
                         }, 300);
                     }
                 }
@@ -2951,14 +2941,9 @@
                         input.checked = true;
                         updateConstructorSummary();
                         updateStepProgress();
-                        // Auto-advance to next step
+                        // Smart auto-advance
                         setTimeout(() => {
-                            // Close current step
-                            document.querySelector('[data-step="3"]').classList.remove('expanded', 'active');
-                            // Open next step
-                            document.querySelector('[data-step="4"]').classList.add('expanded', 'active');
-                            updateStepProgress();
-                            updateStepArrows();
+                            smartAutoAdvance();
                         }, 300);
                     }
                 }
@@ -3074,6 +3059,9 @@
             
             // Update coffee visualization
             updateCoffeeVisualization(base, size, milk, extras);
+            
+            // Check progress and auto-advance
+            checkProgressAndAdvance();
             
             // Calculate total price
             let total = 0;
@@ -3501,6 +3489,35 @@
             setTimeout(() => {
                 window.toggleInProgress = false;
             }, 200);
+        }
+        
+        // Smart auto-advance function
+        function smartAutoAdvance() {
+            // Check if all required steps are completed
+            const base = document.querySelector('input[name="base"]:checked');
+            const size = document.querySelector('input[name="size"]:checked');
+            const milk = document.querySelector('input[name="milk"]:checked');
+            
+            if (base && size && milk) {
+                // All required steps completed, open the last step (extras)
+                console.log('All required steps completed, opening extras step');
+                toggleStep(4);
+            } else if (base && size) {
+                // Base and size completed, open milk step
+                console.log('Base and size completed, opening milk step');
+                toggleStep(3);
+            } else if (base) {
+                // Only base completed, open size step
+                console.log('Base completed, opening size step');
+                toggleStep(2);
+            }
+        }
+        
+        // Check progress and auto-advance when user manually changes selection
+        function checkProgressAndAdvance() {
+            setTimeout(() => {
+                smartAutoAdvance();
+            }, 100);
         }
         
         function updateStepArrows() {
