@@ -3418,14 +3418,22 @@
             const step = document.querySelector(`[data-step="${stepNumber}"]`);
             const isExpanded = step.classList.contains('expanded');
             
-            // Close all steps first
-            document.querySelectorAll('.constructor-step').forEach(s => {
-                s.classList.remove('expanded', 'active');
-            });
+            console.log('Toggle step:', stepNumber, 'isExpanded:', isExpanded);
             
-            // Open clicked step if it wasn't expanded
-            if (!isExpanded) {
+            // If the step is already expanded, close it
+            if (isExpanded) {
+                step.classList.remove('expanded', 'active');
+                console.log('Closing step:', stepNumber);
+            } else {
+                // Close all other steps first
+                document.querySelectorAll('.constructor-step').forEach(s => {
+                    s.classList.remove('expanded', 'active');
+                });
+                
+                // Open the clicked step
                 step.classList.add('expanded', 'active');
+                console.log('Opening step:', stepNumber);
+                
                 // Calculate optimal height for content
                 setTimeout(() => {
                     const content = step.querySelector('.step-content');
