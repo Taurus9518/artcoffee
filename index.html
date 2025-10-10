@@ -1587,13 +1587,14 @@
             bottom: 0 !important;
             left: 0 !important;
             right: 0 !important;
-            height: 10px !important;
+            height: 12px !important;
             opacity: 0.9;
             animation: syrupFlow 0.8s ease-out;
             z-index: 0 !important;
             border-radius: 0 0 15px 15px;
             background: linear-gradient(to top, #8B4513, #A0522D);
             transform: translateY(0) !important;
+            overflow: hidden !important;
         }
 
         .vanilla-syrup-realistic { 
@@ -4190,12 +4191,12 @@
                 coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
             }
             
-            // Add syrup layers at the very bottom of the cup - FIRST (in cup container)
+            // Add syrup layers at the very bottom of the cup - FIRST (inside cup body)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    coffeeCup.appendChild(syrupLayer);
+                    cupBody.appendChild(syrupLayer);
                 });
             }
             
@@ -4266,7 +4267,7 @@
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    realisticCup.appendChild(syrupLayer);
+                    cupBodyRealistic.appendChild(syrupLayer);
                 });
             }
             
