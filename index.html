@@ -991,25 +991,76 @@
         }
         
         /* Size Options */
-        .size-options {
+        .size-options-row {
             display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            flex-direction: row;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
         }
         
         .size-option {
             position: relative;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
+            background: #f5f1e8;
+            border: 3px solid #2d1810;
             border-radius: 8px;
-            padding: 0.75rem;
+            padding: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            text-align: left;
+            text-align: center;
+            min-width: 120px;
+            gap: 0.5rem;
             min-height: 60px;
             overflow: hidden;
+        }
+        
+        .size-visualization {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cup-preview {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        
+        .cup-body-preview {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid #2d1810;
+            border-radius: 0 0 8px 8px;
+            position: relative;
+            box-shadow: 
+                0 2px 0px #2d1810,
+                0 4px 8px rgba(45, 24, 16, 0.2);
+        }
+        
+        .cup-body-preview.small {
+            width: 30px;
+            height: 40px;
+        }
+        
+        .cup-body-preview.medium {
+            width: 40px;
+            height: 55px;
+        }
+        
+        .cup-body-preview.large {
+            width: 50px;
+            height: 70px;
+        }
+        
+        .size-label {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #2d1810;
+            text-shadow: 1px 1px 0px #dc2626;
         }
         
         .size-option::before {
@@ -1028,10 +1079,12 @@
         }
         
         .size-option:hover {
-            border-color: #8B4513;
-            background: rgba(139, 69, 19, 0.05);
+            border-color: #dc2626;
+            background: #f5f1e8;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+            box-shadow: 
+                0 4px 0px #dc2626,
+                0 8px 16px rgba(220, 38, 38, 0.3);
         }
         
         .size-option:hover .size-cup {
@@ -1040,10 +1093,13 @@
         }
         
         .size-option.active {
-            border-color: #000000;
-            background: rgba(0, 0, 0, 0.05);
+            border-color: #dc2626;
+            background: #dc2626;
+            color: #f5f1e8;
             transform: none;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: 
+                0 4px 0px #2d1810,
+                0 8px 16px rgba(220, 38, 38, 0.4);
         }
         
         .size-option.active .size-cup {
@@ -3312,13 +3368,16 @@
                                 </div>
                                 
                                 <div class="step-content">
-                                    <div class="size-options">
+                                    <div class="size-options-row">
                                         <label class="size-option" data-value="small">
                                             <input type="radio" name="size" value="small">
-                                            <div class="size-cup small-cup">
-                                                <div class="cup-icon">☕</div>
+                                            <div class="size-visualization">
+                                                <div class="cup-preview small-cup">
+                                                    <div class="cup-body-preview small"></div>
+                                                </div>
                                             </div>
                                             <div class="size-info">
+                                                <div class="size-label">S</div>
                                                 <div class="size-name">Маленький</div>
                                                 <div class="size-volume">200мл</div>
                                                 <div class="size-price">+0₽</div>
@@ -3327,10 +3386,13 @@
                                         
                                         <label class="size-option" data-value="medium">
                                             <input type="radio" name="size" value="medium">
-                                            <div class="size-cup medium-cup">
-                                                <div class="cup-icon">☕</div>
+                                            <div class="size-visualization">
+                                                <div class="cup-preview medium-cup">
+                                                    <div class="cup-body-preview medium"></div>
+                                                </div>
                                             </div>
                                             <div class="size-info">
+                                                <div class="size-label">M</div>
                                                 <div class="size-name">Средний</div>
                                                 <div class="size-volume">300мл</div>
                                                 <div class="size-price">+30₽</div>
@@ -3339,10 +3401,13 @@
                                         
                                         <label class="size-option" data-value="large">
                                             <input type="radio" name="size" value="large">
-                                            <div class="size-cup large-cup">
-                                                <div class="cup-icon">☕</div>
+                                            <div class="size-visualization">
+                                                <div class="cup-preview large-cup">
+                                                    <div class="cup-body-preview large"></div>
+                                                </div>
                                             </div>
                                             <div class="size-info">
+                                                <div class="size-label">L</div>
                                                 <div class="size-name">Большой</div>
                                                 <div class="size-volume">400мл</div>
                                                 <div class="size-price">+60₽</div>
