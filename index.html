@@ -1590,7 +1590,7 @@
             height: 12px !important;
             opacity: 0.9;
             animation: syrupFlow 0.8s ease-out;
-            z-index: 0 !important;
+            z-index: 1 !important;
             border-radius: 0 0 15px 15px;
             background: linear-gradient(to top, #8B4513, #A0522D);
             transform: translateY(0) !important;
@@ -4209,17 +4209,18 @@
                 coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
             }
             
-            // Add syrup layers at the very bottom of the cup - FIRST (inside cup body)
+            // Add syrup layers at the very bottom of the cup - FIRST (inside coffee liquid)
             console.log('🔍 Old visualization - Processing syrups:', syrups);
             if (syrups && syrups.length > 0) {
-                console.log('🔍 Old visualization - Adding syrups to cupBody:', cupBody);
+                console.log('🔍 Old visualization - Adding syrups to coffeeLiquid:', coffeeLiquid);
                 syrups.forEach((syrup, index) => {
                     console.log(`🔍 Old visualization - Creating syrup layer for: ${syrup}`);
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
                     console.log('🔍 Old visualization - Syrup layer created:', syrupLayer);
-                    cupBody.appendChild(syrupLayer);
-                    console.log('🔍 Old visualization - Syrup layer appended to cupBody');
+                    // Insert at the beginning to be at the bottom
+                    coffeeLiquid.insertBefore(syrupLayer, coffeeLiquid.firstChild);
+                    console.log('🔍 Old visualization - Syrup layer inserted at bottom of coffeeLiquid');
                 });
             } else {
                 console.log('🔍 Old visualization - No syrups to add');
@@ -4297,17 +4298,18 @@
                 coffeeFoamRealistic.classList.add(base);
             }
             
-            // Add syrup layers at the very bottom of the cup - FIRST (in realistic cup)
+            // Add syrup layers at the very bottom of the cup - FIRST (inside coffee liquid)
             console.log('🔍 Processing syrups:', syrups);
             if (syrups && syrups.length > 0) {
-                console.log('🔍 Adding syrups to cupBody:', cupBody);
+                console.log('🔍 Adding syrups to coffeeLiquidRealistic:', coffeeLiquidRealistic);
                 syrups.forEach((syrup, index) => {
                     console.log(`🔍 Creating syrup layer for: ${syrup}`);
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
                     console.log('🔍 Syrup layer created:', syrupLayer);
-                    cupBody.appendChild(syrupLayer);
-                    console.log('🔍 Syrup layer appended to cupBody');
+                    // Insert at the beginning to be at the bottom
+                    coffeeLiquidRealistic.insertBefore(syrupLayer, coffeeLiquidRealistic.firstChild);
+                    console.log('🔍 Syrup layer inserted at bottom of coffeeLiquidRealistic');
                 });
             } else {
                 console.log('🔍 No syrups to add');
