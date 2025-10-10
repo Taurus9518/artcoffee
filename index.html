@@ -1607,10 +1607,10 @@
         }
         .chocolate-syrup-realistic { 
             background: linear-gradient(to top, #8B4513, #A0522D, #D2691E);
-            height: 8px;
+            height: 12px !important;
             bottom: 0 !important;
             transform: translateY(0) !important;
-            z-index: 0 !important;
+            z-index: 1 !important;
         }
         .cinnamon-syrup-realistic { 
             background: linear-gradient(to top, #D2691E, #CD853F, #DEB887);
@@ -2073,10 +2073,10 @@
         }
         .chocolate-syrup-realistic { 
             background: linear-gradient(to top, #8B4513, #A0522D, #D2691E);
-            height: 8px;
+            height: 12px !important;
             bottom: 0 !important;
             transform: translateY(0) !important;
-            z-index: 0 !important;
+            z-index: 1 !important;
         }
         .cinnamon-syrup-realistic { 
             background: linear-gradient(to top, #D2691E, #CD853F, #DEB887);
@@ -4306,10 +4306,33 @@
                     console.log(`🔍 Creating syrup layer for: ${syrup}`);
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
+                    // Add temporary visual indicator for debugging
+                    syrupLayer.style.border = '2px solid red';
+                    syrupLayer.style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
                     console.log('🔍 Syrup layer created:', syrupLayer);
                     // Insert at the beginning to be at the bottom
                     coffeeLiquidRealistic.insertBefore(syrupLayer, coffeeLiquidRealistic.firstChild);
                     console.log('🔍 Syrup layer inserted at bottom of coffeeLiquidRealistic');
+                    
+                    // Check syrup layer styles after insertion
+                    setTimeout(() => {
+                        const computedStyle = window.getComputedStyle(syrupLayer);
+                        console.log('🔍 Syrup layer computed styles:', {
+                            position: computedStyle.position,
+                            bottom: computedStyle.bottom,
+                            height: computedStyle.height,
+                            zIndex: computedStyle.zIndex,
+                            display: computedStyle.display,
+                            visibility: computedStyle.visibility,
+                            opacity: computedStyle.opacity
+                        });
+                        console.log('🔍 Syrup layer parent:', syrupLayer.parentElement);
+                        console.log('🔍 Syrup layer parent styles:', {
+                            position: window.getComputedStyle(syrupLayer.parentElement).position,
+                            height: window.getComputedStyle(syrupLayer.parentElement).height,
+                            overflow: window.getComputedStyle(syrupLayer.parentElement).overflow
+                        });
+                    }, 100);
                 });
             } else {
                 console.log('🔍 No syrups to add');
