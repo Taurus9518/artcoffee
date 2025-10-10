@@ -280,20 +280,6 @@
             overflow: hidden;
         }
         
-        .cart-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
-            transition: left 0.4s;
-        }
-        
-        .cart-btn:hover::before {
-            left: 100%;
-        }
         
         .cart-btn:hover {
             background: rgba(139, 69, 19, 0.2);
@@ -402,20 +388,6 @@
             box-shadow: none;
         }
         
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
         
         .btn:hover {
             transform: translateY(-2px);
@@ -446,20 +418,6 @@
                 transparent 100%);
         }
         
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
         
         .btn-primary {
             background: linear-gradient(135deg, #333333, #000000);
@@ -683,35 +641,12 @@
             position: relative;
         }
         
-        .constructor-step::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent);
-            transition: left 0.6s;
-            z-index: 1;
-        }
-        
-        .constructor-step:hover::before {
-            left: 100%;
-        }
         
         .constructor-step:hover {
             transform: translateY(-4px);
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
         }
 
-        .constructor-step:hover::before {
-            background: linear-gradient(90deg, 
-                #dc2626 0%, 
-                #000 25%, 
-                #dc2626 50%, 
-                #000 75%, 
-                #dc2626 100%);
-        }
         
         .constructor-step.active {
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
@@ -2371,21 +2306,6 @@
             position: relative;
         }
         
-        .menu-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
-            z-index: 1;
-        }
-        
-        .menu-item:hover::before {
-            left: 100%;
-        }
         
         .menu-item:hover {
             transform: translateY(-8px) scale(1.02);
@@ -2397,14 +2317,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
 
-        .menu-item:hover::before {
-            background: linear-gradient(90deg, 
-                #dc2626 0%, 
-                #000 25%, 
-                #dc2626 50%, 
-                #000 75%, 
-                #dc2626 100%);
-        }
         
         .menu-item-image {
             height: 200px;
@@ -2471,19 +2383,6 @@
             overflow: hidden;
         }
 
-        .cart-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                #000 0%, 
-                #dc2626 50%, 
-                #000 100%);
-            z-index: 1;
-        }
 
         .cart-item::after {
             content: '';
@@ -2499,12 +2398,6 @@
             z-index: 0;
         }
 
-        .cart-item:hover::before {
-            background: linear-gradient(90deg, 
-                #dc2626 0%, 
-                #000 50%, 
-                #dc2626 100%);
-        }
 
         .cart-item:hover::after {
             background: linear-gradient(45deg, 
