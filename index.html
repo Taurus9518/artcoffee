@@ -14,8 +14,71 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
             color: #1a1a1a;
-            background: #f8fafc;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
             overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* Animated background lines */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(0,0,0,0.02) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, rgba(0,0,0,0.02) 50%, transparent 60%),
+                linear-gradient(90deg, transparent 40%, rgba(0,0,0,0.01) 50%, transparent 60%);
+            background-size: 200px 200px, 200px 200px, 100px 100px;
+            animation: backgroundMove 20s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes backgroundMove {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-50px) translateY(-25px); }
+            50% { transform: translateX(-100px) translateY(-50px); }
+            75% { transform: translateX(-50px) translateY(-75px); }
+            100% { transform: translateX(0) translateY(-100px); }
+        }
+        
+        /* Floating coffee beans */
+        .floating-beans {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .coffee-bean {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(0,0,0,0.1);
+            animation: float 15s linear infinite;
+        }
+        
+        .coffee-bean:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .coffee-bean:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .coffee-bean:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .coffee-bean:nth-child(4) { left: 40%; animation-delay: 6s; }
+        .coffee-bean:nth-child(5) { left: 50%; animation-delay: 8s; }
+        .coffee-bean:nth-child(6) { left: 60%; animation-delay: 10s; }
+        .coffee-bean:nth-child(7) { left: 70%; animation-delay: 12s; }
+        .coffee-bean:nth-child(8) { left: 80%; animation-delay: 14s; }
+        .coffee-bean:nth-child(9) { left: 90%; animation-delay: 16s; }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
         
         .app-container {
@@ -69,6 +132,22 @@
             text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            transition: left 0.4s;
+        }
+        
+        .nav-link:hover::before {
+            left: 100%;
         }
         
         .nav-link:hover, .nav-link.active {
@@ -85,6 +164,22 @@
             color: #8B4513;
             text-decoration: none;
             transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .cart-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            transition: left 0.4s;
+        }
+        
+        .cart-btn:hover::before {
+            left: 100%;
         }
         
         .cart-btn:hover {
@@ -143,6 +238,25 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
         }
         
         .btn::before {
@@ -222,7 +336,17 @@
         }
         
         .text-center { text-align: center; }
-        .text-6xl { font-size: 4rem; font-weight: 900; line-height: 1.1; }
+        .text-6xl { 
+            font-size: 4rem; 
+            font-weight: 900; 
+            line-height: 1.1; 
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 20px rgba(0,0,0,0.3); }
+            100% { text-shadow: 0 0 40px rgba(0,0,0,0.5); }
+        }
         .text-5xl { font-size: 3rem; font-weight: 800; line-height: 1.2; }
         .text-4xl { font-size: 2.5rem; font-weight: 700; line-height: 1.3; }
         .text-3xl { font-size: 2rem; font-weight: 700; line-height: 1.4; }
@@ -314,6 +438,27 @@
             margin-bottom: 1rem;
             overflow: hidden;
             position: relative;
+        }
+        
+        .constructor-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent);
+            transition: left 0.6s;
+            z-index: 1;
+        }
+        
+        .constructor-step:hover::before {
+            left: 100%;
+        }
+        
+        .constructor-step:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
         }
         
         .constructor-step.active {
@@ -441,6 +586,22 @@
             align-items: center;
             text-align: left;
             min-height: 60px;
+            overflow: hidden;
+        }
+        
+        .modern-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            transition: left 0.4s;
+        }
+        
+        .modern-option:hover::before {
+            left: 100%;
         }
         
         .modern-option:hover {
@@ -511,6 +672,12 @@
             color: white;
             box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
             transition: all 0.3s ease;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .option-details {
@@ -581,6 +748,22 @@
             align-items: center;
             text-align: left;
             min-height: 60px;
+            overflow: hidden;
+        }
+        
+        .size-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            transition: left 0.4s;
+        }
+        
+        .size-option:hover::before {
+            left: 100%;
         }
         
         .size-option:hover {
@@ -629,6 +812,7 @@
             flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
             transition: all 0.3s ease;
+            animation: iconPulse 2s ease-in-out infinite;
         }
         
         .small-cup {
@@ -690,6 +874,22 @@
             align-items: center;
             text-align: left;
             min-height: 60px;
+            overflow: hidden;
+        }
+        
+        .milk-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            transition: left 0.4s;
+        }
+        
+        .milk-option:hover::before {
+            left: 100%;
         }
         
         .milk-option:hover {
@@ -738,6 +938,7 @@
             color: white;
             box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
             transition: all 0.3s ease;
+            animation: iconPulse 2s ease-in-out infinite;
         }
         
         .milk-details {
@@ -785,6 +986,22 @@
             align-items: center;
             text-align: center;
             min-height: 100px;
+            overflow: hidden;
+        }
+        
+        .extra-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            transition: left 0.4s;
+        }
+        
+        .extra-option:hover::before {
+            left: 100%;
         }
         
         .extra-option:hover {
@@ -832,6 +1049,7 @@
             color: white;
             box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
             transition: all 0.3s ease;
+            animation: iconPulse 2s ease-in-out infinite;
         }
         
         .extra-details {
@@ -908,15 +1126,42 @@
         }
         
         .coffee-cup {
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #8B4513, #A0522D);
+            background: linear-gradient(135deg, #333333, #000000);
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto 1rem;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            animation: cupPulse 2s ease-in-out infinite;
+            border: 3px solid #ffffff;
+        }
+        
+        @keyframes cupPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .coffee-cup::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #666666, #333333, #000000, #333333);
+            z-index: -1;
+            animation: cupGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes cupGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
         }
         
         .coffee-liquid {
@@ -925,8 +1170,14 @@
             left: 0;
             right: 0;
             height: 60%;
-            background: linear-gradient(135deg, #4a2c17, #6b3e1a);
+            background: linear-gradient(to top, #2C1810, #4A2C2A, #8B4513);
             border-radius: 0 0 50% 50%;
+            animation: liquidFlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes liquidFlow {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(1.05); }
         }
         
         .coffee-foam {
@@ -934,9 +1185,50 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 20%;
-            background: linear-gradient(135deg, #f4f1eb, #e8e0d5);
+            height: 40%;
+            background: linear-gradient(to bottom, #FFFFFF, #F5F5DC, #E6E6FA);
             border-radius: 50% 50% 0 0;
+            animation: foamBubble 2s ease-in-out infinite;
+            position: relative;
+        }
+        
+        .coffee-foam::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            animation: bubble1 2s ease-in-out infinite;
+        }
+        
+        .coffee-foam::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            width: 6px;
+            height: 6px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            animation: bubble2 2.5s ease-in-out infinite;
+        }
+        
+        @keyframes foamBubble {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        @keyframes bubble1 {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+            50% { transform: translateY(-5px) scale(1.2); opacity: 1; }
+        }
+        
+        @keyframes bubble2 {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+            50% { transform: translateY(-3px) scale(1.1); opacity: 0.9; }
         }
         
         .summary-details {
@@ -1058,6 +1350,27 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             position: relative;
+        }
+        
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+            z-index: 1;
+        }
+        
+        .menu-item:hover::before {
+            left: 100%;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
         
         .menu-item:hover {
@@ -1683,6 +1996,19 @@
     </style>
 </head>
 <body>
+    <!-- Floating coffee beans background -->
+    <div class="floating-beans">
+        <div class="coffee-bean">🫘</div>
+        <div class="coffee-bean">🫘</div>
+        <div class="coffee-bean">🫘</div>
+        <div class="coffee-bean">🫘</div>
+        <div class="coffee-bean">🫘</div>
+        <div class="coffee-bean">🫘</div>
+        <div class="coffee-bean">🫘</div>
+        <div class="coffee-bean">🫘</div>
+        <div class="coffee-bean">🫘</div>
+    </div>
+
     <div class="app-container">
         <!-- Navigation -->
         <nav class="navbar">
