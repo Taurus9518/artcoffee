@@ -178,14 +178,14 @@
         
         .navbar {
             background: #f5f1e8;
-            border-bottom: 4px solid #2d1810;
+            border-bottom: 2px solid rgba(45, 24, 16, 0.1);
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
             padding: 1rem 0;
-            box-shadow: 0 4px 0px #dc2626;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
         
         .nav-content {
@@ -268,37 +268,29 @@
                 #dc2626 100%);
         }
         
-        .cart-btn {
+        .cart-link {
             position: relative;
-            padding: 0.75rem;
-            border-radius: 12px;
-            background: rgba(139, 69, 19, 0.1);
-            color: #8B4513;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        
-        .cart-btn:hover {
-            background: rgba(139, 69, 19, 0.2);
-            transform: scale(1.1);
+        .cart-link:hover {
+            background: rgba(220, 38, 38, 0.1);
+            border-color: rgba(220, 38, 38, 0.5);
+            color: #dc2626;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
         }
         
         .cart-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: none;
-            align-items: center;
-            justify-content: center;
+            background: #dc2626;
+            color: #f5f1e8;
+            border-radius: 12px;
+            padding: 0.25rem 0.5rem;
             font-size: 0.75rem;
             font-weight: bold;
+            min-width: 20px;
+            text-align: center;
         }
         
         .main-content {
@@ -327,12 +319,12 @@
             justify-content: center;
             gap: 0.5rem;
             padding: 1rem 2rem;
-            border-radius: 4px;
+            border-radius: 12px;
             font-weight: 700;
             font-size: 1rem;
             text-decoration: none;
             cursor: pointer;
-            border: 3px solid #2d1810;
+            border: 1px solid rgba(45, 24, 16, 0.2);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -340,9 +332,7 @@
             color: #f5f1e8;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 
-                0 4px 0px #2d1810,
-                0 6px 12px rgba(45, 24, 16, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .step-actions {
@@ -455,12 +445,10 @@
         
         .card {
             background: #f5f1e8;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 2rem;
-            box-shadow: 
-                0 4px 0px #2d1810,
-                0 8px 20px rgba(45, 24, 16, 0.15);
-            border: 3px solid #2d1810;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(45, 24, 16, 0.2);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -525,9 +513,9 @@
             bottom: -8px;
             left: 0;
             width: 120px;
-            height: 6px;
-            background: #dc2626;
-            border-radius: 3px;
+            height: 3px;
+            background: linear-gradient(90deg, #dc2626, rgba(220, 38, 38, 0.3));
+            border-radius: 2px;
             animation: retroPulse 2s ease-in-out infinite;
         }
 
@@ -771,8 +759,8 @@
         .modern-option {
             position: relative;
             background: #f5f1e8;
-            border: 3px solid #2d1810;
-            border-radius: 8px;
+            border: 1px solid rgba(45, 24, 16, 0.2);
+            border-radius: 12px;
             padding: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -785,7 +773,7 @@
         
         
         .modern-option:hover {
-            border-color: #dc2626;
+            border-color: rgba(220, 38, 38, 0.5);
             background: #f5f1e8;
             transform: translateY(-2px);
             box-shadow: 
@@ -803,9 +791,7 @@
             background: #dc2626;
             color: #f5f1e8;
             transform: none;
-            box-shadow: 
-                0 4px 0px #2d1810,
-                0 8px 16px rgba(220, 38, 38, 0.4);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
         
         .modern-option:has(input:checked) .option-name,
@@ -817,7 +803,7 @@
         
         /* Force reset for unselected options */
         .modern-option:not(:has(input:checked)) {
-            border-color: #2d1810 !important;
+            border-color: rgba(45, 24, 16, 0.2) !important;
             background: #f5f1e8 !important;
             color: #2d1810 !important;
             transform: none !important;
@@ -934,8 +920,8 @@
         .size-option {
             position: relative;
             background: #f5f1e8;
-            border: 3px solid #2d1810;
-            border-radius: 8px;
+            border: 1px solid rgba(45, 24, 16, 0.2);
+            border-radius: 12px;
             padding: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -972,7 +958,7 @@
         }
         
         .size-option:hover {
-            border-color: #dc2626;
+            border-color: rgba(220, 38, 38, 0.5);
             background: #f5f1e8;
             transform: translateY(-2px);
             box-shadow: 
@@ -990,9 +976,7 @@
             background: #dc2626;
             color: #f5f1e8;
             transform: none;
-            box-shadow: 
-                0 4px 0px #2d1810,
-                0 8px 16px rgba(220, 38, 38, 0.4);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
         
         .size-option.active .size-label,
@@ -1090,8 +1074,8 @@
         .milk-option {
             position: relative;
             background: #f5f1e8;
-            border: 3px solid #2d1810;
-            border-radius: 8px;
+            border: 1px solid rgba(45, 24, 16, 0.2);
+            border-radius: 12px;
             padding: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1104,7 +1088,7 @@
         
         
         .milk-option:hover {
-            border-color: #dc2626;
+            border-color: rgba(220, 38, 38, 0.5);
             background: #f5f1e8;
             transform: translateY(-2px);
             box-shadow: 
@@ -1122,9 +1106,7 @@
             background: #dc2626;
             color: #f5f1e8;
             transform: none;
-            box-shadow: 
-                0 4px 0px #2d1810,
-                0 8px 16px rgba(220, 38, 38, 0.4);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
         
         .milk-option.active .option-name,
@@ -1210,7 +1192,7 @@
             margin: 0;
             padding: 8px 12px;
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-radius: 8px;
+            border-radius: 12px;
             border-left: 4px solid #007bff;
         }
 
@@ -1223,8 +1205,8 @@
         .extra-option {
             position: relative;
             background: #f5f1e8;
-            border: 3px solid #2d1810;
-            border-radius: 8px;
+            border: 1px solid rgba(45, 24, 16, 0.2);
+            border-radius: 12px;
             padding: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1238,7 +1220,7 @@
         
         
         .extra-option:hover {
-            border-color: #dc2626;
+            border-color: rgba(220, 38, 38, 0.5);
             background: #f5f1e8;
             transform: translateY(-2px);
             box-shadow: 
@@ -1256,9 +1238,7 @@
             background: #dc2626;
             color: #f5f1e8;
             transform: none;
-            box-shadow: 
-                0 4px 0px #2d1810,
-                0 8px 16px rgba(220, 38, 38, 0.4);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
         
         .extra-option:has(input:checked) .option-name,
@@ -2132,7 +2112,7 @@
             gap: 8px;
             padding: 4px 8px;
             background: rgba(139, 69, 19, 0.1);
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 12px;
             color: #8B4513;
             font-weight: 500;
@@ -2490,7 +2470,7 @@
         .quantity-btn {
             width: 32px;
             height: 32px;
-            border-radius: 8px;
+            border-radius: 12px;
             border: 2px solid #e2e8f0;
             background: white;
             display: flex;
@@ -2925,9 +2905,9 @@
                 align-items: center;
             }
             
-            .cart-btn {
+            .cart-link {
                 min-height: 44px;
-                min-width: 44px;
+                padding: 0.5rem 0.75rem;
             }
             
             .quantity-btn {
@@ -2985,7 +2965,7 @@
         @media print {
             .navbar,
             .btn,
-            .cart-btn,
+            .cart-link,
             .quantity-btn,
             .remove-btn {
                 display: none !important;
@@ -3056,19 +3036,16 @@
                 </a>
                 <div class="nav-links">
                     <a href="#" class="nav-link active" data-section="home">
-                        <i class="fas fa-home"></i>
                         Главная
                     </a>
                     <a href="#" class="nav-link" data-section="menu">
-                        <i class="fas fa-utensils"></i>
                         Меню
                     </a>
                     <a href="#" class="nav-link" data-section="constructor">
-                        <i class="fas fa-cogs"></i>
                         Конструктор
                     </a>
-                    <a href="#" class="cart-btn" data-section="cart">
-                        <i class="fas fa-shopping-cart"></i>
+                    <a href="#" class="nav-link cart-link" data-section="cart">
+                        Корзина
                         <span class="cart-badge" id="cart-badge">0</span>
                     </a>
                 </div>
