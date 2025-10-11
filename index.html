@@ -4364,12 +4364,16 @@
             const actualBase = document.querySelector('input[name="base"]:checked')?.value;
             const actualSize = document.querySelector('input[name="size"]:checked')?.value;
             const actualMilk = document.querySelector('input[name="milk"]:checked')?.value;
-            console.log('=== DEBUG: Actual selections:', {actualBase, actualSize, actualMilk});
+            const actualSyrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
+            const actualToppings = Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(input => input.value);
+            console.log('=== DEBUG: Actual selections:', {actualBase, actualSize, actualMilk, actualSyrups, actualToppings});
             
             // Override parameters with actual selections
             base = actualBase;
             size = actualSize;
             milk = actualMilk;
+            syrups = actualSyrups;
+            toppings = actualToppings;
             
             const baseNames = {
                 espresso: 'Эспрессо',
