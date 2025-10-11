@@ -3731,9 +3731,21 @@
                 activeLink.classList.add('active');
             }
             
-            // Hide floating coffee window in cart section
+            // Hide floating coffee window in cart section, show in constructor
             if (sectionId === 'cart') {
                 hideFloatingCoffee();
+            } else if (sectionId === 'constructor') {
+                // Show floating window in constructor if there are selections
+                const base = document.querySelector('input[name="base"]:checked')?.value;
+                const size = document.querySelector('input[name="size"]:checked')?.value;
+                const milk = document.querySelector('input[name="milk"]:checked')?.value;
+                const syrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
+                const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(input => input.value);
+                
+                const hasSelection = base || size || milk || syrups.length > 0 || toppings.length > 0;
+                if (hasSelection) {
+                    showFloatingCoffee();
+                }
             }
             
             // Scroll to top
@@ -4839,5 +4851,10 @@
             }, 3000);
         }
     </script>
+    <script src="pos-config.js"></script>
+    <script src="pos-integration.js"></script>
+    <script src="rkeeper-config.js"></script>
+    <script src="rkeeper-integration.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест КриптоПро КриптоКипер интеграции - Art Coffee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #8B4513;
+        }
+        .btn {
+            background: #8B4513;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #A0522D;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Тест КриптоПро КриптоКипер интеграции</h1>
+        <p>Этот инструмент поможет вам протестировать интеграцию с КриптоПро КриптоКипер перед запуском в продакшене.</p>
+
+        <div class="test-section">
+            <h3>1. Конфигурация</h3>
+            <div class="form-group">
+                <label for="apiUrl">API URL КриптоПро:</label>
+                <input type="text" id="apiUrl" value="https://api.cryptopro.ru/v1" placeholder="URL API КриптоПро">
+            </div>
+            <div class="form-group">
+                <label for="apiKey">API Key:</label>
+                <input type="text" id="apiKey" value="YOUR_CRYPTOPRO_API_KEY" placeholder="Ваш API ключ КриптоПро">
+            </div>
+            <div class="form-group">
+                <label for="cashRegisterId">Cash Register ID:</label>
+                <input type="text" id="cashRegisterId" value="YOUR_CASH_REGISTER_ID" placeholder="ID вашей кассы">
+            </div>
+            <div class="form-group">
+                <label for="certificateThumbprint">Отпечаток сертификата:</label>
+                <input type="text" id="certificateThumbprint" value="YOUR_CERTIFICATE_THUMBPRINT" placeholder="Отпечаток сертификата">
+            </div>
+            <div class="form-group">
+                <label for="certificatePassword">Пароль сертификата:</label>
+                <input type="password" id="certificatePassword" value="YOUR_CERTIFICATE_PASSWORD" placeholder="Пароль сертификата">
+            </div>
+            <div class="form-group">
+                <label for="cashRegisterHost">IP адрес кассы:</label>
+                <input type="text" id="cashRegisterHost" value="localhost" placeholder="IP адрес кассы">
+            </div>
+            <div class="form-group">
+                <label for="cashRegisterPort">Порт кассы:</label>
+                <input type="number" id="cashRegisterPort" value="8080" placeholder="Порт кассы">
+            </div>
+            <button class="btn" onclick="updateConfig()">Обновить конфигурацию</button>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Тест подключения</h3>
+            <button class="btn" onclick="testConnection()">Тест подключения</button>
+            <div id="connectionStatus"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Тест создания чека</h3>
+            <div class="form-group">
+                <label for="testItem">Товар:</label>
+                <input type="text" id="testItem" value="Тестовый кофе" placeholder="Название товара">
+            </div>
+            <div class="form-group">
+                <label for="testPrice">Цена (€):</label>
+                <input type="number" id="testPrice" value="5.00" step="0.01" placeholder="Цена товара">
+            </div>
+            <div class="form-group">
+                <label for="testQuantity">Количество:</label>
+                <input type="number" id="testQuantity" value="1" min="1" placeholder="Количество">
+            </div>
+            <button class="btn" onclick="testReceipt()">Создать тестовый чек</button>
+            <div id="receiptStatus"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Тест смены</h3>
+            <button class="btn" onclick="testOpenShift()">Открыть смену</button>
+            <button class="btn" onclick="testCloseShift()">Закрыть смену</button>
+            <div id="shiftStatus"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>5. Тест отчетов</h3>
+            <button class="btn" onclick="testXReport()">X-отчет</button>
+            <button class="btn" onclick="testZReport()">Z-отчет</button>
+            <div id="reportStatus"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>6. Логи системы</h3>
+            <button class="btn" onclick="clearLogs()">Очистить логи</button>
+            <div id="logs" class="log"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>7. Статус системы</h3>
+            <div id="systemStatus"></div>
+        </div>
+    </div>
+
+    <script src="pos-config.js"></script>
+    <script src="pos-integration.js"></script>
+    <script>
+        let posSystem = null;
+        let logs = [];
+
+        // Функция логирования
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+            logs.push(logEntry);
+            updateLogsDisplay();
+            console.log(logEntry);
+        }
+
+        // Обновление отображения логов
+        function updateLogsDisplay() {
+            const logsDiv = document.getElementById('logs');
+            logsDiv.innerHTML = logs.slice(-20).join('<br>');
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+        }
+
+        // Очистка логов
+        function clearLogs() {
+            logs = [];
+            updateLogsDisplay();
+        }
+
+        // Обновление конфигурации
+        function updateConfig() {
+            const apiUrl = document.getElementById('apiUrl').value;
+            const apiKey = document.getElementById('apiKey').value;
+            const cashRegisterId = document.getElementById('cashRegisterId').value;
+            const certificateThumbprint = document.getElementById('certificateThumbprint').value;
+            const certificatePassword = document.getElementById('certificatePassword').value;
+            const cashRegisterHost = document.getElementById('cashRegisterHost').value;
+            const cashRegisterPort = document.getElementById('cashRegisterPort').value;
+
+            if (!apiUrl || !apiKey || !cashRegisterId || !certificateThumbprint || !certificatePassword) {
+                showStatus('connectionStatus', 'Заполните все обязательные поля конфигурации', 'error');
+                return;
+            }
+
+            // Обновляем конфигурацию
+            window.POS_CONFIG.api.baseUrl = apiUrl;
+            window.POS_CONFIG.api.apiKey = apiKey;
+            window.POS_CONFIG.cashRegister.id = cashRegisterId;
+            window.POS_CONFIG.api.certificate.thumbprint = certificateThumbprint;
+            window.POS_CONFIG.api.certificate.password = certificatePassword;
+            window.POS_CONFIG.api.connection.host = cashRegisterHost;
+            window.POS_CONFIG.api.connection.port = parseInt(cashRegisterPort);
+
+            log('Конфигурация КриптоПро обновлена');
+            showStatus('connectionStatus', 'Конфигурация КриптоПро обновлена', 'success');
+        }
+
+        // Тест подключения
+        async function testConnection() {
+            log('Начинаем тест подключения...');
+            showStatus('connectionStatus', 'Тестируем подключение...', 'info');
+
+            try {
+                posSystem = new POSIntegration();
+                const result = await posSystem.initialize();
+
+                if (result.success) {
+                    log('Подключение успешно установлено');
+                    showStatus('connectionStatus', '✅ Подключение успешно!', 'success');
+                    updateSystemStatus();
+                } else {
+                    log(`Ошибка подключения: ${result.message}`, 'error');
+                    showStatus('connectionStatus', `❌ Ошибка: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`Исключение при подключении: ${error.message}`, 'error');
+                showStatus('connectionStatus', `❌ Исключение: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест создания чека
+        async function testReceipt() {
+            if (!posSystem || !posSystem.isConnected) {
+                showStatus('receiptStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            const item = document.getElementById('testItem').value;
+            const price = parseFloat(document.getElementById('testPrice').value);
+            const quantity = parseInt(document.getElementById('testQuantity').value);
+
+            if (!item || !price || !quantity) {
+                showStatus('receiptStatus', 'Заполните все поля', 'error');
+                return;
+            }
+
+            log(`Создаем тестовый чек: ${item} x${quantity} = €${(price * quantity).toFixed(2)}`);
+
+            const orderData = {
+                items: [{
+                    name: item,
+                    price: price,
+                    quantity: quantity,
+                    category: 'coffee'
+                }],
+                total: price * quantity,
+                customerInfo: {
+                    name: 'Тестовый клиент',
+                    phone: '+357 99 123456',
+                    email: 'test@example.com',
+                    paymentMethod: 'card'
+                }
+            };
+
+            try {
+                showStatus('receiptStatus', 'Создаем чек...', 'info');
+                const result = await posSystem.createReceipt(orderData);
+
+                if (result.success) {
+                    log(`Чек создан успешно. Номер: ${result.receiptNumber}`);
+                    showStatus('receiptStatus', `✅ Чек создан! Номер: ${result.receiptNumber}`, 'success');
+                } else {
+                    log(`Ошибка создания чека: ${result.message}`, 'error');
+                    showStatus('receiptStatus', `❌ Ошибка: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`Исключение при создании чека: ${error.message}`, 'error');
+                showStatus('receiptStatus', `❌ Исключение: ${error.message}`, 'error');
+            }
+        }
+
+        // Показать статус
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        // Тест открытия смены
+        async function testOpenShift() {
+            if (!posSystem || !posSystem.isConnected) {
+                showStatus('shiftStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            try {
+                log('Открываем смену...');
+                showStatus('shiftStatus', 'Открываем смену...', 'info');
+                
+                const result = await posSystem.openShift();
+                
+                if (result.success) {
+                    log(`Смена открыта успешно. ID смены: ${result.shiftId}`);
+                    showStatus('shiftStatus', `✅ Смена открыта! ID: ${result.shiftId}`, 'success');
+                } else {
+                    log(`Ошибка открытия смены: ${result.message}`, 'error');
+                    showStatus('shiftStatus', `❌ Ошибка: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`Исключение при открытии смены: ${error.message}`, 'error');
+                showStatus('shiftStatus', `❌ Исключение: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест закрытия смены
+        async function testCloseShift() {
+            if (!posSystem || !posSystem.isConnected) {
+                showStatus('shiftStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            try {
+                log('Закрываем смену...');
+                showStatus('shiftStatus', 'Закрываем смену...', 'info');
+                
+                const result = await posSystem.closeShift();
+                
+                if (result.success) {
+                    log('Смена закрыта успешно');
+                    showStatus('shiftStatus', '✅ Смена закрыта!', 'success');
+                } else {
+                    log(`Ошибка закрытия смены: ${result.message}`, 'error');
+                    showStatus('shiftStatus', `❌ Ошибка: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`Исключение при закрытии смены: ${error.message}`, 'error');
+                showStatus('shiftStatus', `❌ Исключение: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест X-отчета
+        async function testXReport() {
+            if (!posSystem || !posSystem.isConnected) {
+                showStatus('reportStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            try {
+                log('Генерируем X-отчет...');
+                showStatus('reportStatus', 'Генерируем X-отчет...', 'info');
+                
+                const result = await posSystem.getXReport();
+                
+                if (result.success) {
+                    log('X-отчет сгенерирован успешно');
+                    showStatus('reportStatus', '✅ X-отчет готов!', 'success');
+                } else {
+                    log(`Ошибка генерации X-отчета: ${result.message}`, 'error');
+                    showStatus('reportStatus', `❌ Ошибка: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`Исключение при генерации X-отчета: ${error.message}`, 'error');
+                showStatus('reportStatus', `❌ Исключение: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест Z-отчета
+        async function testZReport() {
+            if (!posSystem || !posSystem.isConnected) {
+                showStatus('reportStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            try {
+                log('Генерируем Z-отчет...');
+                showStatus('reportStatus', 'Генерируем Z-отчет...', 'info');
+                
+                const result = await posSystem.getZReport();
+                
+                if (result.success) {
+                    log('Z-отчет сгенерирован успешно');
+                    showStatus('reportStatus', '✅ Z-отчет готов!', 'success');
+                } else {
+                    log(`Ошибка генерации Z-отчета: ${result.message}`, 'error');
+                    showStatus('reportStatus', `❌ Ошибка: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`Исключение при генерации Z-отчета: ${error.message}`, 'error');
+                showStatus('reportStatus', `❌ Исключение: ${error.message}`, 'error');
+            }
+        }
+
+        // Обновить статус системы
+        function updateSystemStatus() {
+            const statusDiv = document.getElementById('systemStatus');
+            const config = window.POS_CONFIG;
+            
+            let status = `
+                <div class="status info">
+                    <strong>Статус системы КриптоПро:</strong><br>
+                    API URL: ${config.api.baseUrl}<br>
+                    Режим: ${config.integration.mode}<br>
+                    НДС: ${config.tax.vatRate}%<br>
+                    Валюта: ${config.tax.currency}<br>
+                    Подключение: ${posSystem && posSystem.isConnected ? '✅ Активно' : '❌ Неактивно'}<br>
+                    Сессия: ${posSystem && posSystem.sessionId ? `✅ ${posSystem.sessionId}` : '❌ Неактивна'}<br>
+                    Кассир: ${posSystem && posSystem.cashierId ? `✅ ${posSystem.cashierId}` : '❌ Не установлен'}
+                </div>
+            `;
+            
+            statusDiv.innerHTML = status;
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Тестовая страница загружена');
+            updateSystemStatus();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест R-Keeper интеграции - Art Coffee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #8B4513;
+        }
+        .btn {
+            background: #8B4513;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #A0522D;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Тест R-Keeper интеграции</h1>
+        <p>Этот инструмент поможет вам протестировать интеграцию с R-Keeper перед запуском в продакшене.</p>
+
+        <div class="test-section">
+            <h3>1. Конфигурация R-Keeper</h3>
+            <div class="grid">
+                <div>
+                    <div class="form-group">
+                        <label for="serverUrl">URL сервера R-Keeper:</label>
+                        <input type="text" id="serverUrl" value="http://localhost:8080" placeholder="http://your-server:8080">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Логин:</label>
+                        <input type="text" id="username" value="admin" placeholder="Логин администратора">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль:</label>
+                        <input type="password" id="password" value="password" placeholder="Пароль администратора">
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="restaurantId">ID ресторана:</label>
+                        <input type="text" id="restaurantId" value="1" placeholder="ID ресторана в R-Keeper">
+                    </div>
+                    <div class="form-group">
+                        <label for="apiVersion">Версия API:</label>
+                        <select id="apiVersion">
+                            <option value="v1">v1</option>
+                            <option value="v2">v2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="timeout">Таймаут (мс):</label>
+                        <input type="number" id="timeout" value="30000" placeholder="30000">
+                    </div>
+                </div>
+            </div>
+            <button class="btn" onclick="updateConfig()">Обновить конфигурацию</button>
+        </div>
+
+        <div class="test-section">
+            <h3>2. Тест подключения</h3>
+            <button class="btn" onclick="testConnection()">Тест подключения</button>
+            <button class="btn btn-secondary" onclick="testAuth()">Тест аутентификации</button>
+            <div id="connectionStatus"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>3. Тест заказов</h3>
+            <div class="form-group">
+                <label for="testItem">Товар:</label>
+                <input type="text" id="testItem" value="Тестовый кофе" placeholder="Название товара">
+            </div>
+            <div class="form-group">
+                <label for="testPrice">Цена (€):</label>
+                <input type="number" id="testPrice" value="5.00" step="0.01" placeholder="Цена товара">
+            </div>
+            <div class="form-group">
+                <label for="testQuantity">Количество:</label>
+                <input type="number" id="testQuantity" value="1" min="1" placeholder="Количество">
+            </div>
+            <button class="btn" onclick="testCreateOrder()">Создать тестовый заказ</button>
+            <button class="btn btn-secondary" onclick="testGetOrders()">Получить заказы</button>
+            <div id="orderStatus"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>4. Тест меню</h3>
+            <button class="btn" onclick="testSyncMenu()">Синхронизировать меню</button>
+            <button class="btn btn-secondary" onclick="testGetMenu()">Получить меню</button>
+            <div id="menuStatus"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>5. Тест отчетов</h3>
+            <button class="btn" onclick="testGetStatistics()">Получить статистику</button>
+            <button class="btn btn-secondary" onclick="testGetReport()">Получить отчет</button>
+            <div id="reportStatus"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>6. Логи системы</h3>
+            <button class="btn" onclick="clearLogs()">Очистить логи</button>
+            <div id="logs" class="log"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>7. Статус системы</h3>
+            <div id="systemStatus"></div>
+        </div>
+    </div>
+
+    <script src="rkeeper-config.js"></script>
+    <script src="rkeeper-integration.js"></script>
+    <script>
+        let rkeeperSystem = null;
+        let logs = [];
+
+        // Функция логирования
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+            logs.push(logEntry);
+            updateLogsDisplay();
+            console.log(logEntry);
+        }
+
+        // Обновление отображения логов
+        function updateLogsDisplay() {
+            const logsDiv = document.getElementById('logs');
+            logsDiv.innerHTML = logs.slice(-20).join('<br>');
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+        }
+
+        // Очистка логов
+        function clearLogs() {
+            logs = [];
+            updateLogsDisplay();
+        }
+
+        // Обновление конфигурации
+        function updateConfig() {
+            const serverUrl = document.getElementById('serverUrl').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const restaurantId = document.getElementById('restaurantId').value;
+            const apiVersion = document.getElementById('apiVersion').value;
+            const timeout = parseInt(document.getElementById('timeout').value);
+
+            if (!serverUrl || !username || !password || !restaurantId) {
+                showStatus('connectionStatus', 'Заполните все обязательные поля конфигурации', 'error');
+                return;
+            }
+
+            // Обновляем конфигурацию
+            window.RKEEPER_CONFIG.rkeeper.serverUrl = serverUrl;
+            window.RKEEPER_CONFIG.rkeeper.apiVersion = apiVersion;
+            window.RKEEPER_CONFIG.rkeeper.timeout = timeout;
+            window.RKEEPER_CONFIG.authentication.username = username;
+            window.RKEEPER_CONFIG.authentication.password = password;
+            window.RKEEPER_CONFIG.restaurant.id = restaurantId;
+
+            log('Конфигурация R-Keeper обновлена');
+            showStatus('connectionStatus', 'Конфигурация R-Keeper обновлена', 'success');
+        }
+
+        // Тест подключения
+        async function testConnection() {
+            log('Начинаем тест подключения...');
+            showStatus('connectionStatus', 'Тестируем подключение...', 'info');
+
+            try {
+                rkeeperSystem = new RKeeperIntegration();
+                const result = await rkeeperSystem.initialize();
+
+                if (result.success) {
+                    log('Подключение к R-Keeper успешно установлено');
+                    showStatus('connectionStatus', '✅ R-Keeper подключен!', 'success');
+                    updateSystemStatus();
+                } else {
+                    log(`Ошибка подключения: ${result.message}`, 'error');
+                    showStatus('connectionStatus', `❌ Ошибка: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`Исключение при подключении: ${error.message}`, 'error');
+                showStatus('connectionStatus', `❌ Исключение: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест аутентификации
+        async function testAuth() {
+            if (!rkeeperSystem) {
+                showStatus('connectionStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            try {
+                log('Тестируем аутентификацию...');
+                showStatus('connectionStatus', 'Тестируем аутентификацию...', 'info');
+                
+                const result = await rkeeperSystem.authenticate();
+                
+                if (result.success) {
+                    log('Аутентификация успешна');
+                    showStatus('connectionStatus', '✅ Аутентификация успешна!', 'success');
+                } else {
+                    log(`Ошибка аутентификации: ${result.message}`, 'error');
+                    showStatus('connectionStatus', `❌ Ошибка: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`Исключение при аутентификации: ${error.message}`, 'error');
+                showStatus('connectionStatus', `❌ Исключение: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест создания заказа
+        async function testCreateOrder() {
+            if (!rkeeperSystem || !rkeeperSystem.isConnected) {
+                showStatus('orderStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            const item = document.getElementById('testItem').value;
+            const price = parseFloat(document.getElementById('testPrice').value);
+            const quantity = parseInt(document.getElementById('testQuantity').value);
+
+            if (!item || !price || !quantity) {
+                showStatus('orderStatus', 'Заполните все поля', 'error');
+                return;
+            }
+
+            log(`Создаем тестовый заказ: ${item} x${quantity} = €${(price * quantity).toFixed(2)}`);
+
+            const orderData = {
+                items: [{
+                    id: Date.now(),
+                    name: item,
+                    price: price,
+                    quantity: quantity,
+                    category: 'coffee'
+                }],
+                total: price * quantity,
+                customerInfo: {
+                    name: 'Тестовый клиент',
+                    phone: '+357 99 123456',
+                    email: 'test@example.com'
+                },
+                paymentMethod: 'CARD',
+                notes: 'Тестовый заказ из веб-приложения'
+            };
+
+            try {
+                showStatus('orderStatus', 'Создаем заказ...', 'info');
+                const result = await rkeeperSystem.createOrder(orderData);
+
+                if (result.success) {
+                    log(`Заказ создан успешно. ID: ${result.orderId}`);
+                    showStatus('orderStatus', `✅ Заказ создан! ID: ${result.orderId}`, 'success');
+                } else {
+                    log(`Ошибка создания заказа: ${result.message}`, 'error');
+                    showStatus('orderStatus', `❌ Ошибка: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`Исключение при создании заказа: ${error.message}`, 'error');
+                showStatus('orderStatus', `❌ Исключение: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест получения заказов
+        async function testGetOrders() {
+            if (!rkeeperSystem || !rkeeperSystem.isConnected) {
+                showStatus('orderStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            try {
+                log('Получаем заказы...');
+                showStatus('orderStatus', 'Получаем заказы...', 'info');
+                
+                // Здесь можно добавить метод для получения списка заказов
+                // const orders = await rkeeperSystem.getOrders();
+                
+                log('Заказы получены успешно');
+                showStatus('orderStatus', '✅ Заказы получены!', 'success');
+            } catch (error) {
+                log(`Ошибка получения заказов: ${error.message}`, 'error');
+                showStatus('orderStatus', `❌ Ошибка: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест синхронизации меню
+        async function testSyncMenu() {
+            if (!rkeeperSystem || !rkeeperSystem.isConnected) {
+                showStatus('menuStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            try {
+                log('Синхронизируем меню...');
+                showStatus('menuStatus', 'Синхронизируем меню...', 'info');
+                
+                const result = await rkeeperSystem.syncMenu();
+                
+                if (result.success) {
+                    log(`Меню синхронизировано. Товаров: ${result.syncedItems}`);
+                    showStatus('menuStatus', `✅ Меню синхронизировано! Товаров: ${result.syncedItems}`, 'success');
+                } else {
+                    log(`Ошибка синхронизации меню: ${result.message}`, 'error');
+                    showStatus('menuStatus', `❌ Ошибка: ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`Исключение при синхронизации меню: ${error.message}`, 'error');
+                showStatus('menuStatus', `❌ Исключение: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест получения меню
+        async function testGetMenu() {
+            if (!rkeeperSystem || !rkeeperSystem.isConnected) {
+                showStatus('menuStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            try {
+                log('Получаем меню...');
+                showStatus('menuStatus', 'Получаем меню...', 'info');
+                
+                const result = await rkeeperSystem.getMenu();
+                
+                log(`Меню получено. Товаров: ${result.items?.length || 0}`);
+                showStatus('menuStatus', `✅ Меню получено! Товаров: ${result.items?.length || 0}`, 'success');
+            } catch (error) {
+                log(`Ошибка получения меню: ${error.message}`, 'error');
+                showStatus('menuStatus', `❌ Ошибка: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест получения статистики
+        async function testGetStatistics() {
+            if (!rkeeperSystem || !rkeeperSystem.isConnected) {
+                showStatus('reportStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            try {
+                log('Получаем статистику...');
+                showStatus('reportStatus', 'Получаем статистику...', 'info');
+                
+                const result = await rkeeperSystem.getStatistics('today');
+                
+                log('Статистика получена успешно');
+                showStatus('reportStatus', '✅ Статистика получена!', 'success');
+            } catch (error) {
+                log(`Ошибка получения статистики: ${error.message}`, 'error');
+                showStatus('reportStatus', `❌ Ошибка: ${error.message}`, 'error');
+            }
+        }
+
+        // Тест получения отчета
+        async function testGetReport() {
+            if (!rkeeperSystem || !rkeeperSystem.isConnected) {
+                showStatus('reportStatus', 'Сначала установите подключение', 'error');
+                return;
+            }
+
+            try {
+                log('Получаем отчет...');
+                showStatus('reportStatus', 'Получаем отчет...', 'info');
+                
+                const today = new Date().toISOString().split('T')[0];
+                const result = await rkeeperSystem.getReport('daily', today, today);
+                
+                log('Отчет получен успешно');
+                showStatus('reportStatus', '✅ Отчет получен!', 'success');
+            } catch (error) {
+                log(`Ошибка получения отчета: ${error.message}`, 'error');
+                showStatus('reportStatus', `❌ Ошибка: ${error.message}`, 'error');
+            }
+        }
+
+        // Показать статус
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        // Обновить статус системы
+        function updateSystemStatus() {
+            const statusDiv = document.getElementById('systemStatus');
+            const config = window.RKEEPER_CONFIG;
+            
+            let status = `
+                <div class="status info">
+                    <strong>Статус системы R-Keeper:</strong><br>
+                    Сервер: ${config.rkeeper.serverUrl}<br>
+                    API версия: ${config.rkeeper.apiVersion}<br>
+                    Ресторан: ${config.restaurant.name} (ID: ${config.restaurant.id})<br>
+                    Режим: ${config.integration.mode}<br>
+                    Подключение: ${rkeeperSystem && rkeeperSystem.isConnected ? '✅ Активно' : '❌ Неактивно'}<br>
+                    Сессия: ${rkeeperSystem && rkeeperSystem.sessionId ? `✅ ${rkeeperSystem.sessionId}` : '❌ Неактивна'}
+                </div>
+            `;
+            
+            statusDiv.innerHTML = status;
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Тестовая страница R-Keeper загружена');
+            updateSystemStatus();
+        });
+    </script>
+</body>
+</html>

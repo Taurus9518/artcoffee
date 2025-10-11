@@ -85,6 +85,12 @@ const menuItemsData = [
 // Cart state
 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
+// POS Integration
+let posSystem = null;
+
+// R-Keeper Integration
+let rkeeperSystem = null;
+
 // Initialize app
 document.addEventListener('DOMContentLoaded', function() {
     console.log('App initializing...');
@@ -92,6 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMenu();
     initializeConstructor();
     initializeCart();
+    initializePOS();
+    initializeRKeeper();
     updateCartBadge();
     showSection('home'); // Show home by default
     console.log('App initialized');
@@ -536,7 +544,56 @@ function clearCart() {
     }
 }
 
-function checkout() {
+// POS System initialization
+async function initializePOS() {
+    try {
+        posSystem = new POSIntegration();
+        const result = await posSystem.initialize();
+        
+        if (result.success) {
+            console.log('POS system initialized successfully');
+            showNotification('Система кассы подключена', 'success');
+        } else {
+            console.warn('POS system initialization failed:', result.message);
+            showNotification('Ошибка подключения к кассе. Заказы будут обработаны без фискальных чеков.', 'error');
+        }
+    } catch (error) {
+        console.error('POS initialization error:', error);
+        showNotification('Ошибка инициализации кассы', 'error');
+    }
+}
+
+// R-Keeper System initialization
+async function initializeRKeeper() {
+    try {
+        rkeeperSystem = new RKeeperIntegration();
+        const result = await rkeeperSystem.initialize();
+        
+        if (result.success) {
+            console.log('R-Keeper system initialized successfully');
+            showNotification('Система R-Keeper подключена', 'success');
+            
+            // Синхронизируем меню при инициализации
+            if (window.RKEEPER_CONFIG?.menu?.syncEnabled) {
+                try {
+                    await rkeeperSystem.syncMenu();
+                    console.log('Menu synchronized with R-Keeper');
+                } catch (syncError) {
+                    console.warn('Menu sync failed:', syncError);
+                }
+            }
+        } else {
+            console.warn('R-Keeper system initialization failed:', result.message);
+            showNotification('Ошибка подключения к R-Keeper. Заказы будут обработаны локально.', 'error');
+        }
+    } catch (error) {
+        console.error('R-Keeper initialization error:', error);
+        showNotification('Ошибка инициализации R-Keeper', 'error');
+    }
+}
+
+// Enhanced checkout with POS integration
+async function checkout() {
     if (cart.length === 0) {
         showNotification('Корзина пуста!', 'error');
         return;
@@ -544,12 +601,205 @@ function checkout() {
     
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     
-    if (confirm(`Оформить заказ на сумму ${total}₽?`)) {
-        // Simulate checkout
-        showNotification('Заказ оформлен! Спасибо за покупку!', 'success');
+    // Показать модальное окно с деталями заказа
+    const customerInfo = await showCheckoutModal(total);
+    
+    if (!customerInfo) {
+        return; // Пользователь отменил заказ
+    }
+    
+    try {
+        // Показать индикатор загрузки
+        showLoadingIndicator('Обработка заказа...');
+        
+        // Подготовка данных заказа
+        const orderData = {
+            items: cart.map(item => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                category: item.category
+            })),
+            total: total,
+            customerInfo: customerInfo,
+            paymentMethod: customerInfo.paymentMethod || 'CARD',
+            notes: `Заказ через веб-приложение Art Coffee`
+        };
+        
+        let receiptData = null;
+        let rkeeperOrderData = null;
+        
+        // Попытка создать заказ в R-Keeper
+        if (rkeeperSystem && rkeeperSystem.isConnected) {
+            try {
+                rkeeperOrderData = await rkeeperSystem.createOrder(orderData);
+                console.log('R-Keeper order created:', rkeeperOrderData);
+                showNotification('Заказ создан в R-Keeper', 'success');
+            } catch (rkeeperError) {
+                console.error('R-Keeper order creation failed:', rkeeperError);
+                showNotification('Ошибка создания заказа в R-Keeper, но заказ будет обработан локально', 'error');
+            }
+        }
+        
+        // Попытка создать фискальный чек
+        if (posSystem && posSystem.isConnected) {
+            try {
+                receiptData = await posSystem.createReceipt(orderData);
+                console.log('Receipt created:', receiptData);
+            } catch (posError) {
+                console.error('POS receipt creation failed:', posError);
+                showNotification('Ошибка создания чека, но заказ будет обработан', 'error');
+            }
+        }
+        
+        // Отправка чека клиенту (если указан email или телефон)
+        if (receiptData && (customerInfo.email || customerInfo.phone)) {
+            try {
+                await posSystem.sendReceipt(receiptData, customerInfo);
+                showNotification('Чек отправлен на указанные контакты', 'success');
+            } catch (sendError) {
+                console.error('Failed to send receipt:', sendError);
+                showNotification('Чек создан, но не удалось отправить', 'error');
+            }
+        }
+        
+        // Очистка корзины и уведомление об успехе
         cart = [];
         saveCart();
         renderCart();
+        
+        hideLoadingIndicator();
+        
+        // Показать результат заказа
+        showOrderSuccessModal(receiptData, total);
+        
+    } catch (error) {
+        console.error('Checkout error:', error);
+        hideLoadingIndicator();
+        showNotification('Ошибка при оформлении заказа. Попробуйте еще раз.', 'error');
+    }
+}
+
+// Модальное окно оформления заказа
+function showCheckoutModal(total) {
+    return new Promise((resolve) => {
+        const modal = document.createElement('div');
+        modal.className = 'checkout-modal';
+        modal.innerHTML = `
+            <div class="checkout-modal-content">
+                <div class="checkout-header">
+                    <h2>Оформление заказа</h2>
+                    <button class="close-modal" onclick="this.closest('.checkout-modal').remove()">×</button>
+                </div>
+                <div class="checkout-body">
+                    <div class="order-summary">
+                        <h3>Сумма заказа: ${total}₽</h3>
+                        <div class="vat-info">
+                            <small>Включая НДС 19%</small>
+                        </div>
+                    </div>
+                    <form id="checkout-form">
+                        <div class="form-group">
+                            <label for="customer-name">Имя *</label>
+                            <input type="text" id="customer-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customer-phone">Телефон *</label>
+                            <input type="tel" id="customer-phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customer-email">Email (для отправки чека)</label>
+                            <input type="email" id="customer-email">
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-method">Способ оплаты</label>
+                            <select id="payment-method">
+                                <option value="card">Карта</option>
+                                <option value="cash">Наличные</option>
+                                <option value="mobile">Мобильный платеж</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="checkout-footer">
+                    <button class="btn btn-secondary" onclick="this.closest('.checkout-modal').remove()">Отмена</button>
+                    <button class="btn btn-primary" onclick="processCheckoutForm()">Оформить заказ</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Обработка формы
+        window.processCheckoutForm = function() {
+            const form = document.getElementById('checkout-form');
+            const formData = new FormData(form);
+            
+            const customerInfo = {
+                name: document.getElementById('customer-name').value,
+                phone: document.getElementById('customer-phone').value,
+                email: document.getElementById('customer-email').value,
+                paymentMethod: document.getElementById('payment-method').value
+            };
+            
+            if (!customerInfo.name || !customerInfo.phone) {
+                showNotification('Заполните обязательные поля', 'error');
+                return;
+            }
+            
+            modal.remove();
+            resolve(customerInfo);
+        };
+    });
+}
+
+// Модальное окно успешного заказа
+function showOrderSuccessModal(receiptData, total) {
+    const modal = document.createElement('div');
+    modal.className = 'success-modal';
+    modal.innerHTML = `
+        <div class="success-modal-content">
+            <div class="success-icon">✅</div>
+            <h2>Заказ успешно оформлен!</h2>
+            <div class="order-details">
+                <p><strong>Сумма:</strong> ${total}₽</p>
+                ${receiptData ? `<p><strong>Номер чека:</strong> ${receiptData.receiptNumber}</p>` : ''}
+                <p>Спасибо за заказ! Приятного аппетита!</p>
+            </div>
+            <div class="success-actions">
+                <button class="btn btn-primary" onclick="this.closest('.success-modal').remove()">Закрыть</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Автоматически закрыть через 5 секунд
+    setTimeout(() => {
+        if (modal.parentNode) {
+            modal.remove();
+        }
+    }, 5000);
+}
+
+// Индикатор загрузки
+function showLoadingIndicator(message) {
+    const loader = document.createElement('div');
+    loader.id = 'loading-indicator';
+    loader.innerHTML = `
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>${message}</p>
+        </div>
+    `;
+    document.body.appendChild(loader);
+}
+
+function hideLoadingIndicator() {
+    const loader = document.getElementById('loading-indicator');
+    if (loader) {
+        loader.remove();
     }
 }
 
