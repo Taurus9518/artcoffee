@@ -2145,8 +2145,8 @@
             color: #8B4513;
             font-weight: 500;
             animation: ingredientAppear 0.3s ease-out;
-            text-align: right;
-            justify-content: flex-end;
+            text-align: right !important;
+            justify-content: flex-end !important;
         }
 
         .ingredient-item::before {
@@ -2155,10 +2155,36 @@
             font-weight: bold;
         }
 
-        .ingredient-item.base { background: rgba(139, 69, 19, 0.15); }
-        .ingredient-item.size { background: rgba(160, 82, 45, 0.15); }
-        .ingredient-item.milk { background: rgba(255, 248, 220, 0.8); color: #8B4513; }
-        .ingredient-item.extra { background: rgba(255, 182, 193, 0.3); color: #8B4513; }
+        .ingredient-item.base { 
+            background: rgba(139, 69, 19, 0.15); 
+            text-align: right !important;
+            justify-content: flex-end !important;
+        }
+        .ingredient-item.size { 
+            background: rgba(160, 82, 45, 0.15); 
+            text-align: right !important;
+            justify-content: flex-end !important;
+        }
+        .ingredient-item.milk { 
+            background: rgba(255, 248, 220, 0.8); 
+            color: #8B4513; 
+            text-align: right !important;
+            justify-content: flex-end !important;
+        }
+        .ingredient-item.extra { 
+            background: rgba(255, 182, 193, 0.3); 
+            color: #8B4513; 
+            text-align: right !important;
+            justify-content: flex-end !important;
+        }
+        .ingredient-item.syrup { 
+            text-align: right !important;
+            justify-content: flex-end !important;
+        }
+        .ingredient-item.topping { 
+            text-align: right !important;
+            justify-content: flex-end !important;
+        }
 
         @keyframes ingredientAppear {
             0% {
