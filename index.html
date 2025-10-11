@@ -3897,22 +3897,33 @@
             
             // Open first step by default
             setTimeout(() => {
+                console.log('Attempting to open first step...');
                 const firstStep = document.querySelector('[data-step="1"]');
+                console.log('First step element found:', firstStep);
+                
                 if (firstStep) {
                     firstStep.classList.add('expanded', 'active');
-                    console.log('Opening first step');
+                    console.log('Opening first step - classes added');
                     
                     // Calculate optimal height for content
                     const content = firstStep.querySelector('.step-content');
+                    console.log('Step content element:', content);
+                    
                     if (content) {
                         const contentHeight = content.scrollHeight;
+                        console.log('Content height:', contentHeight);
                         content.style.maxHeight = Math.min(contentHeight + 50, 2000) + 'px';
                         content.style.padding = '1.5rem 1.25rem 1.25rem 1.25rem';
                         content.style.marginTop = '0.5rem';
                         content.style.borderTop = '1px solid rgba(0, 0, 0, 0.1)';
                         content.style.opacity = '1';
                         content.style.visibility = 'visible';
+                        console.log('First step opened successfully');
+                    } else {
+                        console.error('Step content not found');
                     }
+                } else {
+                    console.error('First step element not found');
                 }
             }, 100);
         }
@@ -4661,6 +4672,8 @@
 
         // Constructor step toggle function
         function toggleStep(stepNumber, force = false) {
+            console.log('toggleStep called with stepNumber:', stepNumber, 'force:', force);
+            
             // Prevent multiple rapid calls unless forced (for auto-advance)
             if (window.toggleInProgress && !force) {
                 console.log('Toggle already in progress, ignoring');
@@ -4670,8 +4683,15 @@
             window.toggleInProgress = true;
             
             const step = document.querySelector(`[data-step="${stepNumber}"]`);
-            const isExpanded = step.classList.contains('expanded');
+            console.log('Found step element:', step);
             
+            if (!step) {
+                console.error('Step element not found for step:', stepNumber);
+                window.toggleInProgress = false;
+                return;
+            }
+            
+            const isExpanded = step.classList.contains('expanded');
             console.log('Toggle step:', stepNumber, 'isExpanded:', isExpanded);
             
             // Close all steps first
