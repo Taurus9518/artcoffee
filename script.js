@@ -3,14 +3,16 @@
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('App initializing...');
+    console.log('=== DEBUG: App initializing from script.js ===');
     initializeNavigation();
     initializeMenu();
+    console.log('=== DEBUG: About to call initializeConstructor from script.js ===');
     initializeConstructor();
+    console.log('=== DEBUG: initializeConstructor completed from script.js ===');
     initializeCart();
     updateCartBadge();
     showSection('home'); // Show home by default
-    console.log('App initialized');
+    console.log('=== DEBUG: App initialized from script.js ===');
 });
 
 // SPA Navigation
@@ -141,9 +143,43 @@ function initializeAddToCart() {
 
 // Constructor functionality
 function initializeConstructor() {
-    console.log('Initializing constructor...');
+    console.log('=== DEBUG: initializeConstructor from script.js ===');
     updateConstructorSummary();
     initializeConstructorEvents();
+    
+    // Open first step by default
+    setTimeout(() => {
+        console.log('=== DEBUG: Attempting to open first step from script.js ===');
+        const firstStep = document.querySelector('[data-step="1"]');
+        console.log('=== DEBUG: First step element found:', firstStep);
+        
+        if (firstStep) {
+            firstStep.classList.add('expanded', 'active');
+            console.log('=== DEBUG: Opening first step - classes added ===');
+            
+            // Calculate optimal height for content
+            const content = firstStep.querySelector('.step-content');
+            console.log('=== DEBUG: Step content element:', content);
+            
+            if (content) {
+                const contentHeight = content.scrollHeight;
+                console.log('=== DEBUG: Content height:', contentHeight);
+                content.style.maxHeight = Math.min(contentHeight + 50, 2000) + 'px';
+                content.style.padding = '1.5rem 1.25rem 1.25rem 1.25rem';
+                content.style.marginTop = '0.5rem';
+                content.style.borderTop = '1px solid rgba(0, 0, 0, 0.1)';
+                content.style.opacity = '1';
+                content.style.visibility = 'visible';
+                console.log('=== DEBUG: First step opened successfully from script.js ===');
+            } else {
+                console.error('=== DEBUG: Step content not found ===');
+            }
+        } else {
+            console.error('=== DEBUG: First step element not found ===');
+        }
+    }, 100);
+    
+    console.log('=== DEBUG: initializeConstructor from script.js completed ===');
 }
 
 function initializeConstructorEvents() {
