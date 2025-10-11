@@ -377,7 +377,7 @@ function updateConstructorSummary() {
     
     // Update coffee visualization if we have any selections
     if (typeof updateCoffeeVisualization === 'function' && (base || size || milk)) {
-        const syrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
+        const syrups = Array.from(document.querySelectorAll('input[name="syrups"]:checked')).map(input => input.value);
         const toppings = Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(input => input.value);
         updateCoffeeVisualization(base, size, milk, syrups, toppings);
     }

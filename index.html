@@ -3773,7 +3773,7 @@
                 const base = document.querySelector('input[name="base"]:checked')?.value;
                 const size = document.querySelector('input[name="size"]:checked')?.value;
                 const milk = document.querySelector('input[name="milk"]:checked')?.value;
-                const syrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
+                const syrups = Array.from(document.querySelectorAll('input[name="syrups"]:checked')).map(input => input.value);
                 const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(input => input.value);
                 
                 const hasSelection = base || size || milk || syrups.length > 0 || toppings.length > 0;
@@ -4364,7 +4364,7 @@
             const actualBase = document.querySelector('input[name="base"]:checked')?.value;
             const actualSize = document.querySelector('input[name="size"]:checked')?.value;
             const actualMilk = document.querySelector('input[name="milk"]:checked')?.value;
-            const actualSyrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
+            const actualSyrups = Array.from(document.querySelectorAll('input[name="syrups"]:checked')).map(input => input.value);
             const actualToppings = Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(input => input.value);
             console.log('=== DEBUG: Actual selections:', {actualBase, actualSize, actualMilk, actualSyrups, actualToppings});
             
