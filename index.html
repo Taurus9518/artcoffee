@@ -3896,10 +3896,25 @@
             initializeConstructorEvents();
             
             // Open first step by default
-            const firstStep = document.querySelector('[data-step="1"]');
-            if (firstStep) {
-                firstStep.classList.add('expanded');
-            }
+            setTimeout(() => {
+                const firstStep = document.querySelector('[data-step="1"]');
+                if (firstStep) {
+                    firstStep.classList.add('expanded', 'active');
+                    console.log('Opening first step');
+                    
+                    // Calculate optimal height for content
+                    const content = firstStep.querySelector('.step-content');
+                    if (content) {
+                        const contentHeight = content.scrollHeight;
+                        content.style.maxHeight = Math.min(contentHeight + 50, 2000) + 'px';
+                        content.style.padding = '1.5rem 1.25rem 1.25rem 1.25rem';
+                        content.style.marginTop = '0.5rem';
+                        content.style.borderTop = '1px solid rgba(0, 0, 0, 0.1)';
+                        content.style.opacity = '1';
+                        content.style.visibility = 'visible';
+                    }
+                }
+            }, 100);
         }
 
         function initializeConstructorEvents() {
@@ -3936,7 +3951,18 @@
                     }
                     
                     // Close current step and open next step
-                    toggleStep(stepNumber);
+                    const currentStep = document.querySelector(`[data-step="${stepNumber}"]`);
+                    if (currentStep) {
+                        currentStep.classList.remove('expanded', 'active');
+                        const content = currentStep.querySelector('.step-content');
+                        if (content) {
+                            content.style.maxHeight = '0';
+                            content.style.padding = '0 1.25rem';
+                            content.style.marginTop = '0';
+                            content.style.borderTop = 'none';
+                        }
+                    }
+                    
                     if (stepNumber < 5) {
                         setTimeout(() => {
                             toggleStep(stepNumber + 1);
