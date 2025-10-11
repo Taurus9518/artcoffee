@@ -261,11 +261,28 @@ function initializeConstructorEvents() {
         });
     });
     
-    // Extras selection
-    const extraInputs = document.querySelectorAll('input[name="extras"]');
-    console.log('Found extra inputs:', extraInputs.length);
-    extraInputs.forEach(input => {
-        input.addEventListener('change', updateConstructorSummary);
+    // Syrups selection
+    const syrupInputs = document.querySelectorAll('input[name="syrup"]');
+    console.log('Found syrup inputs:', syrupInputs.length);
+    syrupInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            console.log('=== DEBUG: Syrup selection changed ===');
+            if (typeof updateConstructorSummary === 'function') {
+                updateConstructorSummary();
+            }
+        });
+    });
+    
+    // Toppings selection
+    const toppingInputs = document.querySelectorAll('input[name="topping"]');
+    console.log('Found topping inputs:', toppingInputs.length);
+    toppingInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            console.log('=== DEBUG: Topping selection changed ===');
+            if (typeof updateConstructorSummary === 'function') {
+                updateConstructorSummary();
+            }
+        });
     });
     
     // Add to cart button

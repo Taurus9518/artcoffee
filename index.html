@@ -993,10 +993,17 @@
         }
         
         /* Universal rule for all selected elements with red background */
-        .modern-option:has(input:checked) *,
-        .milk-option.active *,
-        .extra-option:has(input:checked) *,
-        .size-option.active * {
+        .modern-option:has(input:checked) .option-name,
+        .modern-option:has(input:checked) .option-description,
+        .modern-option:has(input:checked) .option-price,
+        .milk-option.active .milk-name,
+        .milk-option.active .milk-description,
+        .milk-option.active .milk-price,
+        .extra-option:has(input:checked) .extra-name,
+        .extra-option:has(input:checked) .extra-price,
+        .size-option.active .size-label,
+        .size-option.active .size-volume,
+        .size-option.active .size-price {
             color: #f5f1e8 !important;
         }
         
@@ -2137,9 +2144,9 @@
         }
         
         .ingredient-item.milk {
-            font-size: 14px;
-            font-weight: 700;
-            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 8px;
             background: rgba(220, 38, 38, 0.1);
             border: 1px solid rgba(220, 38, 38, 0.3);
             color: #dc2626;
@@ -2153,8 +2160,8 @@
 
         .ingredient-item.base { background: rgba(139, 69, 19, 0.15); }
         .ingredient-item.size { background: rgba(160, 82, 45, 0.15); }
-        .ingredient-item.milk { background: rgba(255, 248, 220, 0.8); color: #8B4513; }
-        .ingredient-item.extra { background: rgba(255, 182, 193, 0.3); color: #8B4513; }
+        .ingredient-item.syrup { background: rgba(255, 182, 193, 0.3); color: #8B4513; }
+        .ingredient-item.topping { background: rgba(255, 182, 193, 0.3); color: #8B4513; }
 
         @keyframes ingredientAppear {
             0% {
