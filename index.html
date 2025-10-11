@@ -1129,6 +1129,17 @@
             animation: pulse 2s infinite;
         }
         
+        .milk-option.active::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            color: #f5f1e8;
+            font-size: 16px;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
         .milk-option input[type="radio"] {
             position: absolute;
             opacity: 0;
