@@ -4218,12 +4218,16 @@
         }
         
         function updateCoffeeVisualization(base, size, milk, syrups, toppings) {
+            console.log('=== DEBUG: updateCoffeeVisualization called with:', {base, size, milk, syrups, toppings});
+            
             // Update both old and new visualization
             updateOldCoffeeVisualization(base, size, milk, syrups, toppings);
             updateRealisticCoffeeVisualization(base, size, milk, syrups, toppings);
             
             // Check scroll-based visibility
             handleScrollVisibility();
+            
+            console.log('=== DEBUG: updateCoffeeVisualization completed ===');
         }
 
         function updateOldCoffeeVisualization(base, size, milk, syrups, toppings) {

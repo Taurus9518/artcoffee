@@ -405,6 +405,16 @@ function updateConstructorSummary() {
     });
     
     document.getElementById('summary-total').textContent = `${total}₽`;
+    
+    // Update coffee visualization
+    if (typeof updateCoffeeVisualization === 'function') {
+        console.log('=== DEBUG: Calling updateCoffeeVisualization from script.js ===');
+        const syrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
+        const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(input => input.value);
+        updateCoffeeVisualization(base, size, milk, syrups, toppings);
+    } else {
+        console.log('=== DEBUG: updateCoffeeVisualization function not found ===');
+    }
 }
 
 function addConstructorToCart() {
