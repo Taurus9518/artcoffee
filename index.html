@@ -3920,7 +3920,6 @@
             setTimeout(clearAllSelections, 100);
             setTimeout(clearAllSelections, 500);
             
-            updateConstructorSummary();
             initializeConstructorEvents();
             
             // Open first step by default
@@ -4190,8 +4189,10 @@
                 extrasElement.style.display = 'none';
             }
             
-            // Update coffee visualization with separate syrups and toppings
-            updateCoffeeVisualization(base, size, milk, selectedSyrups, selectedToppings);
+            // Update coffee visualization only if we have selections
+            if (base || size || milk) {
+                updateCoffeeVisualization(base, size, milk, selectedSyrups, selectedToppings);
+            }
             
             // Hide size step if espresso is selected
             const sizeStep = document.querySelector('[data-step="2"]');
