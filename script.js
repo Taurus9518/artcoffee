@@ -1,7 +1,5 @@
 // Menu data is defined in index.html
-
-// Cart state
-let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+// Cart state is defined in index.html
 
 // POS Integration
 let posSystem = null;
