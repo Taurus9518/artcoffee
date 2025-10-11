@@ -242,6 +242,59 @@ function initializeConstructorEvents() {
     if (resetBtn) {
         resetBtn.addEventListener('click', resetConstructor);
     }
+    
+    // Step done buttons
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.step-done-btn')) {
+            console.log('=== DEBUG: Step done button clicked ===');
+            e.stopPropagation();
+            const button = e.target.closest('.step-done-btn');
+            const stepNumber = parseInt(button.dataset.step);
+            console.log('=== DEBUG: Step number:', stepNumber);
+            
+            // Check if step has required selection
+            if (stepNumber === 1) {
+                const base = document.querySelector('input[name="base"]:checked');
+                if (!base) {
+                    alert('Пожалуйста, выберите основу кофе');
+                    return;
+                }
+            } else if (stepNumber === 2) {
+                const size = document.querySelector('input[name="size"]:checked');
+                if (!size) {
+                    alert('Пожалуйста, выберите размер порции');
+                    return;
+                }
+            } else if (stepNumber === 3) {
+                const milk = document.querySelector('input[name="milk"]:checked');
+                if (!milk) {
+                    alert('Пожалуйста, выберите тип молока');
+                    return;
+                }
+            }
+            
+            // Close current step and open next step
+            console.log('=== DEBUG: Closing current step and opening next ===');
+            const currentStep = document.querySelector(`[data-step="${stepNumber}"]`);
+            if (currentStep) {
+                currentStep.classList.remove('expanded', 'active');
+                const content = currentStep.querySelector('.step-content');
+                if (content) {
+                    content.style.maxHeight = '0';
+                    content.style.padding = '0 1.25rem';
+                    content.style.marginTop = '0';
+                    content.style.borderTop = 'none';
+                }
+            }
+            
+            if (stepNumber < 5) {
+                setTimeout(() => {
+                    console.log('=== DEBUG: Opening next step:', stepNumber + 1);
+                    toggleStep(stepNumber + 1);
+                }, 300);
+            }
+        }
+    });
 }
 
 function updateConstructorSummary() {
