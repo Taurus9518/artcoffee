@@ -3667,9 +3667,12 @@
                 });
             }, 50);
             
+            console.log('=== DEBUG: About to call initializeConstructor ===');
             initializeNavigation();
             initializeMenu();
+            console.log('=== DEBUG: Calling initializeConstructor now ===');
             initializeConstructor();
+            console.log('=== DEBUG: initializeConstructor completed ===');
             initializeCart();
             
             // Initialize step headers after everything is loaded
@@ -3762,9 +3765,11 @@
 
         // Menu functionality
         function initializeMenu() {
+            console.log('=== DEBUG: initializeMenu started ===');
             renderMenuItems();
             initializeCategoryFilter();
             initializeAddToCart();
+            console.log('=== DEBUG: initializeMenu completed ===');
         }
 
         function renderMenuItems() {
