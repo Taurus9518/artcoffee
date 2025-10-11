@@ -2124,6 +2124,28 @@
             font-weight: 500;
             animation: ingredientAppear 0.3s ease-out;
         }
+        
+        .ingredient-item.large {
+            font-size: 14px;
+            font-weight: 700;
+            padding: 6px 10px;
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            color: #dc2626;
+        }
+        
+        .ingredient-item.medium {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 5px 9px;
+        }
+        
+        .ingredient-item.small {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 3px 7px;
+            opacity: 0.8;
+        }
 
         .ingredient-item::before {
             content: '•';
@@ -4300,7 +4322,7 @@
             // Add base
             if (base) {
                 const baseItem = document.createElement('div');
-                baseItem.className = 'ingredient-item base';
+                baseItem.className = 'ingredient-item base large';
                 baseItem.textContent = baseNames[base] || base;
                 ingredientsList.appendChild(baseItem);
             }
@@ -4308,7 +4330,7 @@
             // Add size
             if (size) {
                 const sizeItem = document.createElement('div');
-                sizeItem.className = 'ingredient-item size';
+                sizeItem.className = `ingredient-item size ${size}`;
                 sizeItem.textContent = sizeNames[size] || size;
                 ingredientsList.appendChild(sizeItem);
             }
@@ -4316,7 +4338,7 @@
             // Add milk
             if (milk) {
                 const milkItem = document.createElement('div');
-                milkItem.className = 'ingredient-item milk';
+                milkItem.className = 'ingredient-item milk medium';
                 milkItem.textContent = milkNames[milk] || milk;
                 ingredientsList.appendChild(milkItem);
             }
@@ -4325,7 +4347,7 @@
             if (syrups && syrups.length > 0) {
                 syrups.forEach(syrup => {
                     const syrupItem = document.createElement('div');
-                    syrupItem.className = 'ingredient-item syrup';
+                    syrupItem.className = 'ingredient-item syrup small';
                     syrupItem.textContent = syrupNames[syrup] || syrup;
                     ingredientsList.appendChild(syrupItem);
                 });
@@ -4335,7 +4357,7 @@
             if (toppings && toppings.length > 0) {
                 toppings.forEach(topping => {
                     const toppingItem = document.createElement('div');
-                    toppingItem.className = 'ingredient-item topping';
+                    toppingItem.className = 'ingredient-item topping small';
                     toppingItem.textContent = toppingNames[topping] || topping;
                     ingredientsList.appendChild(toppingItem);
                 });
