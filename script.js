@@ -1,6 +1,8 @@
 // Menu data is defined in index.html
 // Cart state is defined in index.html
 
+console.log('=== SCRIPT.JS LOADED ===');
+
 // Initialize app
 document.addEventListener('DOMContentLoaded', function() {
     console.log('=== DEBUG: App initializing from script.js ===');
