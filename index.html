@@ -4360,6 +4360,17 @@
             ingredientsList.innerHTML = '';
             console.log('=== DEBUG: Cleared existing ingredients ===');
             
+            // IMPORTANT: Check actual selections from DOM, not parameters
+            const actualBase = document.querySelector('input[name="base"]:checked')?.value;
+            const actualSize = document.querySelector('input[name="size"]:checked')?.value;
+            const actualMilk = document.querySelector('input[name="milk"]:checked')?.value;
+            console.log('=== DEBUG: Actual selections:', {actualBase, actualSize, actualMilk});
+            
+            // Override parameters with actual selections
+            base = actualBase;
+            size = actualSize;
+            milk = actualMilk;
+            
             const baseNames = {
                 espresso: 'Эспрессо',
                 americano: 'Американо',
