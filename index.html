@@ -1595,6 +1595,12 @@
             background: linear-gradient(to top, #8B4513, #A0522D);
             transform: translateY(0) !important;
             overflow: hidden !important;
+            /* Force syrup to be at the very bottom */
+            margin: 0 !important;
+            padding: 0 !important;
+            /* DEBUG: Make syrup visible with red styling */
+            border: 3px solid red !important;
+            background: rgba(255, 0, 0, 0.8) !important;
         }
 
         .vanilla-syrup-realistic { 
@@ -4193,13 +4199,13 @@
                 coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
             }
             
-            // Add syrup layers at the very bottom of the cup - FIRST (inside coffee liquid)
+            // Add syrup layers at the very bottom of the cup - FIRST (inside cup body)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    // Add to coffee liquid at the very bottom
-                    coffeeLiquid.appendChild(syrupLayer);
+                    // Add to cup body at the very bottom
+                    cupBody.appendChild(syrupLayer);
                 });
             }
             
@@ -4265,13 +4271,13 @@
                 coffeeFoamRealistic.classList.add(base);
             }
             
-            // Add syrup layers at the very bottom of the cup - FIRST (inside coffee liquid)
+            // Add syrup layers at the very bottom of the cup - FIRST (inside cup body)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    // Add to coffee liquid at the very bottom
-                    coffeeLiquidRealistic.appendChild(syrupLayer);
+                    // Add to cup body at the very bottom
+                    cupBody.appendChild(syrupLayer);
                 });
             }
             
