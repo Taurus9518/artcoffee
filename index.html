@@ -1417,11 +1417,6 @@
             margin-bottom: 1rem;
         }
         
-        .coffee-preview {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
         
         .coffee-cup {
             width: 100px;
@@ -2175,10 +2170,6 @@
                 z-index: 9999;
             }
             
-            /* Hide bottom visualization on mobile */
-            .coffee-preview {
-                display: none !important;
-            }
         }
 
             .coffee-visualization-container {
@@ -3500,13 +3491,6 @@
                             <div class="summary-card">
                                 <div class="summary-header">
                                     <h3 class="summary-title">Ваш напиток</h3>
-                                    <div class="coffee-preview">
-                                        <div class="coffee-cup" id="coffee-cup">
-                                            <div class="coffee-liquid" id="coffee-liquid"></div>
-                                            <div class="coffee-foam" id="coffee-foam"></div>
-                                            <!-- Component layers will be added dynamically -->
-                                        </div>
-                                    </div>
                                 </div>
                                 
                                 <div class="summary-details">
@@ -4190,72 +4174,8 @@
         }
 
         function updateOldCoffeeVisualization(base, size, milk, syrups, toppings) {
-            const coffeeCup = document.getElementById('coffee-cup');
-            const cupBody = coffeeCup.querySelector('.cup-body');
-            const coffeeLiquid = document.getElementById('coffee-liquid');
-            const coffeeFoam = document.getElementById('coffee-foam');
-            
-            if (!coffeeCup || !cupBody || !coffeeLiquid || !coffeeFoam) return;
-            
-            // Clear existing component layers
-            const existingLayers = coffeeCup.querySelectorAll('.component-layer');
-            existingLayers.forEach(layer => layer.remove());
-            
-            // Update base coffee color and class
-            if (base) {
-                coffeeLiquid.classList.remove('espresso', 'americano', 'cappuccino');
-                coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
-                coffeeLiquid.classList.add(base);
-                coffeeFoam.classList.add(base);
-            } else {
-                // Reset to default if no base selected
-                coffeeLiquid.classList.remove('espresso', 'americano', 'cappuccino');
-                coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
-            }
-            
-            // Add syrup layers at the very bottom of the cup - FIRST (inside cup body)
-            if (syrups && syrups.length > 0) {
-                syrups.forEach((syrup, index) => {
-                    const syrupLayer = document.createElement('div');
-                    syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    // Add to cup body at the very bottom - INSERT AT BEGINNING
-                    cupBody.insertBefore(syrupLayer, cupBody.firstChild);
-                });
-            }
-            
-            // Update size visualization
-            if (size) {
-                const sizeHeights = { small: '50%', medium: '60%', large: '70%' };
-                coffeeLiquid.style.height = sizeHeights[size] || '60%';
-            }
-            
-            // Add milk layer in coffeeLiquid (above syrups)
-            if (milk && milk !== 'regular') {
-                const milkLayer = document.createElement('div');
-                milkLayer.className = `component-layer milk-layer-realistic ${milk}-milk-realistic`;
-                coffeeLiquid.appendChild(milkLayer);
-            }
-            
-            // Add topping layers (on top of milk)
-            if (toppings && toppings.length > 0) {
-                toppings.forEach((topping, index) => {
-                    const toppingLayer = document.createElement('div');
-                    toppingLayer.className = `component-layer topping-layer-realistic ${topping}-topping-realistic`;
-                    coffeeLiquid.appendChild(toppingLayer);
-                });
-            }
-            
-            // Update foam based on milk type
-            if (milk) {
-                const foamColors = {
-                    regular: 'linear-gradient(to bottom, #FFFFFF, #F5F5DC, #E6E6FA)',
-                    oat: 'linear-gradient(to bottom, #FFF8DC, #F5F5DC, #E6E6FA)',
-                    almond: 'linear-gradient(to bottom, #FFFACD, #F5F5DC, #E6E6FA)',
-                    coconut: 'linear-gradient(to bottom, #FFF8DC, #F5F5DC, #E6E6FA)',
-                    soy: 'linear-gradient(to bottom, #F0F8FF, #F5F5DC, #E6E6FA)'
-                };
-                coffeeFoam.style.background = foamColors[milk] || foamColors.regular;
-            }
+            // Old visualization removed - only realistic visualization remains
+            return;
         }
 
         function updateRealisticCoffeeVisualization(base, size, milk, syrups, toppings) {
