@@ -3748,6 +3748,11 @@
                 activeLink.classList.add('active');
             }
             
+            // Hide floating coffee window in cart section
+            if (sectionId === 'cart') {
+                hideFloatingCoffee();
+            }
+            
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
