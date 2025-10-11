@@ -264,9 +264,10 @@ function initializeConstructorEvents() {
     // Syrups selection
     const syrupInputs = document.querySelectorAll('input[name="syrup"]');
     console.log('Found syrup inputs:', syrupInputs.length);
+    console.log('=== DEBUG: Syrup inputs:', syrupInputs);
     syrupInputs.forEach(input => {
         input.addEventListener('change', function() {
-            console.log('=== DEBUG: Syrup selection changed ===');
+            console.log('=== DEBUG: Syrup selection changed to:', input.value);
             if (typeof updateConstructorSummary === 'function') {
                 updateConstructorSummary();
             }
@@ -276,9 +277,10 @@ function initializeConstructorEvents() {
     // Toppings selection
     const toppingInputs = document.querySelectorAll('input[name="topping"]');
     console.log('Found topping inputs:', toppingInputs.length);
+    console.log('=== DEBUG: Topping inputs:', toppingInputs);
     toppingInputs.forEach(input => {
         input.addEventListener('change', function() {
-            console.log('=== DEBUG: Topping selection changed ===');
+            console.log('=== DEBUG: Topping selection changed to:', input.value);
             if (typeof updateConstructorSummary === 'function') {
                 updateConstructorSummary();
             }
@@ -428,6 +430,8 @@ function updateConstructorSummary() {
         console.log('=== DEBUG: Calling updateCoffeeVisualization from script.js ===');
         const syrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
         const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(input => input.value);
+        console.log('=== DEBUG: Syrups found:', syrups);
+        console.log('=== DEBUG: Toppings found:', toppings);
         updateCoffeeVisualization(base, size, milk, syrups, toppings);
     } else {
         console.log('=== DEBUG: updateCoffeeVisualization function not found ===');

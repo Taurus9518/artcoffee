@@ -1007,6 +1007,14 @@
             color: #f5f1e8 !important;
         }
         
+        /* Force white text for all selected elements */
+        .modern-option:has(input:checked) *,
+        .milk-option.active *,
+        .extra-option:has(input:checked) *,
+        .size-option.active * {
+            color: #f5f1e8 !important;
+        }
+        
         .size-option.active .size-cup {
             background: linear-gradient(135deg, #333333, #000000);
             transform: scale(1.05);
