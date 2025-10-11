@@ -4244,6 +4244,12 @@
         function updateCoffeeVisualization(base, size, milk, syrups, toppings) {
             console.log('=== DEBUG: updateCoffeeVisualization called with:', {base, size, milk, syrups, toppings});
             
+            // Don't update if no base is selected
+            if (!base) {
+                console.log('=== DEBUG: No base selected, skipping visualization ===');
+                return;
+            }
+            
             // Update both old and new visualization
             updateOldCoffeeVisualization(base, size, milk, syrups, toppings);
             updateRealisticCoffeeVisualization(base, size, milk, syrups, toppings);
