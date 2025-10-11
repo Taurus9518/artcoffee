@@ -4915,7 +4915,67 @@
     </script>
     <script>
         console.log('=== INLINE SCRIPT IN INDEX.HTML ===');
+        
+        // Add step done button handler directly in HTML
+        document.addEventListener('click', function(e) {
+            console.log('=== HTML: Click detected on:', e.target);
+            if (e.target.closest('.step-done-btn')) {
+                console.log('=== HTML: Step done button clicked ===');
+                e.stopPropagation();
+                const button = e.target.closest('.step-done-btn');
+                const stepNumber = parseInt(button.dataset.step);
+                console.log('=== HTML: Step number:', stepNumber);
+                
+                // Check if step has required selection
+                if (stepNumber === 1) {
+                    const base = document.querySelector('input[name="base"]:checked');
+                    if (!base) {
+                        alert('Пожалуйста, выберите основу кофе');
+                        return;
+                    }
+                }
+                
+                // Close current step and open next step
+                console.log('=== HTML: Closing current step and opening next ===');
+                const currentStep = document.querySelector(`[data-step="${stepNumber}"]`);
+                if (currentStep) {
+                    currentStep.classList.remove('expanded', 'active');
+                    const content = currentStep.querySelector('.step-content');
+                    if (content) {
+                        content.style.maxHeight = '0';
+                        content.style.padding = '0 1.25rem';
+                        content.style.marginTop = '0';
+                        content.style.borderTop = 'none';
+                    }
+                }
+                
+                if (stepNumber < 5) {
+                    setTimeout(() => {
+                        console.log('=== HTML: Opening next step:', stepNumber + 1);
+                        // Call toggleStep function if it exists
+                        if (typeof toggleStep === 'function') {
+                            toggleStep(stepNumber + 1);
+                        } else {
+                            // Fallback: manually open next step
+                            const nextStep = document.querySelector(`[data-step="${stepNumber + 1}"]`);
+                            if (nextStep) {
+                                nextStep.classList.add('expanded', 'active');
+                                const nextContent = nextStep.querySelector('.step-content');
+                                if (nextContent) {
+                                    nextContent.style.maxHeight = '500px';
+                                    nextContent.style.padding = '1.5rem 1.25rem 1.25rem 1.25rem';
+                                    nextContent.style.marginTop = '0.5rem';
+                                    nextContent.style.borderTop = '1px solid rgba(0, 0, 0, 0.1)';
+                                    nextContent.style.opacity = '1';
+                                    nextContent.style.visibility = 'visible';
+                                }
+                            }
+                        }
+                    }, 300);
+                }
+            }
+        });
     </script>
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=5"></script>
 </body>
 </html>
