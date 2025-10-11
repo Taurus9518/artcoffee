@@ -4203,17 +4203,27 @@
                 });
             }
             
-            // Update liquid height based on size
+            // Update cup and liquid size based on size
             if (size) {
-                const sizeHeights = {
-                    small: '50%',
-                    medium: '60%',
-                    large: '70%'
+                const sizeConfig = {
+                    small: { cupHeight: '70px', cupBodyHeight: '60px', liquidHeight: '50%' },
+                    medium: { cupHeight: '90px', cupBodyHeight: '80px', liquidHeight: '60%' },
+                    large: { cupHeight: '110px', cupBodyHeight: '100px', liquidHeight: '70%' }
                 };
-                coffeeLiquidRealistic.style.height = sizeHeights[size] || '60%';
+                const config = sizeConfig[size] || sizeConfig.medium;
+                realisticCup.style.height = config.cupHeight;
+                cupBody.style.height = config.cupBodyHeight;
+                coffeeLiquidRealistic.style.height = config.liquidHeight;
             } else if (base === 'espresso') {
                 // For espresso, automatically set small size
+                realisticCup.style.height = '70px';
+                cupBody.style.height = '60px';
                 coffeeLiquidRealistic.style.height = '50%';
+            } else {
+                // Default medium size
+                realisticCup.style.height = '90px';
+                cupBody.style.height = '80px';
+                coffeeLiquidRealistic.style.height = '60%';
             }
             
             // Add milk layer in coffeeLiquidRealistic (above syrups)
