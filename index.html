@@ -1601,6 +1601,9 @@
             /* DEBUG: Make syrup visible with red styling */
             border: 3px solid red !important;
             background: rgba(255, 0, 0, 0.8) !important;
+            /* Force positioning at the very bottom of the cup */
+            top: auto !important;
+            bottom: 0 !important;
         }
 
         .vanilla-syrup-realistic { 
@@ -4199,13 +4202,13 @@
                 coffeeFoam.classList.remove('espresso', 'americano', 'cappuccino');
             }
             
-            // Add syrup layers at the very bottom of the cup - FIRST (inside cup body)
+            // Add syrup layers at the very bottom of the cup - FIRST (inside coffee cup)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    // Add to cup body at the very bottom
-                    cupBody.appendChild(syrupLayer);
+                    // Add to coffee cup at the very bottom
+                    coffeeCup.appendChild(syrupLayer);
                 });
             }
             
@@ -4271,13 +4274,13 @@
                 coffeeFoamRealistic.classList.add(base);
             }
             
-            // Add syrup layers at the very bottom of the cup - FIRST (inside cup body)
+            // Add syrup layers at the very bottom of the cup - FIRST (inside realistic cup)
             if (syrups && syrups.length > 0) {
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
-                    // Add to cup body at the very bottom
-                    cupBody.appendChild(syrupLayer);
+                    // Add to realistic cup at the very bottom
+                    realisticCup.appendChild(syrupLayer);
                 });
             }
             
