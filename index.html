@@ -1015,6 +1015,14 @@
             color: #f5f1e8 !important;
         }
         
+        /* Alternative rules for browsers that don't support :has() */
+        .modern-option input:checked + *,
+        .modern-option input:checked ~ *,
+        .extra-option input:checked + *,
+        .extra-option input:checked ~ * {
+            color: #f5f1e8 !important;
+        }
+        
         .size-option.active .size-cup {
             background: linear-gradient(135deg, #333333, #000000);
             transform: scale(1.05);
