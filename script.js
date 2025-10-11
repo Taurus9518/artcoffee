@@ -205,60 +205,21 @@ function initializeConstructorEvents() {
     const baseInputs = document.querySelectorAll('input[name="base"]');
     console.log('Found base inputs:', baseInputs.length);
     baseInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log('=== DEBUG: Base selection changed ===');
-            if (typeof updateConstructorSummary === 'function') {
-                updateConstructorSummary();
-            }
-            if (typeof updateCoffeeVisualization === 'function') {
-                const base = input.value;
-                const size = document.querySelector('input[name="size"]:checked')?.value;
-                const milk = document.querySelector('input[name="milk"]:checked')?.value;
-                const syrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
-                const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(input => input.value);
-                updateCoffeeVisualization(base, size, milk, syrups, toppings);
-            }
-        });
+        input.addEventListener('change', updateConstructorSummary);
     });
     
     // Size selection
     const sizeInputs = document.querySelectorAll('input[name="size"]');
     console.log('Found size inputs:', sizeInputs.length);
     sizeInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log('=== DEBUG: Size selection changed ===');
-            if (typeof updateConstructorSummary === 'function') {
-                updateConstructorSummary();
-            }
-            if (typeof updateCoffeeVisualization === 'function') {
-                const base = document.querySelector('input[name="base"]:checked')?.value;
-                const size = input.value;
-                const milk = document.querySelector('input[name="milk"]:checked')?.value;
-                const syrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
-                const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(input => input.value);
-                updateCoffeeVisualization(base, size, milk, syrups, toppings);
-            }
-        });
+        input.addEventListener('change', updateConstructorSummary);
     });
     
     // Milk selection
     const milkInputs = document.querySelectorAll('input[name="milk"]');
     console.log('Found milk inputs:', milkInputs.length);
     milkInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log('=== DEBUG: Milk selection changed ===');
-            if (typeof updateConstructorSummary === 'function') {
-                updateConstructorSummary();
-            }
-            if (typeof updateCoffeeVisualization === 'function') {
-                const base = document.querySelector('input[name="base"]:checked')?.value;
-                const size = document.querySelector('input[name="size"]:checked')?.value;
-                const milk = input.value;
-                const syrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
-                const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(input => input.value);
-                updateCoffeeVisualization(base, size, milk, syrups, toppings);
-            }
-        });
+        input.addEventListener('change', updateConstructorSummary);
     });
     
     // Syrups selection
@@ -266,12 +227,7 @@ function initializeConstructorEvents() {
     console.log('Found syrup inputs:', syrupInputs.length);
     console.log('=== DEBUG: Syrup inputs:', syrupInputs);
     syrupInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log('=== DEBUG: Syrup selection changed to:', input.value);
-            if (typeof updateConstructorSummary === 'function') {
-                updateConstructorSummary();
-            }
-        });
+        input.addEventListener('change', updateConstructorSummary);
     });
     
     // Toppings selection
@@ -279,12 +235,7 @@ function initializeConstructorEvents() {
     console.log('Found topping inputs:', toppingInputs.length);
     console.log('=== DEBUG: Topping inputs:', toppingInputs);
     toppingInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            console.log('=== DEBUG: Topping selection changed to:', input.value);
-            if (typeof updateConstructorSummary === 'function') {
-                updateConstructorSummary();
-            }
-        });
+        input.addEventListener('change', updateConstructorSummary);
     });
     
     // Add to cart button
@@ -427,14 +378,9 @@ function updateConstructorSummary() {
     
     // Update coffee visualization
     if (typeof updateCoffeeVisualization === 'function') {
-        console.log('=== DEBUG: Calling updateCoffeeVisualization from script.js ===');
         const syrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
         const toppings = Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(input => input.value);
-        console.log('=== DEBUG: Syrups found:', syrups);
-        console.log('=== DEBUG: Toppings found:', toppings);
         updateCoffeeVisualization(base, size, milk, syrups, toppings);
-    } else {
-        console.log('=== DEBUG: updateCoffeeVisualization function not found ===');
     }
 }
 
