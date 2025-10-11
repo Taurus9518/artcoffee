@@ -4314,8 +4314,17 @@
         }
 
         function updateIngredientsList(base, size, milk, syrups, toppings) {
+            console.log('=== DEBUG: updateIngredientsList called with:', {base, size, milk, syrups, toppings});
             const ingredientsList = document.getElementById('ingredients-list');
-            if (!ingredientsList) return;
+            console.log('=== DEBUG: ingredientsList element:', ingredientsList);
+            if (!ingredientsList) {
+                console.error('=== DEBUG: ingredientsList not found ===');
+                return;
+            }
+            
+            // Clear existing ingredients
+            ingredientsList.innerHTML = '';
+            console.log('=== DEBUG: Cleared existing ingredients ===');
             
             const baseNames = {
                 espresso: 'Эспрессо',
@@ -4393,6 +4402,9 @@
                     ingredientsList.appendChild(toppingItem);
                 });
             }
+            
+            console.log('=== DEBUG: Final ingredients count:', ingredientsList.children.length);
+            console.log('=== DEBUG: Final ingredients HTML:', ingredientsList.innerHTML);
         }
 
         function addConstructorToCart() {
