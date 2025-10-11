@@ -222,7 +222,7 @@ function initializeConstructorEvents() {
     });
     
     // Syrups selection
-    const syrupInputs = document.querySelectorAll('input[name="syrup"]');
+    const syrupInputs = document.querySelectorAll('input[name="syrups"]');
     console.log('Found syrup inputs:', syrupInputs.length);
     console.log('=== DEBUG: Syrup inputs:', syrupInputs);
     syrupInputs.forEach(input => {
