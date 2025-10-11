@@ -3846,7 +3846,7 @@
 
         // Constructor functionality
         function initializeConstructor() {
-            console.log('Initializing constructor...');
+            console.log('=== DEBUG: Initializing constructor ===');
             
             // Force clear all selections immediately and with delay
             function clearAllSelections() {
@@ -3897,33 +3897,33 @@
             
             // Open first step by default
             setTimeout(() => {
-                console.log('Attempting to open first step...');
+                console.log('=== DEBUG: Attempting to open first step ===');
                 const firstStep = document.querySelector('[data-step="1"]');
-                console.log('First step element found:', firstStep);
+                console.log('=== DEBUG: First step element found:', firstStep);
                 
                 if (firstStep) {
                     firstStep.classList.add('expanded', 'active');
-                    console.log('Opening first step - classes added');
+                    console.log('=== DEBUG: Opening first step - classes added ===');
                     
                     // Calculate optimal height for content
                     const content = firstStep.querySelector('.step-content');
-                    console.log('Step content element:', content);
+                    console.log('=== DEBUG: Step content element:', content);
                     
                     if (content) {
                         const contentHeight = content.scrollHeight;
-                        console.log('Content height:', contentHeight);
+                        console.log('=== DEBUG: Content height:', contentHeight);
                         content.style.maxHeight = Math.min(contentHeight + 50, 2000) + 'px';
                         content.style.padding = '1.5rem 1.25rem 1.25rem 1.25rem';
                         content.style.marginTop = '0.5rem';
                         content.style.borderTop = '1px solid rgba(0, 0, 0, 0.1)';
                         content.style.opacity = '1';
                         content.style.visibility = 'visible';
-                        console.log('First step opened successfully');
+                        console.log('=== DEBUG: First step opened successfully ===');
                     } else {
-                        console.error('Step content not found');
+                        console.error('=== DEBUG: Step content not found ===');
                     }
                 } else {
-                    console.error('First step element not found');
+                    console.error('=== DEBUG: First step element not found ===');
                 }
             }, 100);
         }
