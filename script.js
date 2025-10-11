@@ -146,7 +146,6 @@ function initializeAddToCart() {
 // Constructor functionality
 function initializeConstructor() {
     console.log('=== DEBUG: initializeConstructor from script.js ===');
-    updateConstructorSummary();
     initializeConstructorEvents();
     
     // Open first step by default
@@ -308,9 +307,9 @@ function initializeConstructorEvents() {
 }
 
 function updateConstructorSummary() {
-    const base = document.querySelector('input[name="base"]:checked')?.value || 'espresso';
-    const size = document.querySelector('input[name="size"]:checked')?.value || 'medium';
-    const milk = document.querySelector('input[name="milk"]:checked')?.value || 'regular';
+    const base = document.querySelector('input[name="base"]:checked')?.value;
+    const size = document.querySelector('input[name="size"]:checked')?.value;
+    const milk = document.querySelector('input[name="milk"]:checked')?.value;
     const extras = Array.from(document.querySelectorAll('input[name="extras"]:checked')).map(input => input.value);
     
     // Update summary display
@@ -376,8 +375,8 @@ function updateConstructorSummary() {
     
     document.getElementById('summary-total').textContent = `${total}₽`;
     
-    // Update coffee visualization
-    if (typeof updateCoffeeVisualization === 'function') {
+    // Update coffee visualization only if we have selections
+    if (typeof updateCoffeeVisualization === 'function' && (base || size || milk)) {
         const syrups = Array.from(document.querySelectorAll('input[name="syrup"]:checked')).map(input => input.value);
         const toppings = Array.from(document.querySelectorAll('input[name="toppings"]:checked')).map(input => input.value);
         updateCoffeeVisualization(base, size, milk, syrups, toppings);
