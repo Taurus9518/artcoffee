@@ -1,12 +1,6 @@
 // Menu data is defined in index.html
 // Cart state is defined in index.html
 
-// POS Integration
-let posSystem = null;
-
-// R-Keeper Integration
-let rkeeperSystem = null;
-
 // Initialize app
 document.addEventListener('DOMContentLoaded', function() {
     console.log('App initializing...');
@@ -14,8 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMenu();
     initializeConstructor();
     initializeCart();
-    initializePOS();
-    initializeRKeeper();
     updateCartBadge();
     showSection('home'); // Show home by default
     console.log('App initialized');
@@ -460,55 +452,8 @@ function clearCart() {
     }
 }
 
-// POS System initialization
-async function initializePOS() {
-    try {
-        posSystem = new POSIntegration();
-        const result = await posSystem.initialize();
-        
-        if (result.success) {
-            console.log('POS system initialized successfully');
-            showNotification('Система кассы подключена', 'success');
-        } else {
-            console.warn('POS system initialization failed:', result.message);
-            showNotification('Ошибка подключения к кассе. Заказы будут обработаны без фискальных чеков.', 'error');
-        }
-    } catch (error) {
-        console.error('POS initialization error:', error);
-        showNotification('Ошибка инициализации кассы', 'error');
-    }
-}
 
-// R-Keeper System initialization
-async function initializeRKeeper() {
-    try {
-        rkeeperSystem = new RKeeperIntegration();
-        const result = await rkeeperSystem.initialize();
-        
-        if (result.success) {
-            console.log('R-Keeper system initialized successfully');
-            showNotification('Система R-Keeper подключена', 'success');
-            
-            // Синхронизируем меню при инициализации
-            if (window.RKEEPER_CONFIG?.menu?.syncEnabled) {
-                try {
-                    await rkeeperSystem.syncMenu();
-                    console.log('Menu synchronized with R-Keeper');
-                } catch (syncError) {
-                    console.warn('Menu sync failed:', syncError);
-                }
-            }
-        } else {
-            console.warn('R-Keeper system initialization failed:', result.message);
-            showNotification('Ошибка подключения к R-Keeper. Заказы будут обработаны локально.', 'error');
-        }
-    } catch (error) {
-        console.error('R-Keeper initialization error:', error);
-        showNotification('Ошибка инициализации R-Keeper', 'error');
-    }
-}
-
-// Enhanced checkout with POS integration
+// Simple checkout without integrations
 async function checkout() {
     if (cart.length === 0) {
         showNotification('Корзина пуста!', 'error');
@@ -543,42 +488,19 @@ async function checkout() {
             notes: `Заказ через веб-приложение Art Coffee`
         };
         
-        let receiptData = null;
-        let rkeeperOrderData = null;
+        // Сохранение заказа локально
+        const orderId = Date.now().toString();
+        const localOrder = {
+            id: orderId,
+            ...orderData,
+            status: 'completed',
+            createdAt: new Date().toISOString()
+        };
         
-        // Попытка создать заказ в R-Keeper
-        if (rkeeperSystem && rkeeperSystem.isConnected) {
-            try {
-                rkeeperOrderData = await rkeeperSystem.createOrder(orderData);
-                console.log('R-Keeper order created:', rkeeperOrderData);
-                showNotification('Заказ создан в R-Keeper', 'success');
-            } catch (rkeeperError) {
-                console.error('R-Keeper order creation failed:', rkeeperError);
-                showNotification('Ошибка создания заказа в R-Keeper, но заказ будет обработан локально', 'error');
-            }
-        }
-        
-        // Попытка создать фискальный чек
-        if (posSystem && posSystem.isConnected) {
-            try {
-                receiptData = await posSystem.createReceipt(orderData);
-                console.log('Receipt created:', receiptData);
-            } catch (posError) {
-                console.error('POS receipt creation failed:', posError);
-                showNotification('Ошибка создания чека, но заказ будет обработан', 'error');
-            }
-        }
-        
-        // Отправка чека клиенту (если указан email или телефон)
-        if (receiptData && (customerInfo.email || customerInfo.phone)) {
-            try {
-                await posSystem.sendReceipt(receiptData, customerInfo);
-                showNotification('Чек отправлен на указанные контакты', 'success');
-            } catch (sendError) {
-                console.error('Failed to send receipt:', sendError);
-                showNotification('Чек создан, но не удалось отправить', 'error');
-            }
-        }
+        // Сохранение в localStorage
+        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        orders.push(localOrder);
+        localStorage.setItem('orders', JSON.stringify(orders));
         
         // Очистка корзины и уведомление об успехе
         cart = [];
@@ -587,8 +509,8 @@ async function checkout() {
         
         hideLoadingIndicator();
         
-        // Показать результат заказа
-        showOrderSuccessModal(receiptData, total);
+        // Показать успешное уведомление
+        showNotification('Заказ успешно оформлен!', 'success');
         
     } catch (error) {
         console.error('Checkout error:', error);
