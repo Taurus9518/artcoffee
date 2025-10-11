@@ -1596,6 +1596,9 @@
             background: linear-gradient(to top, #8B4513, #A0522D);
             transform: translateY(0) !important;
             overflow: hidden !important;
+            /* DEBUG: Add red border and background to make syrup visible */
+            border: 2px solid red !important;
+            background: rgba(255, 0, 0, 0.5) !important;
         }
 
         .vanilla-syrup-realistic { 
@@ -4198,11 +4201,17 @@
             
             // Add syrup layers at the very bottom of the cup - FIRST (inside coffee liquid)
             if (syrups && syrups.length > 0) {
+                console.log('🔍 DEBUG (Bottom): Adding syrups:', syrups);
+                console.log('🔍 DEBUG (Bottom): coffeeLiquid element:', coffeeLiquid);
+                
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer syrup-layer-realistic ${syrup}-syrup-realistic`;
+                    console.log('🔍 DEBUG (Bottom): Created syrup layer:', syrupLayer);
+                    
                     // Add to coffee liquid at the very bottom
                     coffeeLiquid.appendChild(syrupLayer);
+                    console.log('🔍 DEBUG (Bottom): Syrup layer appended to coffeeLiquid');
                 });
             }
             
@@ -4270,11 +4279,46 @@
             
             // Add syrup layers at the very bottom of the cup - FIRST (inside coffee liquid)
             if (syrups && syrups.length > 0) {
+                console.log('🔍 DEBUG: Adding syrups:', syrups);
+                console.log('🔍 DEBUG: coffeeLiquidRealistic element:', coffeeLiquidRealistic);
+                console.log('🔍 DEBUG: coffeeLiquidRealistic dimensions:', {
+                    width: coffeeLiquidRealistic.offsetWidth,
+                    height: coffeeLiquidRealistic.offsetHeight,
+                    position: window.getComputedStyle(coffeeLiquidRealistic).position
+                });
+                
                 syrups.forEach((syrup, index) => {
                     const syrupLayer = document.createElement('div');
                     syrupLayer.className = `component-layer-realistic syrup-layer-realistic ${syrup}-syrup-realistic`;
+                    console.log('🔍 DEBUG: Created syrup layer:', syrupLayer);
+                    console.log('🔍 DEBUG: Syrup layer classes:', syrupLayer.className);
+                    
                     // Add to coffee liquid at the very bottom
                     coffeeLiquidRealistic.appendChild(syrupLayer);
+                    console.log('🔍 DEBUG: Syrup layer appended to coffeeLiquidRealistic');
+                    
+                    // Log computed styles after appending
+                    setTimeout(() => {
+                        const computedStyle = window.getComputedStyle(syrupLayer);
+                        console.log('🔍 DEBUG: Syrup layer computed styles:', {
+                            position: computedStyle.position,
+                            bottom: computedStyle.bottom,
+                            left: computedStyle.left,
+                            right: computedStyle.right,
+                            height: computedStyle.height,
+                            marginTop: computedStyle.marginTop,
+                            zIndex: computedStyle.zIndex,
+                            display: computedStyle.display,
+                            visibility: computedStyle.visibility
+                        });
+                        console.log('🔍 DEBUG: Syrup layer parent:', syrupLayer.parentElement);
+                        console.log('🔍 DEBUG: Syrup layer offset:', {
+                            top: syrupLayer.offsetTop,
+                            left: syrupLayer.offsetLeft,
+                            width: syrupLayer.offsetWidth,
+                            height: syrupLayer.offsetHeight
+                        });
+                    }, 100);
                 });
             }
             
