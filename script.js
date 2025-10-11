@@ -159,23 +159,37 @@ function initializeConstructor() {
             firstStep.classList.add('expanded', 'active');
             console.log('=== DEBUG: Opening first step - classes added ===');
             
-            // Calculate optimal height for content
-            const content = firstStep.querySelector('.step-content');
-            console.log('=== DEBUG: Step content element:', content);
-            
-            if (content) {
-                const contentHeight = content.scrollHeight;
-                console.log('=== DEBUG: Content height:', contentHeight);
-                content.style.maxHeight = Math.min(contentHeight + 50, 2000) + 'px';
-                content.style.padding = '1.5rem 1.25rem 1.25rem 1.25rem';
-                content.style.marginTop = '0.5rem';
-                content.style.borderTop = '1px solid rgba(0, 0, 0, 0.1)';
-                content.style.opacity = '1';
-                content.style.visibility = 'visible';
-                console.log('=== DEBUG: First step opened successfully from script.js ===');
-            } else {
-                console.error('=== DEBUG: Step content not found ===');
-            }
+            // Calculate optimal height for content with longer delay
+            setTimeout(() => {
+                const content = firstStep.querySelector('.step-content');
+                console.log('=== DEBUG: Step content element:', content);
+                
+                if (content) {
+                    const contentHeight = content.scrollHeight;
+                    console.log('=== DEBUG: Content height:', contentHeight);
+                    
+                    if (contentHeight > 0) {
+                        content.style.maxHeight = Math.min(contentHeight + 50, 2000) + 'px';
+                        content.style.padding = '1.5rem 1.25rem 1.25rem 1.25rem';
+                        content.style.marginTop = '0.5rem';
+                        content.style.borderTop = '1px solid rgba(0, 0, 0, 0.1)';
+                        content.style.opacity = '1';
+                        content.style.visibility = 'visible';
+                        console.log('=== DEBUG: First step opened successfully from script.js ===');
+                    } else {
+                        // If height is still 0, set a minimum height
+                        content.style.maxHeight = '500px';
+                        content.style.padding = '1.5rem 1.25rem 1.25rem 1.25rem';
+                        content.style.marginTop = '0.5rem';
+                        content.style.borderTop = '1px solid rgba(0, 0, 0, 0.1)';
+                        content.style.opacity = '1';
+                        content.style.visibility = 'visible';
+                        console.log('=== DEBUG: First step opened with minimum height ===');
+                    }
+                } else {
+                    console.error('=== DEBUG: Step content not found ===');
+                }
+            }, 200);
         } else {
             console.error('=== DEBUG: First step element not found ===');
         }
