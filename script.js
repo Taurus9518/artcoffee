@@ -245,6 +245,7 @@ function initializeConstructorEvents() {
     
     // Step done buttons
     document.addEventListener('click', function(e) {
+        console.log('=== DEBUG: Click detected on:', e.target);
         if (e.target.closest('.step-done-btn')) {
             console.log('=== DEBUG: Step done button clicked ===');
             e.stopPropagation();
